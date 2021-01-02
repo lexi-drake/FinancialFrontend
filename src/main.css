@@ -1,3 +1,7 @@
+.custom-button {
+  background-color: green;
+}
+
 .custom-link {
   text-decoration: underline;
   cursor: pointer;
