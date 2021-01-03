@@ -48,3 +48,14 @@ export const checkLoggedIn = (): ThunkAction<Promise<void>, {}, {}, AnyAction> =
         });
     }
 }
+
+export const logout = (): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
+    return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+        return new Promise<void>(async (resolve) => {
+            const path: string = 'user/logout';
+            const response: StoreAction = await get(path, isLoggedIn, setUserError);
+            dispatch(response);
+            resolve();
+        });
+    }
+}

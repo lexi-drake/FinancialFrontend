@@ -1,39 +1,23 @@
-import Axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import axios from 'axios';
+import { AxiosError, AxiosRequestConfig } from 'axios';
 import { StoreAction } from '../store/actions';
 
 type SuccessAction = (input: any) => StoreAction;
 type FailureAction = (input: any) => StoreAction;
 
-const baseUrl: string = 'https://financial-backend-alexa.herokuapp.com/api/';
 const defaultOptions: AxiosRequestConfig = {
     headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
-    }
+        'Accept': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+    },
+    withCredentials: true,
+    baseURL: 'https://financial-backend-alexa.herokuapp.com/api/'
 }
 
+const client = axios.create(defaultOptions);
 const parseErrorMessage = (error: AxiosError): string => {
     return `${error.message}`;
-}
-
-export const post = async (request: any, path: string, successAction: SuccessAction, failureAction: FailureAction, options: AxiosRequestConfig = defaultOptions): Promise<StoreAction> => {
-    return await Axios.post(`${baseUrl}${path}`, request, options)
-        .then(response => response.data)
-        .then(data => {
-            return successAction(data);
-        }).catch((error: AxiosError) => {
-            return failureAction(parseErrorMessage(error));
-        });
-}
-
-export const get = async (path: string, successAction: SuccessAction, failureAction: FailureAction, options: AxiosRequestConfig = defaultOptions): Promise<StoreAction> => {
-    return await Axios.get(`${baseUrl}${path}`, options)
-        .then(response => response.data)
-        .then(data => {
-            return successAction(data);
-        }).catch((error: AxiosError) => {
-            return failureAction(parseErrorMessage(error));
-        })
 }
 
 interface AuthResponse {
@@ -47,7 +31,10 @@ const refreshToken = async (): Promise<AuthResponse> => {
 }
 
 const makeAuthPostRequest = async (request: any, path: string, refreshIfFailed: boolean = true, options: AxiosRequestConfig = defaultOptions): Promise<AuthResponse> => {
-    const response: AuthResponse = await Axios.post(`${baseUrl}${path}`, request, options)
+    if (options.withCredentials) {
+        console.log('sending with credentials');
+    }
+    const response: AuthResponse = await client.post(path, request)
         .then(response => response.data)
         .then(async (data) => {
             return { error: false, content: data };
@@ -74,9 +61,12 @@ const makeAuthPostRequest = async (request: any, path: string, refreshIfFailed: 
 }
 
 const makeAuthGetRequest = async (path: string, refreshIfFailed: boolean = true, options: AxiosRequestConfig = defaultOptions): Promise<AuthResponse> => {
+    if (options.withCredentials) {
+        console.log('sending with credentials');
+    }
     // See documentation for 'makeAuthPostRequest' for an approximation of how this method should be
     // commented; the logic is all pretty much the same.
-    const response: AuthResponse = await Axios.get(`${baseUrl}${path}`, options)
+    const response: AuthResponse = await client.get(path)
         .then(response => response.data)
         .then(async (data) => {
             return { error: false, content: data };
@@ -94,7 +84,7 @@ const makeAuthGetRequest = async (path: string, refreshIfFailed: boolean = true,
     return response;
 }
 
-export const postAuth = async (request: any, path: string, successAction: SuccessAction, failureAction: FailureAction): Promise<StoreAction> => {
+export const post = async (request: any, path: string, successAction: SuccessAction, failureAction: FailureAction): Promise<StoreAction> => {
     const response: AuthResponse = await makeAuthPostRequest(request, path);
     if (response.error) {
         return failureAction(response.content);
@@ -103,7 +93,7 @@ export const postAuth = async (request: any, path: string, successAction: Succes
     }
 }
 
-export const getAuth = async (path: string, successAction: SuccessAction, failureAction: FailureAction): Promise<StoreAction> => {
+export const get = async (path: string, successAction: SuccessAction, failureAction: FailureAction): Promise<StoreAction> => {
     const response: AuthResponse = await makeAuthGetRequest(path);
     if (response.error) {
         return failureAction(response.content);
