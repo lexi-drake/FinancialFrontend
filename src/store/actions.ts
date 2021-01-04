@@ -5,6 +5,7 @@ export type ActionType = UserAction | LedgerAction;
 export enum UserAction {
     SET_USER_ERROR = 'SET_USER_ERROR',
     SET_LOGIN_STATUS = 'SET_LOGIN_STATUS',
+    SET_ADMIN_STATUS = 'SET_ADMIN_STATUS'
 }
 
 export enum LedgerAction {

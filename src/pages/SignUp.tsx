@@ -34,7 +34,7 @@ const SignUp = (props: SignUpProps) => {
             <UserInfo username={username} password={password} handleUsernameChanged={(value) => setUsername(value)} handlePasswordChanged={(value) => setPassword(value)} />
             <CustomButton disabled={signUpDisabled()} onClick={() => onSignUpClick()}>Sign up</CustomButton>
         </Fragment>
-    )
+    );
 }
 
 const mapStateToProps = (state: AppDataState): Partial<SignUpProps> => {

@@ -11,7 +11,7 @@ interface LandingProps {
 const Landing = (props: LandingProps) => {
 
     const onLoginClick = () => {
-        props.push('/login');
+        props.push('/dashboard');
     }
 
     const onSignUpClick = () => {

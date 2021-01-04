@@ -9,6 +9,8 @@ export interface AppDataState {
 
 export interface AppDataPayload {
     errorMessage: string;
+    username: string;
     isLoggedIn: boolean;
+    isAdmin: boolean;
     categories: string[];
 }

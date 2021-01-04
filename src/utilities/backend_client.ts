@@ -31,9 +31,6 @@ const refreshToken = async (): Promise<AuthResponse> => {
 }
 
 const makeAuthPostRequest = async (request: any, path: string, refreshIfFailed: boolean = true, options: AxiosRequestConfig = defaultOptions): Promise<AuthResponse> => {
-    if (options.withCredentials) {
-        console.log('sending with credentials');
-    }
     const response: AuthResponse = await client.post(path, request)
         .then(response => response.data)
         .then(async (data) => {
@@ -61,9 +58,6 @@ const makeAuthPostRequest = async (request: any, path: string, refreshIfFailed: 
 }
 
 const makeAuthGetRequest = async (path: string, refreshIfFailed: boolean = true, options: AxiosRequestConfig = defaultOptions): Promise<AuthResponse> => {
-    if (options.withCredentials) {
-        console.log('sending with credentials');
-    }
     // See documentation for 'makeAuthPostRequest' for an approximation of how this method should be
     // commented; the logic is all pretty much the same.
     const response: AuthResponse = await client.get(path)
