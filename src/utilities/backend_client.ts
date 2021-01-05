@@ -9,7 +9,6 @@ const defaultOptions: AxiosRequestConfig = {
     headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Access-Control-Allow-Origin': '*',
     },
     withCredentials: true,
     baseURL: 'https://financial-backend-alexa.herokuapp.com/api/'

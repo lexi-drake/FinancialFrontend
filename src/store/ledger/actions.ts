@@ -20,6 +20,6 @@ export const getCategories = (partial: string): ThunkAction<Promise<void>, {}, {
             const response: StoreAction = await post(request, path, setCategories, setLedgerError);
             dispatch(response);
             resolve();
-        })
+        });
     }
 }
