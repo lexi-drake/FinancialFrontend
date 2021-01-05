@@ -1,3 +1,6 @@
+import Frequency from "../models/Frequency";
+import SalaryType from "../models/SalaryType";
+import TransactionType from "../models/TransactionType";
 import { LedgerState } from "./ledger/reducer";
 import { UserState } from "./user/reducer";
 
@@ -13,4 +16,7 @@ export interface AppDataPayload {
     isLoggedIn: boolean;
     isAdmin: boolean;
     categories: string[];
+    frequencies: Frequency[];
+    salaryTypes: SalaryType[];
+    transactionTypes: TransactionType[];
 }

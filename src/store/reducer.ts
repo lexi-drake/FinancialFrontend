@@ -4,11 +4,13 @@ import { History } from 'history';
 import { LedgerReducer } from "./ledger/reducer";
 import { UserReducer } from "./user/reducer";
 import { history } from "./history";
+import { AdminReducer } from "./admin/reducer";
 
 const createRootReducer = (history: History) => combineReducers({
     router: connectRouter(history),
     ledger: LedgerReducer,
-    user: UserReducer
+    user: UserReducer,
+    admin: AdminReducer
 });
 
 const rootReducer = createRootReducer(history);

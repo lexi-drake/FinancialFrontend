@@ -42,6 +42,14 @@ export const UserReducer = (state: UserState = defaultState, action: { type: Act
                 isAdmin: action.payload.isAdmin
             };
             break;
+        case UserAction.SET_LOGOUT:
+            state = {
+                ...state,
+                username: '',
+                isLoggedIn: false,
+                isAdmin: false
+            };
+            break;
     }
     return state;
 }

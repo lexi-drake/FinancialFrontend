@@ -4,6 +4,7 @@ import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { StoreAction, UserAction } from '../actions';
 import { get, post } from '../../utilities/backend_client';
 import { AppDataPayload } from '../appdata';
+import { isConstructorDeclaration } from 'typescript';
 
 const setUserError = (message: string): StoreAction => {
     return { type: UserAction.SET_USER_ERROR, payload: { errorMessage: message } };
@@ -55,11 +56,15 @@ export const checkLoggedIn = (): ThunkAction<Promise<void>, {}, {}, AnyAction> =
     }
 }
 
+const setLogout = (): StoreAction => {
+    return { type: UserAction.SET_LOGOUT, payload: {} };
+}
+
 export const logout = (): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
     return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
         return new Promise<void>(async (resolve) => {
             const path: string = 'user/logout';
-            const response: StoreAction = await get(path, isLoggedIn, setUserError);
+            const response: StoreAction = await get(path, setLogout, setLogout);
             dispatch(response);
             resolve();
         });
