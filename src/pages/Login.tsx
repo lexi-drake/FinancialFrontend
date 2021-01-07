@@ -38,7 +38,13 @@ const Login = (props: LoginProps) => {
             username: username,
             password: password
         });
-        props.push('');
+        const redirectPath = getRedirectPath();
+        if (redirectPath) {
+            props.push(redirectPath);
+            clearRedirectPath();
+        } else {
+            push('/dashboard');
+        }
     }
 
     const loginDisabled = (): boolean => {

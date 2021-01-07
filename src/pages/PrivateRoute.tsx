@@ -19,13 +19,9 @@ const PrivateRoute = (props: PrivateRouteProps) => {
         // If the admin boolean is set we want to check that the user is an admin,
         // not just logged in.
         const checkLoginStatus = props.admin ? props.checkAdmin : props.checkLoggedIn;
-        const check = async () => {
-            await checkLoginStatus();
-            setHasChecked(true);
-        }
-
         if (!hasChecked) {
-            check();
+            checkLoginStatus();
+            setHasChecked(true);
         }
     }, [props.admin, props.checkLoggedIn, props.checkAdmin, hasChecked]);
 

@@ -80,7 +80,7 @@ const pushIncomeGenerator = (generator: IncomeGenerator): StoreAction => {
 export const addIncomeGenerator = (request: IncomeGeneratorRequest): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
     return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
         return new Promise<void>(async (resolve) => {
-            const path: string = 'ldeger/generator';
+            const path: string = 'ledger/generator';
             const response: StoreAction = await post(request, path, pushIncomeGenerator, setLedgerError);
             dispatch(response);
             resolve();
@@ -95,7 +95,7 @@ const setIncomeGenerator = (generators: IncomeGenerator[]): StoreAction => {
 export const getIncomeGenerators = (): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
     return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
         return new Promise<void>(async (resolve) => {
-            const path: string = 'ldeger/generator';
+            const path: string = 'ledger/generators';
             const response: StoreAction = await get(path, setIncomeGenerator, setLedgerError);
             dispatch(response);
             resolve();

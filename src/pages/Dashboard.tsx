@@ -46,7 +46,7 @@ const Dashboard = (props: DashboardProps) => {
                 <div>
                     <h2>Sources of income</h2>
                     {props.incomeGenerators.map(x =>
-                        <div>{x.description}</div>)
+                        <div key={x.id}>{x.description}</div>)
                     }
                 </div>
             }

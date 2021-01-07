@@ -1,4 +1,4 @@
-import { Redirect, Route, Router, Switch, withRouter } from 'react-router-dom';
+import { Route, Router, Switch, withRouter } from 'react-router-dom';
 import './App.css';
 import './main.css';
 import Landing from './pages/Landing';
@@ -30,7 +30,6 @@ const App = (props: AppProps) => {
         <PrivateRoute path="/dashboard" component={Dashboard} {...props} />
         <PrivateRoute path="/income/add" component={AddIncomeGenerator} {...props} />
         <Route path="/" component={Landing} />
-        <Redirect to="/" />
       </Switch>
     </Router>
   );
