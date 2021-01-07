@@ -1,4 +1,5 @@
 import Frequency from "../models/Frequency";
+import { IncomeGenerator } from "../models/IncomeGenerator";
 import SalaryType from "../models/SalaryType";
 import TransactionType from "../models/TransactionType";
 import { LedgerState } from "./ledger/reducer";
@@ -19,4 +20,5 @@ export interface AppDataPayload {
     frequencies: Frequency[];
     salaryTypes: SalaryType[];
     transactionTypes: TransactionType[];
+    incomeGenerators: IncomeGenerator[];
 }

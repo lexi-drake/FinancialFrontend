@@ -28,11 +28,16 @@ const CustomDropdown = (props: CustomDropdownProps) => {
         return classes.join(' ');
     }
 
+    const valueText = () => {
+        const text: string[] = props.options.filter(x => x.value === props.value).map(x => x.text);
+        return text.length > 0 ? text[0] : '';
+    }
+
     return (
         <div className={calculateClasses()} onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}>
             <div>
                 <label>{props.label ? props.label : ''}</label>
-                <input type="text" value={props.value} onChange={(event) => props.onSelect(event.target.value)} />
+                <input type="text" value={valueText()} onChange={(event) => props.onSelect(event.target.value)} />
                 {focused && props.options.length > 0 &&
                     <div className="custom-dropdown">
                         {props.options.map(x => {

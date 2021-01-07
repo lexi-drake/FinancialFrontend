@@ -1,6 +1,6 @@
 import { AnyAction } from "redux";
-import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import AdminRequest from "../../models/AdminRequest";
+import { ThunkAction } from "redux-thunk";
+import { AdminRequest, FrequencyRequest } from "../../models/AdminRequest";
 import { post } from "../../utilities/backend_client";
 import { StoreAction, UserAction } from "../actions";
 
@@ -12,10 +12,20 @@ const logResponse = (response: any): StoreAction => {
 }
 
 export const makeAdminRequest = (path: string, description: string): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
-    return async (dsipatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+    return async (): Promise<void> => {
         return new Promise<void>(async (resolve) => {
             const request: AdminRequest = { description: description };
             await post(request, `admin/${path}`, logResponse, logResponse);
+            resolve();
+        });
+    }
+}
+
+export const submitFrequency = (request: FrequencyRequest): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
+    return async (): Promise<void> => {
+        return new Promise<void>(async (resolve) => {
+            const path: string = 'admin/frequency';
+            await post(request, path, logResponse, logResponse);
             resolve();
         });
     }

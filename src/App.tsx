@@ -11,6 +11,7 @@ import { history } from './store/history';
 import { checkAdmin, checkLoggedIn } from './store/user/actions';
 import PrivateRoute from './pages/PrivateRoute';
 import AdminDashboard from './pages/AdminDashboard';
+import AddIncomeGenerator from './pages/AddIncomeGenerator';
 
 interface AppProps {
   isLoggedIn: boolean;
@@ -27,6 +28,7 @@ const App = (props: AppProps) => {
         <Route path="/signup" component={SignUp} />
         <PrivateRoute path="/dashboard/admin" component={AdminDashboard} {...props} admin />
         <PrivateRoute path="/dashboard" component={Dashboard} {...props} />
+        <PrivateRoute path="/income/add" component={AddIncomeGenerator} {...props} />
         <Route path="/" component={Landing} />
         <Redirect to="/" />
       </Switch>

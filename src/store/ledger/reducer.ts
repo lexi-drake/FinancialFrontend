@@ -1,4 +1,5 @@
 import Frequency from "../../models/Frequency";
+import { IncomeGenerator } from "../../models/IncomeGenerator";
 import SalaryType from "../../models/SalaryType";
 import TransactionType from "../../models/TransactionType";
 import { ActionType, LedgerAction } from "../actions"
@@ -10,6 +11,7 @@ export interface LedgerState {
     frequencies: Frequency[];
     salaryTypes: SalaryType[];
     transactionTypes: TransactionType[];
+    incomeGenerators: IncomeGenerator[];
 }
 
 const defaultState: LedgerState = {
@@ -17,10 +19,10 @@ const defaultState: LedgerState = {
     categories: [],
     frequencies: [],
     salaryTypes: [],
-    transactionTypes: []
+    transactionTypes: [],
+    incomeGenerators: []
 };
 
-// TODO (alexa): handle setting ledger store state.
 export const LedgerReducer = (state: LedgerState = defaultState, action: { type: ActionType, payload: AppDataPayload }) => {
     switch (action.type) {
         case LedgerAction.SET_LEDGER_ERROR:
@@ -30,12 +32,44 @@ export const LedgerReducer = (state: LedgerState = defaultState, action: { type:
             };
             break;
         case LedgerAction.SET_CATEGORIES:
+            state = {
+                ...state,
+                categories: action.payload.categories
+            };
             break;
         case LedgerAction.SET_FREQUENCIES:
+            state = {
+                ...state,
+                frequencies: action.payload.frequencies
+            };
             break;
         case LedgerAction.SET_SALARY_TYPES:
+            state = {
+                ...state,
+                salaryTypes: action.payload.salaryTypes
+            };
             break;
         case LedgerAction.SET_TRANSACTION_TYPES:
+            state = {
+                ...state,
+                transactionTypes: action.payload.transactionTypes
+            };
+            break;
+        case LedgerAction.PUSH_INCOME_GENERATOR:
+            // This seems unneccessary, but it is required to change the reference
+            // of state.incomeGenerators so that React will know when to handle
+            // the state updating.
+            const generators = [...state.incomeGenerators, ...action.payload.incomeGenerators];
+            state = {
+                ...state,
+                incomeGenerators: generators
+            };
+            break;
+        case LedgerAction.SET_INCOME_GENERATORS:
+            state = {
+                ...state,
+                incomeGenerators: action.payload.incomeGenerators
+            };
             break;
     }
     return state;
