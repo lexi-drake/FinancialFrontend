@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react"
 import { connect } from "react-redux";
+import Container from "../components/custom/Container";
 import CustomButton from "../components/custom/CustomButton";
 import CustomDropdown, { DropdownOption } from "../components/custom/CustomDropdown";
 import CustomText from "../components/custom/CustomText";
+import Header from "../components/custom/Header";
+import Section from "../components/custom/Section";
+import RecurringTransactionSummary from "../components/transactions/RecurringTransactionSummary";
 import Frequency from "../models/Frequency";
 import { RecurringTransactionRequest } from "../models/RecurringTransaction";
 import SalaryType from "../models/SalaryType";
@@ -55,7 +59,6 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
     }, [props.transactionTypes, props.getTransactionTypes]);
 
     const getTransactionType = (id: string) => {
-        return props.transactionTypes.filter(x => x.id === id)[0].description;
     }
 
     const setCategory = (value: string) => {
@@ -64,8 +67,12 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
         //props.getCategories(value);
     }
 
-    const onAddRecurringTransactionClick = () => {
+    const onAddTransactionClick = () => {
         setShowRecurringTransactionFields(true);
+    }
+
+    const amountError = (): boolean => {
+        return !!amount && isNaN(parseFloat(amount));
     }
 
     const addDisabled = (): boolean => {
@@ -117,31 +124,43 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
     const categories: DropdownOption[] = props.categories.map(x => { return { key: x, text: x, value: x }; });
     const transactionTypes: DropdownOption[] = props.transactionTypes.map(x => { return { key: x.id, text: x.description, value: x.id } });
 
-    return (<div>
-        <h1>Add a source of income</h1>
-        <CustomText label="Description" value={description} onChange={(value) => setDescription(value)} />
-        <CustomDropdown label="Salary type" value={salaryType} options={salaryTypes} onSelect={(value) => setSalaryType(value)} />
-        <CustomDropdown label="Payment frequency" value={frequency} options={frequencies} onSelect={(value) => setFrequency(value)} />
-        <h2>Associated recurring transactions</h2>
-        {recurringTransactions.map(x =>
-            <div>
-                {x.category} {x.description ? ` (${x.description})` : ''}- {getTransactionType(x.transactionTypeId)} - ${x.amount.toFixed(2)}
-            </div>)
-        }
-        {!showRecurringTransactionFields &&
-            <CustomButton onClick={() => onAddRecurringTransactionClick()}>Add recurring transaction</CustomButton>
-        }
-        {showRecurringTransactionFields &&
-            <div>
-                <CustomDropdown label="Transaction type" value={transactionType} options={transactionTypes} onSelect={(value) => setTransactionType(value)} />
-                <CustomText label="Category" value={category} onChange={(value) => setCategory(value)} />
-                <CustomText label="Description" value={transactionDescription} onChange={(value) => setTransactionDescription(value)} />
-                <CustomText label="Amount" value={amount} preToken="$" onChange={(value) => setAmount(value)} />
-                <CustomButton disabled={addDisabled()} onClick={() => onAddClick()}>Add</CustomButton>
-            </div>
-        }
-        <CustomButton disabled={addSourceOfIncomeDisabled()} onClick={() => onAddSourceOfIncomeClick()}>Add source of income</CustomButton>
-    </div >);
+    return (
+        <Container>
+            <Header>
+                <h1>Add a source of income</h1>
+            </Header>
+            <Section>
+                <h1>Details</h1>
+                <CustomText label="Description" value={description} onChange={(value) => setDescription(value)} />
+                <CustomDropdown label="Salary type" value={salaryType} options={salaryTypes} onSelect={(value) => setSalaryType(value)} />
+                <CustomDropdown label="Payment frequency" value={frequency} options={frequencies} onSelect={(value) => setFrequency(value)} />
+            </Section>
+            {!showRecurringTransactionFields &&
+                <div>
+                    <Section>
+                        <h1>Associated recurring transactions</h1>
+                        {recurringTransactions.map(x =>
+                            <RecurringTransactionSummary transaction={x} types={props.transactionTypes} />
+                        )}
+                    </Section>
+                    <CustomButton onClick={() => onAddTransactionClick()}>Add transaction</CustomButton>
+                </div>
+            }
+            {showRecurringTransactionFields &&
+                <Section>
+                    <h1>Recurring transaction details</h1>
+                    <CustomDropdown label="Transaction type" value={transactionType} options={transactionTypes} onSelect={(value) => setTransactionType(value)} />
+                    <CustomText label="Category" value={category} onChange={(value) => setCategory(value)} />
+                    <CustomText label="Description" value={transactionDescription} onChange={(value) => setTransactionDescription(value)} />
+                    <CustomText error={amountError()} label="Amount" value={amount} preToken="$" onChange={(value) => setAmount(value)} />
+                    <CustomButton disabled={addDisabled()} onClick={() => onAddClick()}>Add</CustomButton>
+                </Section>
+            }
+            <Section>
+                <CustomButton disabled={addSourceOfIncomeDisabled()} onClick={() => onAddSourceOfIncomeClick()}>Add source of income</CustomButton>
+            </Section>
+        </Container>
+    );
 }
 
 const mapStateToProps = (state: AppDataState): Partial<AddIncomeGeneratorProps> => {

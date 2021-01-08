@@ -1,68 +1,46 @@
-import { push } from "connected-react-router";
-import { Fragment, useEffect } from "react"
 import { connect } from "react-redux";
-import CustomButton from "../components/custom/CustomButton";
-import CustomLink from "../components/custom/CustomLink";
-import { IncomeGenerator } from "../models/IncomeGenerator";
+import Container from "../components/custom/Container";
+import Header from "../components/custom/Header";
+import IncomeGeneratorComponent from "../components/transactions/IncomeGeneratorComponent";
 import { AppDataState } from "../store/appdata";
-import { getIncomeGenerators } from "../store/ledger/actions";
-import { logout } from "../store/user/actions";
+import { MONTHS, DAYS } from "../utilities/constants";
 
 interface DashboardProps {
     username: string;
-    isAdmin: boolean;
-    incomeGenerators: IncomeGenerator[];
-    getIncomeGenerators: typeof getIncomeGenerators;
-    logout: typeof logout;
-    push: typeof push;
 }
 
 const Dashboard = (props: DashboardProps) => {
 
-    useEffect(() => {
-        const getIncomeGenerators = props.getIncomeGenerators;
-        if (props.incomeGenerators.length === 0) {
-            getIncomeGenerators();
-        }
-    }, [props.incomeGenerators, props.getIncomeGenerators]);
+    const getDate = (): string => {
+        const now = new Date();
+        const month: number = now.getMonth();
+        const dayOfWeek: number = now.getDay();
+        const dayOfMonth: number = now.getDate();
+        const year: number = now.getFullYear();
 
-    const onAddSourceOfIncomeClick = () => {
-        props.push('/income/add');
+        return `${DAYS[dayOfWeek]} ${MONTHS[month]} ${dayOfMonth}, ${year}`;
     }
 
-    const onLogoutClick = () => {
-        props.logout();
-    }
-
-    const onAdminClick = () => {
-        props.push('/dashboard/admin');
-    }
+    // TODO (alexa): move the date stuff to the footer.
+    // TODO (alexa): make a footer component that will house things
+    // like how-to-contact and the date and links to github.
+    const headline: string = `Welcome, ${props.username}. It is ${getDate()}`
 
     return (
-        <Fragment>
-            <h1>Dashboard</h1>
-            <p>Welcome, {props.username}</p>
-            {props.incomeGenerators.length > 0 &&
-                <div>
-                    <h2>Sources of income</h2>
-                    {props.incomeGenerators.map(x =>
-                        <div key={x.id}>{x.description}</div>)
-                    }
-                </div>
-            }
-            <CustomButton onClick={() => onAddSourceOfIncomeClick()}>Add source of income</CustomButton>
-            <CustomLink onClick={() => onLogoutClick()}>Logout</CustomLink>
-            {props.isAdmin && <CustomLink onClick={() => onAdminClick()}>Admin</CustomLink>}
-        </Fragment >
+        <Container>
+            <Header>
+                <h1>Dashboard</h1>
+                <p>{headline}</p>
+            </Header>
+            <IncomeGeneratorComponent />
+        </Container >
     );
 }
 
 const mapStateToProps = (state: AppDataState): Partial<DashboardProps> => {
     return {
         username: state.user.username,
-        isAdmin: state.user.isAdmin,
-        incomeGenerators: state.ledger.incomeGenerators
     };
 }
 
-export default connect(mapStateToProps, { getIncomeGenerators, logout, push })(Dashboard as any);
+export default connect(mapStateToProps, {})(Dashboard as any);

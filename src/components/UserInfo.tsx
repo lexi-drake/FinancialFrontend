@@ -1,4 +1,3 @@
-import { Fragment } from "react"
 import { MINIMUM_PASSWORD_LENGTH } from "../utilities/constants";
 import CustomText from "./custom/CustomText";
 
@@ -17,10 +16,10 @@ const UserInfo = (props: UserInfoProps) => {
     }
 
     return (
-        <Fragment>
+        <div className="user-info">
             <CustomText value={props.username} label="Username" onChange={(value) => props.handleUsernameChanged(value)} />
             <CustomText value={props.password} label="Password" password error={passwordHasError()} onChange={(value) => props.handlePasswordChanged(value)} />
-        </Fragment>
+        </div>
     );
 }
 export default UserInfo;

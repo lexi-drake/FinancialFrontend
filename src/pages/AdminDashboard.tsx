@@ -1,8 +1,11 @@
-import { Fragment, useState } from "react"
+import { useState } from "react"
 import { connect } from "react-redux";
+import Container from "../components/custom/Container";
 import CustomButton from "../components/custom/CustomButton";
 import CustomDropdown, { DropdownOption } from "../components/custom/CustomDropdown";
 import CustomText from "../components/custom/CustomText";
+import Header from "../components/custom/Header";
+import Section from "../components/custom/Section";
 import { makeAdminRequest, submitFrequency } from "../store/admin/actions";
 import { AppDataState } from "../store/appdata";
 
@@ -49,18 +52,23 @@ const AdminDashboard = (props: AdminDashboardProps) => {
     // but this works as a temporary solution so that I can add some default
     // values to the database.
     return (
-        <Fragment>
-            <h1>Admin Dashboard</h1>
-            <h2>General admin</h2>
-            <CustomDropdown value={type} label="Type" onSelect={(value) => setType(value)} options={dropdownOptions()} />
-            <CustomText value={description} label="Description" onChange={(value) => setDescription(value)} />
-            <CustomButton onClick={() => onSubmit()}>Submit</CustomButton>
-            <br />
-            <h2>Frequency</h2>
-            <CustomText value={frequencyDescription} label="Description" onChange={(value) => setFrequencyDescription(value)} />
-            <CustomText value={timesPerYear} label="Approx. times per year" onChange={(value) => setTimesPerYear(value)} />
-            <CustomButton disabled={submitFrequencyDisabled()} onClick={() => onSubmitFrequencyClicked()}>Submit Frequency</CustomButton>
-        </Fragment>
+        <Container>
+            <Header>
+                <h1>Administration</h1>
+            </Header>
+            <Section>
+                <h1>General admin</h1>
+                <CustomDropdown value={type} label="Type" onSelect={(value) => setType(value)} options={dropdownOptions()} />
+                <CustomText value={description} label="Description" onChange={(value) => setDescription(value)} />
+                <CustomButton onClick={() => onSubmit()}>Submit</CustomButton>
+            </Section>
+            <Section>
+                <h1>Frequency</h1>
+                <CustomText value={frequencyDescription} label="Description" onChange={(value) => setFrequencyDescription(value)} />
+                <CustomText value={timesPerYear} label="Approx. times per year" onChange={(value) => setTimesPerYear(value)} />
+                <CustomButton disabled={submitFrequencyDisabled()} onClick={() => onSubmitFrequencyClicked()}>Submit Frequency</CustomButton>
+            </Section>
+        </Container>
     );
 }
 

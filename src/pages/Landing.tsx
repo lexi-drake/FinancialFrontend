@@ -1,8 +1,11 @@
-import React, { Fragment } from "react"
+import React from "react"
 import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { AppDataState } from '../store/appdata';
-import CustomLink from "../components/custom/CustomLink";
+import Container from "../components/custom/Container";
+import Header from "../components/custom/Header";
+import Section from "../components/custom/Section";
+import CustomButton from "../components/custom/CustomButton";
 
 interface LandingProps {
     push: typeof push;
@@ -10,20 +13,26 @@ interface LandingProps {
 
 const Landing = (props: LandingProps) => {
 
-    const onLoginClick = () => {
-        props.push('/login');
-    }
-
     const onSignUpClick = () => {
         props.push('/signup')
     }
 
     return (
-        <Fragment>
-            <h1>Landing Page</h1>
-            <CustomLink onClick={() => onLoginClick()}>Login</CustomLink>
-            <CustomLink onClick={() => onSignUpClick()}>Sign up</CustomLink>
-        </Fragment>
+        <Container>
+            <Header>
+                <h1>What is this?</h1>
+                <p>
+                    This is a budgeting app that is not concerned with collecting data.
+                    It's free to use and it's open-source.
+                </p>
+            </Header>
+            <Section>
+                <p>
+                    Not a member, yet?
+                </p>
+                <CustomButton onClick={() => onSignUpClick()}>Sign up</CustomButton>
+            </Section>
+        </Container>
     );
 }
 

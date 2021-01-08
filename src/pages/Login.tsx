@@ -1,7 +1,10 @@
 import { push } from "connected-react-router";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import Container from "../components/custom/Container";
 import CustomButton from "../components/custom/CustomButton";
+import Header from "../components/custom/Header";
+import Section from "../components/custom/Section";
 import UserInfo from "../components/UserInfo";
 import { AppDataState } from "../store/appdata";
 import { checkLoggedIn, login } from "../store/user/actions";
@@ -53,11 +56,15 @@ const Login = (props: LoginProps) => {
     }
 
     return (
-        <Fragment>
-            <h1>Login</h1>
-            <UserInfo username={username} password={password} handleUsernameChanged={(value) => setUsername(value)} handlePasswordChanged={(value) => setPassword(value)} />
-            <CustomButton disabled={loginDisabled()} onClick={() => onLoginClick()}>Login</CustomButton>
-        </Fragment >
+        <Container>
+            <Header>
+                <h1>Login</h1>
+            </Header>
+            <Section>
+                <UserInfo username={username} password={password} handleUsernameChanged={(value) => setUsername(value)} handlePasswordChanged={(value) => setPassword(value)} />
+                <CustomButton disabled={loginDisabled()} onClick={() => onLoginClick()}>Login</CustomButton>
+            </Section>
+        </Container>
     );
 }
 

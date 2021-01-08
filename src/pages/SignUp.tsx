@@ -1,7 +1,10 @@
 import { push } from "connected-react-router";
-import { Fragment, useState } from "react"
+import { useState } from "react"
 import { connect } from "react-redux"
+import Container from "../components/custom/Container";
 import CustomButton from "../components/custom/CustomButton";
+import Header from "../components/custom/Header";
+import Section from "../components/custom/Section";
 import UserInfo from "../components/UserInfo";
 import { AppDataState } from "../store/appdata"
 import { createUser } from "../store/user/actions";
@@ -29,11 +32,15 @@ const SignUp = (props: SignUpProps) => {
     }
 
     return (
-        <Fragment>
-            <h1>Sign up</h1>
-            <UserInfo username={username} password={password} handleUsernameChanged={(value) => setUsername(value)} handlePasswordChanged={(value) => setPassword(value)} />
-            <CustomButton disabled={signUpDisabled()} onClick={() => onSignUpClick()}>Sign up</CustomButton>
-        </Fragment>
+        <Container>
+            <Header>
+                <h1>Sign up</h1>
+            </Header>
+            <Section>
+                <UserInfo username={username} password={password} handleUsernameChanged={(value) => setUsername(value)} handlePasswordChanged={(value) => setPassword(value)} />
+                <CustomButton disabled={signUpDisabled()} onClick={() => onSignUpClick()}>Sign up</CustomButton>
+            </Section>
+        </Container>
     );
 }
 

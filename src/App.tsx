@@ -12,6 +12,7 @@ import { checkAdmin, checkLoggedIn } from './store/user/actions';
 import PrivateRoute from './pages/PrivateRoute';
 import AdminDashboard from './pages/AdminDashboard';
 import AddIncomeGenerator from './pages/AddIncomeGenerator';
+import Navbar from './components/custom/Navbar';
 
 interface AppProps {
   isLoggedIn: boolean;
@@ -23,6 +24,7 @@ interface AppProps {
 const App = (props: AppProps) => {
   return (
     <Router history={history}>
+      <Navbar />
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />

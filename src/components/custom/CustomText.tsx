@@ -1,4 +1,5 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
+import { Guid } from 'guid-typescript';
 
 interface CustomTextProps {
     preToken?: string;
@@ -11,9 +12,16 @@ interface CustomTextProps {
 }
 
 const CustomText: FunctionComponent<CustomTextProps> = (props) => {
+    const [focused, setFocused] = useState(false);
+
+    const id: string = Guid.create().toString();
+    const onLabelClick = () => {
+        document.getElementById(id)?.focus();
+    }
 
     const calculateClasses = (): string => {
         const classes: string[] = ['custom-text'];
+        if (focused || !!props.value || !!props.preToken) { classes.push('active'); }
         if (!!props.preToken) { classes.push('has-pre-token'); }
         if (props.disabled) { classes.push('disabled'); }
         if (props.error) { classes.push('error'); }
@@ -25,10 +33,10 @@ const CustomText: FunctionComponent<CustomTextProps> = (props) => {
     }
 
     return (
-        <div className={calculateClasses()}>
-            <label>{props.label ? props.label : ''}</label>
+        <div className={calculateClasses()} onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}>
+            <label onClick={() => onLabelClick()}>{props.label ? props.label : ''}</label>
             <span className='text-pre'>{props.preToken ? props.preToken[0] : ''}</span>
-            <input type={getType()} value={props.value} disabled={props.disabled} onChange={(event) => props.onChange(event.target.value)} />
+            <input id={id} type={getType()} value={props.value} disabled={props.disabled} onChange={(event) => props.onChange(event.target.value)} />
         </div>
     )
 }
