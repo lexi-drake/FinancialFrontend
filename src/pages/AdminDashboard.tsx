@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { connect } from "react-redux";
 import Container from "../components/custom/Container";
+import Content from "../components/custom/Content";
 import CustomButton from "../components/custom/CustomButton";
 import CustomDropdown, { DropdownOption } from "../components/custom/CustomDropdown";
 import CustomText from "../components/custom/CustomText";
@@ -58,14 +59,18 @@ const AdminDashboard = (props: AdminDashboardProps) => {
             </Header>
             <Section>
                 <h1>General admin</h1>
-                <CustomDropdown value={type} label="Type" onSelect={(value) => setType(value)} options={dropdownOptions()} />
-                <CustomText value={description} label="Description" onChange={(value) => setDescription(value)} />
+                <Content>
+                    <CustomDropdown value={type} label="Type" onSelect={(value) => setType(value)} options={dropdownOptions()} />
+                    <CustomText value={description} label="Description" onChange={(value) => setDescription(value)} />
+                </Content>
                 <CustomButton onClick={() => onSubmit()}>Submit</CustomButton>
             </Section>
             <Section>
                 <h1>Frequency</h1>
-                <CustomText value={frequencyDescription} label="Description" onChange={(value) => setFrequencyDescription(value)} />
-                <CustomText value={timesPerYear} label="Approx. times per year" onChange={(value) => setTimesPerYear(value)} />
+                <Content>
+                    <CustomText value={frequencyDescription} label="Description" onChange={(value) => setFrequencyDescription(value)} />
+                    <CustomText value={timesPerYear} label="Approx. times per year" onChange={(value) => setTimesPerYear(value)} />
+                </Content>
                 <CustomButton disabled={submitFrequencyDisabled()} onClick={() => onSubmitFrequencyClicked()}>Submit Frequency</CustomButton>
             </Section>
         </Container>

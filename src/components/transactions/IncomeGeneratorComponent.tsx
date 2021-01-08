@@ -6,6 +6,7 @@ import { IncomeGenerator } from "../../models/IncomeGenerator"
 import TransactionType from "../../models/TransactionType"
 import { AppDataState } from "../../store/appdata"
 import { getFrequencies, getIncomeGenerators, getTransactionTypes } from "../../store/ledger/actions"
+import { MONTHS } from "../../utilities/constants"
 import Content from "../custom/Content"
 import CustomButton from "../custom/CustomButton"
 import CustomLink from "../custom/CustomLink"
@@ -58,8 +59,8 @@ const IncomeGeneratorComponent = (props: IncomeGeneratorComponentProps) => {
                     {props.incomeGenerators.map(x =>
                         <IncomeGeneratorSummary key={x.id} generator={x} types={props.transactionTypes} frequencies={props.frequencies} monthly={monthly} />)
                     }
-                    <CustomLink first onClick={() => setMonthly(false)}>Yearly</CustomLink>
-                    <CustomLink onClick={() => setMonthly(true)}>Monthly</CustomLink>
+                    <CustomLink first onClick={() => setMonthly(true)}>{MONTHS[new Date().getMonth()]}</CustomLink>
+                    <CustomLink onClick={() => setMonthly(false)}>{new Date().getFullYear()}</CustomLink>
                 </Content>
                 <Content>
                     <CustomButton onClick={() => onAddSourceOfIncomeClick()}>Add source of income</CustomButton>

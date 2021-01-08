@@ -13,6 +13,7 @@ import PrivateRoute from './pages/PrivateRoute';
 import AdminDashboard from './pages/AdminDashboard';
 import AddIncomeGenerator from './pages/AddIncomeGenerator';
 import Navbar from './components/custom/Navbar';
+import Footer from './components/custom/Footer';
 
 interface AppProps {
   isLoggedIn: boolean;
@@ -33,6 +34,7 @@ const App = (props: AppProps) => {
         <PrivateRoute path="/income/add" component={AddIncomeGenerator} {...props} />
         <Route path="/" component={Landing} />
       </Switch>
+      <Footer />
     </Router>
   );
 }
