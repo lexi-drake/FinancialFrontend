@@ -5,7 +5,7 @@ export interface LedgerEntry {
     amount: number;
     transactionType: string;
     recurringTransactionId: string;
-    transactionDate: string;
+    transactionDate: Date;
 }
 
 export interface LedgerEntryRequest {
@@ -14,7 +14,7 @@ export interface LedgerEntryRequest {
     amount: number;
     transactionTypeId: string;
     recurringTransactionId: string;
-    transactionDate: string;
+    transactionDate: Date;
 }
 
 export interface DateSpanRequest {

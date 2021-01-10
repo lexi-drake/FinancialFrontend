@@ -1,15 +1,16 @@
 import { push } from "connected-react-router"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { connect } from "react-redux"
 import Frequency from "../../models/Frequency"
 import { IncomeGenerator } from "../../models/IncomeGenerator"
 import { AppDataState } from "../../store/appdata"
 import { getFrequencies, getIncomeGenerators } from "../../store/ledger/actions"
 import { MONTHS } from "../../utilities/constants"
-import { usesFrequencies, usesIncomeGenerators } from "../../utilities/hooks"
+import { UsesFrequencies, UsesIncomeGenerators } from "../../utilities/hooks"
 import Content from "../custom/Content"
 import CustomButton from "../custom/CustomButton"
 import CustomLink from "../custom/CustomLink"
+import Section from "../custom/Section"
 import IncomeGeneratorSummary from "./IncomeGeneratorSummary"
 
 interface IncomeGeneratorComponentProps {
@@ -23,8 +24,8 @@ interface IncomeGeneratorComponentProps {
 const IncomeGeneratorComponent = (props: IncomeGeneratorComponentProps) => {
     const [monthly, setMonthly] = useState(true);
 
-    usesIncomeGenerators(props.incomeGenerators, props.getIncomeGenerators);
-    usesFrequencies(props.frequencies, props.getFrequencies);
+    UsesIncomeGenerators(props.incomeGenerators, props.getIncomeGenerators);
+    UsesFrequencies(props.frequencies, props.getFrequencies);
 
     const onAddSourceOfIncomeClick = () => {
         props.push('/income/add');

@@ -105,7 +105,18 @@ export const getIncomeGenerators = (): ThunkAction<Promise<void>, {}, {}, AnyAct
 }
 
 const setLedgerEntries = (entries: LedgerEntry[]): StoreAction => {
-    return { type: LedgerAction.SET_LEDGER_ENTRIES, payload: { entries: entries } };
+    return {
+        type: LedgerAction.SET_LEDGER_ENTRIES,
+        payload: {
+            entries: entries.map(x => {
+                return {
+                    ...x,
+                    // Dates are parsed as strings by default.
+                    transactionDate: new Date(x.transactionDate)
+                }
+            })
+        }
+    };
 }
 
 export const getLedgerEntries = (request: DateSpanRequest): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
@@ -128,6 +139,7 @@ export const getLedgerEntries = (request: DateSpanRequest): ThunkAction<Promise<
 }
 
 const pushLedgerEntry = (entry: LedgerEntry): StoreAction => {
+    entry.transactionDate = new Date(entry.transactionDate);
     return { type: LedgerAction.PUSH_LEDGER_ENTRY, payload: { entries: [entry] } };
 }
 

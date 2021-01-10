@@ -24,9 +24,9 @@ input:focus {
   color: #fbf7f6;
   text-align: center;
   box-shadow: 4px 4px 12px 0px #bdbec2;
-  padding: 22px 0px 22px 0px;
+  padding: 20px 0px 20px 0px;
   width: 180px;
-  height: 64px;
+  height: 60px;
   font-size: 16px;
   line-height: 20px;
   border: none;
@@ -71,6 +71,7 @@ a {
   margin: 32px 0px 0px -169px;
   display: inline-block;
   float: left;
+  cursor: pointer;
 }
 .navbar .custom-link {
   margin: 56px 24px 0px 24px;
@@ -129,6 +130,7 @@ a {
 
 .content {
   margin: 16px 0px 16px 0px;
+  float: none;
 }
 
 .column {
@@ -144,6 +146,69 @@ a {
   font-size: 12px;
   line-height: 16px;
   margin: 6px 0px 6px 0px;
+}
+
+.dashboard-container {
+  height: 100%;
+  margin: 0px 100px 0px 100px;
+}
+
+.ledger-history {
+  background-color: #fbf7f6;
+  float: left;
+  width: 800px;
+  padding: 20px 20px 20px 20px;
+  margin: 0px 69px 69px 0px;
+  box-shadow: 4px 4px 12px 0px #bdbec2;
+}
+.ledger-history h1 {
+  font-size: 24px;
+  line-height: 28px;
+  margin: 0px;
+}
+.ledger-history p {
+  font-size: 14px;
+  line-height: 18px;
+  margin: 6px 0px 6px 0px;
+}
+.ledger-history hr {
+  width: 660px;
+  margin: 0px 0px 0px 100px;
+  border: 1px solid #2baed3;
+}
+.ledger-history .custom-button {
+  float: left;
+}
+.ledger-history .custom-dropdown {
+  float: right;
+  margin: 0px;
+}
+.ledger-history .after {
+  clear: both;
+}
+
+.income-generator-list {
+  background-color: #fbf7f6;
+  float: left;
+  width: 400px;
+  margin: 0px 69px 0px 0px;
+  padding: 20px 20px 20px 20px;
+  box-shadow: 4px 4px 12px 0px #bdbec2;
+}
+.income-generator-list h1 {
+  font-size: 24px;
+  line-height: 28px;
+  margin: 0px;
+}
+.income-generator-list p {
+  font-size: 14px;
+  line-height: 18px;
+  margin: 6px 0px 6px 0px;
+}
+.income-generator-list hr {
+  width: 440;
+  margin: 0px 0px 8px 100px;
+  border: 1px solid #a5d6c6;
 }
 
 .input-label, .custom-date-picker label, .custom-text label, .custom-dropdown label {
@@ -354,10 +419,25 @@ a {
   float: right;
   max-width: 50%;
 }
-.income-generator-summary hr {
-  width: 440;
-  margin: 0px 0px 8px 100px;
-  border: 1px solid #bdbec2;
+
+.ledger-entry {
+  width: 100%;
+  font-size: 16px;
+  line-height: 20px;
+  margin: 6px 0px 6px 0px;
+  float: none;
+}
+.ledger-entry .category {
+  max-width: 60%;
+  font-weight: bold;
+  text-overflow: ellipsis;
+}
+.ledger-entry .description {
+  font-size: 12px;
+  line-height: 16px;
+}
+.ledger-entry .amount {
+  float: right;
 }
 
 body {

@@ -1,3 +1,4 @@
+import { push } from "connected-react-router";
 import { useState } from "react";
 import { connect } from "react-redux";
 import AutocompleteField from "../components/custom/AutocompleteField";
@@ -11,14 +12,16 @@ import Header from "../components/custom/Header";
 import Section from "../components/custom/Section";
 import TransactionType from "../models/TransactionType";
 import { AppDataState } from "../store/appdata";
-import { getCategories, getTransactionTypes } from "../store/ledger/actions";
-import { usesTransactionTypes } from "../utilities/hooks";
+import { addLedgerEntry, getCategories, getTransactionTypes } from "../store/ledger/actions";
+import { UsesTransactionTypes } from "../utilities/hooks";
 
 interface AddLedgerEntryProps {
     categories: string[];
     transactionTypes: TransactionType[];
     getCategories: typeof getCategories;
     getTransactionTypes: typeof getTransactionTypes;
+    addLedgerEntry: typeof addLedgerEntry;
+    push: typeof push;
 }
 
 const AddLedgerEntry = (props: AddLedgerEntryProps) => {
@@ -28,7 +31,7 @@ const AddLedgerEntry = (props: AddLedgerEntryProps) => {
     const [amount, setAmount] = useState('');
     const [date, setDate] = useState(new Date());
 
-    usesTransactionTypes(props.transactionTypes, props.getTransactionTypes);
+    UsesTransactionTypes(props.transactionTypes, props.getTransactionTypes);
 
     const amountError = (): boolean => {
         return !!amount && isNaN(parseFloat(amount));
@@ -40,8 +43,25 @@ const AddLedgerEntry = (props: AddLedgerEntryProps) => {
         }
     }
 
-    const onAddTransactionClick = () => {
-        // TODO (alexa): interact with the backend
+    // Prevent users from entering a date too far in the past. This prevents 
+    // needing to check for negative dates (.getTime() returns negative numbers
+    // for dates prior to 1970, for example). This also just simplifies use-cases.
+    const getMinDate = (): Date => {
+        const date = new Date();
+        date.setMonth(date.getMonth() - 1);
+        return date;
+    }
+
+    const onAddTransactionClick = async () => {
+        await props.addLedgerEntry({
+            category: category,
+            description: description,
+            amount: parseFloat(amount),
+            transactionTypeId: transactionType,
+            recurringTransactionId: '',
+            transactionDate: date
+        });
+        props.push('/dashboard');
     }
 
     const transactionTypes: DropdownOption[] = props.transactionTypes.map(x => { return { key: x.id, text: x.description, value: x.id } });
@@ -57,7 +77,7 @@ const AddLedgerEntry = (props: AddLedgerEntryProps) => {
                     <AutocompleteField label="Category" value={category} options={props.categories} onChange={(value) => setCategory(value)} getOptions={(value) => props.getCategories(value)} />
                     <CustomText label="Description" value={description} onChange={(value) => setDescription(value)} />
                     <CustomText label="Amount" error={amountError()} preToken="$" value={amount} onChange={(value) => setAmount(value)} />
-                    <CustomDatepicker label="Transaction date" value={date} onChange={(date) => handleDateChanged(date)} />
+                    <CustomDatepicker label="Transaction date" value={date} onChange={(date) => handleDateChanged(date)} minDate={getMinDate()} maxDate={new Date()} />
                 </Content>
                 <Content>
                     <CustomButton onClick={() => onAddTransactionClick()}>Add transaction</CustomButton>
@@ -74,4 +94,4 @@ const mapStateToProps = (state: AppDataState): Partial<AddLedgerEntryProps> => {
     };
 }
 
-export default connect(mapStateToProps, { getCategories, getTransactionTypes })(AddLedgerEntry as any);
+export default connect(mapStateToProps, { getCategories, getTransactionTypes, addLedgerEntry, push })(AddLedgerEntry as any);

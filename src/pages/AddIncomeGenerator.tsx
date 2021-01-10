@@ -1,3 +1,4 @@
+import { push } from "connected-react-router";
 import { useState } from "react"
 import { connect } from "react-redux";
 import AutocompleteField from "../components/custom/AutocompleteField";
@@ -15,7 +16,7 @@ import SalaryType from "../models/SalaryType";
 import TransactionType from "../models/TransactionType";
 import { AppDataState } from "../store/appdata";
 import { addIncomeGenerator, getCategories, getFrequencies, getSalaryTypes, getTransactionTypes } from "../store/ledger/actions";
-import { usesFrequencies, usesSalaryTypes, usesTransactionTypes } from "../utilities/hooks";
+import { UsesFrequencies, UsesSalaryTypes, UsesTransactionTypes } from "../utilities/hooks";
 
 interface AddIncomeGeneratorProps {
     categories: string[];
@@ -27,6 +28,7 @@ interface AddIncomeGeneratorProps {
     getSalaryTypes: typeof getSalaryTypes;
     getTransactionTypes: typeof getTransactionTypes;
     addIncomeGenerator: typeof addIncomeGenerator;
+    push: typeof push;
 }
 
 const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
@@ -40,9 +42,9 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
     const [recurringTransactions, setRecurringTransactions] = useState([] as RecurringTransactionRequest[]);
     const [showRecurringTransactionFields, setShowRecurringTransactionFields] = useState(false);
 
-    usesFrequencies(props.frequencies, props.getFrequencies);
-    usesSalaryTypes(props.salaryTypes, props.getSalaryTypes);
-    usesTransactionTypes(props.transactionTypes, props.getTransactionTypes);
+    UsesFrequencies(props.frequencies, props.getFrequencies);
+    UsesSalaryTypes(props.salaryTypes, props.getSalaryTypes);
+    UsesTransactionTypes(props.transactionTypes, props.getTransactionTypes);
 
     const onAddTransactionClick = () => {
         setShowRecurringTransactionFields(true);
@@ -90,10 +92,7 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
             frequencyId: frequency,
             recurringTransactions: recurringTransactions.map(x => { return { ...x, frequencyId: frequency }; })
         });
-        setFrequency('');
-        setSalaryType('');
-        setDescription('');
-        setRecurringTransactions([]);
+        props.push('/dashboard');
     }
 
     const salaryTypes: DropdownOption[] = props.salaryTypes.map(x => { return { key: x.id, text: x.description, value: x.id }; });
@@ -162,4 +161,4 @@ const mapStateToProps = (state: AppDataState): Partial<AddIncomeGeneratorProps> 
     };
 }
 
-export default connect(mapStateToProps, { getCategories, getFrequencies, getSalaryTypes, getTransactionTypes, addIncomeGenerator })(AddSourceOfIncome as any);
+export default connect(mapStateToProps, { getCategories, getFrequencies, getSalaryTypes, getTransactionTypes, addIncomeGenerator, push })(AddSourceOfIncome as any);

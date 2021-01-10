@@ -6,7 +6,7 @@ import SalaryType from "../models/SalaryType";
 import TransactionType from "../models/TransactionType";
 import { getFirstDayOfMonth, getLastDayOfMonth } from "./dates";
 
-export function usesTransactionTypes(transactionTypes: TransactionType[], getTransactionTypes: () => void) {
+export function UsesTransactionTypes(transactionTypes: TransactionType[], getTransactionTypes: () => void) {
     useEffect(() => {
         if (transactionTypes.length === 0) {
             getTransactionTypes();
@@ -14,7 +14,7 @@ export function usesTransactionTypes(transactionTypes: TransactionType[], getTra
     }, [transactionTypes, getTransactionTypes]);
 }
 
-export function usesFrequencies(frequencies: Frequency[], getFrequencies: () => void) {
+export function UsesFrequencies(frequencies: Frequency[], getFrequencies: () => void) {
     useEffect(() => {
         if (frequencies.length === 0) {
             getFrequencies();
@@ -22,7 +22,7 @@ export function usesFrequencies(frequencies: Frequency[], getFrequencies: () => 
     }, [frequencies, getFrequencies]);
 }
 
-export function usesSalaryTypes(salaryTypes: SalaryType[], getSalaryTypes: () => void) {
+export function UsesSalaryTypes(salaryTypes: SalaryType[], getSalaryTypes: () => void) {
     useEffect(() => {
         if (salaryTypes.length === 0) {
             getSalaryTypes();
@@ -30,7 +30,7 @@ export function usesSalaryTypes(salaryTypes: SalaryType[], getSalaryTypes: () =>
     }, [salaryTypes, getSalaryTypes]);
 }
 
-export function usesIncomeGenerators(incomeGenerators: IncomeGenerator[], getIncomeGenerators: () => void) {
+export function UsesIncomeGenerators(incomeGenerators: IncomeGenerator[], getIncomeGenerators: () => void) {
     useEffect(() => {
         if (incomeGenerators.length === 0) {
             getIncomeGenerators();
@@ -38,12 +38,13 @@ export function usesIncomeGenerators(incomeGenerators: IncomeGenerator[], getInc
     }, [incomeGenerators, getIncomeGenerators]);
 }
 
-export function usesLedgerEntries(ledgerEntries: LedgerEntry[], getLedgerEntries: (request: DateSpanRequest) => void) {
+export function UsesLedgerEntries(ledgerEntries: LedgerEntry[], getLedgerEntries: (request: DateSpanRequest) => void) {
     useEffect(() => {
         if (ledgerEntries.length === 0) {
+            const date: Date = new Date();
             getLedgerEntries({
-                start: getFirstDayOfMonth(),
-                end: getLastDayOfMonth()
+                start: getFirstDayOfMonth(date.getFullYear(), date.getMonth()),
+                end: getLastDayOfMonth(date.getFullYear(), date.getMonth())
             });
         }
     }, [ledgerEntries, getLedgerEntries]);

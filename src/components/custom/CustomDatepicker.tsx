@@ -7,13 +7,15 @@ interface CustomDatepickerProps {
     value: Date;
     label: string;
     disabled?: boolean;
+    minDate?: Date;
+    maxDate?: Date;
     onChange: (date: Date | [Date, Date] | null) => void;
 }
 
 const CustomDatepicker = (props: CustomDatepickerProps) => {
 
     return (
-        <Datepicker selected={props.value} disabled={props.disabled} onChange={(date) => props.onChange(date)} customInput={<CustomInput label={props.label} />} />
+        <Datepicker selected={props.value} disabled={props.disabled} minDate={props.minDate} maxDate={props.maxDate} onChange={(date) => props.onChange(date)} customInput={<CustomInput label={props.label} />} />
     );
 }
 

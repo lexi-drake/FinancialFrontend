@@ -36,6 +36,7 @@ export const LedgerReducer = (state: LedgerState = defaultState, action: { type:
             break;
         case LedgerAction.SET_CATEGORIES:
             const categories: string[] = action.payload.categories.map(x => x.category);
+            categories.sort();
             state = {
                 ...state,
                 categories: categories
@@ -73,6 +74,18 @@ export const LedgerReducer = (state: LedgerState = defaultState, action: { type:
             state = {
                 ...state,
                 incomeGenerators: action.payload.incomeGenerators
+            };
+            break;
+        case LedgerAction.SET_LEDGER_ENTRIES:
+            state = {
+                ...state,
+                ledgerEntries: action.payload.entries
+            };
+            break;
+        case LedgerAction.PUSH_LEDGER_ENTRY:
+            state = {
+                ...state,
+                ledgerEntries: [...state.ledgerEntries, ...action.payload.entries]
             };
             break;
     }
