@@ -4,7 +4,7 @@ export interface RecurringTransaction {
     description: string;
     amount: number;
     frequencyId: string;
-    transactionTypeId: string;
+    transactionType: string;
 }
 
 export interface RecurringTransactionRequest {

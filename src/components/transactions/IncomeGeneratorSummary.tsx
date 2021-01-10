@@ -1,11 +1,9 @@
 import Frequency from "../../models/Frequency";
 import { IncomeGenerator } from "../../models/IncomeGenerator"
-import TransactionType from "../../models/TransactionType"
 
 interface IncomeGeneratorSummaryProps {
     generator: IncomeGenerator;
     frequencies: Frequency[];
-    types: TransactionType[];
     monthly: boolean;
 }
 
@@ -18,17 +16,16 @@ const IncomeGeneratorSummary = (props: IncomeGeneratorSummaryProps) => {
     }
 
     const calculateTotalIncome = (): number => {
-        if (props.types.length === 0 || props.frequencies.length === 0) {
+        if (props.frequencies.length === 0) {
             return 0;
         }
 
-        const getAmountPerPeriod = (value: number, typeId: string): number => {
-            const type = props.types.filter(x => x.id === typeId)[0];
-            return type.description === "Income" ? value : -value;
+        const getAmountPerPeriod = (value: number, transactionType: string): number => {
+            return transactionType === "Income" ? value : -value;
         }
 
         return props.generator.recurringTransactions
-            .map(x => getAmountPerPeriod(x.amount, x.transactionTypeId) * getNumberOfTransactions())
+            .map(x => getAmountPerPeriod(x.amount, x.transactionType) * getNumberOfTransactions())
             .reduce((sum, x) => sum + x);
     }
 

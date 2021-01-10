@@ -3,7 +3,7 @@ export interface LedgerEntry {
     category: string;
     description: string;
     amount: number;
-    transactionTypeId: string;
+    transactionType: string;
     recurringTransactionId: string;
     transactionDate: string;
 }

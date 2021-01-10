@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { connect } from "react-redux";
 import AutocompleteField from "../components/custom/AutocompleteField";
 import Container from "../components/custom/Container";
@@ -15,6 +15,7 @@ import SalaryType from "../models/SalaryType";
 import TransactionType from "../models/TransactionType";
 import { AppDataState } from "../store/appdata";
 import { addIncomeGenerator, getCategories, getFrequencies, getSalaryTypes, getTransactionTypes } from "../store/ledger/actions";
+import { usesFrequencies, usesSalaryTypes, usesTransactionTypes } from "../utilities/hooks";
 
 interface AddIncomeGeneratorProps {
     categories: string[];
@@ -29,7 +30,7 @@ interface AddIncomeGeneratorProps {
 }
 
 const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
-    const [category, _setCategory] = useState('');
+    const [category, setCategory] = useState('');
     const [frequency, setFrequency] = useState('');
     const [salaryType, setSalaryType] = useState('');
     const [transactionType, setTransactionType] = useState('');
@@ -39,32 +40,9 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
     const [recurringTransactions, setRecurringTransactions] = useState([] as RecurringTransactionRequest[]);
     const [showRecurringTransactionFields, setShowRecurringTransactionFields] = useState(false);
 
-    useEffect(() => {
-        const getFrequencies = props.getFrequencies;
-        if (props.frequencies.length === 0) {
-            getFrequencies();
-        }
-    }, [props.frequencies, props.getFrequencies]);
-
-    useEffect(() => {
-        const getSalaryTypes = props.getSalaryTypes;
-        if (props.salaryTypes.length === 0) {
-            getSalaryTypes();
-        }
-    }, [props.salaryTypes, props.getSalaryTypes]);
-
-    useEffect(() => {
-        const getTransactionTypes = props.getTransactionTypes;
-        if (props.transactionTypes.length === 0) {
-            getTransactionTypes();
-        }
-    }, [props.transactionTypes, props.getTransactionTypes]);
-
-    const setCategory = (value: string) => {
-        _setCategory(value);
-        // TODO (alexa): make a custom component for handling categories as a text-option with a dropdown.
-        //props.getCategories(value);
-    }
+    usesFrequencies(props.frequencies, props.getFrequencies);
+    usesSalaryTypes(props.salaryTypes, props.getSalaryTypes);
+    usesTransactionTypes(props.transactionTypes, props.getTransactionTypes);
 
     const onAddTransactionClick = () => {
         setShowRecurringTransactionFields(true);
@@ -136,17 +114,23 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
                 </Content>
             </Section>
             {!showRecurringTransactionFields &&
-                <div>
-                    <Section>
-                        <h1>Associated recurring transactions</h1>
-                        <Content>
-                            {recurringTransactions.map(x =>
+                <Section>
+                    <h1>Associated recurring transactions</h1>
+                    <Content>
+                        {recurringTransactions.length === 0 &&
+                            <p>
+                                This source of income has no transactions.
+                                </p>
+                        }
+                        {recurringTransactions.length > 0 &&
+                            recurringTransactions.map(x =>
                                 <RecurringTransactionSummary transaction={x} types={props.transactionTypes} />
                             )}
-                        </Content>
-                    </Section>
-                    <CustomButton onClick={() => onAddTransactionClick()}>Add transaction</CustomButton>
-                </div>
+                    </Content>
+                    <Content>
+                        <CustomButton onClick={() => onAddTransactionClick()}>Add transaction</CustomButton>
+                    </Content>
+                </Section>
             }
             {showRecurringTransactionFields &&
                 <Section>
@@ -157,7 +141,9 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
                         <CustomText label="Description" value={transactionDescription} onChange={(value) => setTransactionDescription(value)} />
                         <CustomText error={amountError()} label="Amount" value={amount} preToken="$" onChange={(value) => setAmount(value)} />
                     </Content>
-                    <CustomButton disabled={addDisabled()} onClick={() => onAddClick()}>Add</CustomButton>
+                    <Content>
+                        <CustomButton disabled={addDisabled()} onClick={() => onAddClick()}>Add</CustomButton>
+                    </Content>
                 </Section>
             }
             <Section>

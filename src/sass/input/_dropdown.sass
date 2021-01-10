@@ -3,10 +3,6 @@
     width: 420px
     position: relative
     margin: 8px 0px 8px 0px
-    cursor: pointer
-
-    label
-        @extend .input-label
 
     .icon
         position: absolute
@@ -28,10 +24,16 @@
         overflow: hidden
         text-overflow: ellipsis
         box-shadow: $shadow-standard
+        cursor: pointer
+
+    label
+        @extend .input-label
+        cursor: pointer
 
     &.active
         label
             @extend .input-label-active
+            cursor: pointer
 
     &.focused
         border: 2px solid

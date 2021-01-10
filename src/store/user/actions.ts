@@ -3,20 +3,20 @@ import { AnyAction } from 'redux';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { StoreAction, UserAction } from '../actions';
 import { get, post } from '../../utilities/backend_client';
-import { AppDataPayload } from '../appdata';
-import { isConstructorDeclaration } from 'typescript';
 
 const setUserError = (message: string): StoreAction => {
     return { type: UserAction.SET_USER_ERROR, payload: { errorMessage: message } };
 }
 
 const isLoggedIn = (response: LoginResponse): StoreAction => {
-    let payload: Partial<AppDataPayload> = { isLoggedIn: true }
-    if (!!response) {
-        payload.isAdmin = response.role === 'Admin';
-        payload.username = response.username;
+    return {
+        type: UserAction.SET_LOGIN_STATUS,
+        payload: {
+            isLoggedIn: true,
+            isAdmin: response.role === 'Admin',
+            username: response.username
+        }
     }
-    return { type: UserAction.SET_LOGIN_STATUS, payload: payload }
 }
 
 const isNotLoggedIn = (): StoreAction => {

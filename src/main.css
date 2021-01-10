@@ -3,10 +3,10 @@
 }
 
 .container {
-  margin: 0px 0px 0px 269px;
+  margin: 0px 0px 110px 269px;
   height: 100%;
   width: 540px;
-  float: left;
+  display: inline-block;
 }
 
 input:focus {
@@ -101,7 +101,7 @@ a {
 
 .footer {
   background-color: #bdbec2;
-  position: absolute;
+  position: fixed;
   bottom: 0px;
   height: 110px;
   width: 100%;
@@ -146,7 +146,7 @@ a {
   margin: 6px 0px 6px 0px;
 }
 
-.input-label, .custom-text label, .custom-dropdown label {
+.input-label, .custom-date-picker label, .custom-text label, .custom-dropdown label {
   position: absolute;
   margin: 0px 0px 0px 20px;
   color: #bdbec2;
@@ -156,7 +156,7 @@ a {
   cursor: text;
 }
 
-.input-label-active, .custom-text.active label, .custom-dropdown.active label {
+.input-label-active, .custom-date-picker.active label, .custom-text.active label, .custom-dropdown.active label {
   font-size: 10px;
   line-height: 14px;
   color: #576970;
@@ -169,7 +169,6 @@ a {
   width: 420px;
   position: relative;
   margin: 8px 0px 8px 0px;
-  cursor: pointer;
 }
 .custom-dropdown .icon {
   position: absolute;
@@ -191,6 +190,13 @@ a {
   overflow: hidden;
   text-overflow: ellipsis;
   box-shadow: 4px 4px 12px 0px #bdbec2;
+  cursor: pointer;
+}
+.custom-dropdown label {
+  cursor: pointer;
+}
+.custom-dropdown.active label {
+  cursor: pointer;
 }
 .custom-dropdown.focused {
   border: 2px solid;
@@ -255,6 +261,53 @@ a {
 }
 .custom-text.has-pre-token input {
   padding-left: 30px;
+}
+
+.custom-date-picker {
+  height: 60px;
+  width: 420px;
+  position: relative;
+  margin: 0px 0px 0px 0px;
+}
+.custom-date-picker input {
+  background-color: #fbf7f6;
+  height: 100%;
+  width: 100%;
+  font-size: 16px;
+  line-height: 24px;
+  border: none;
+  border-radius: 4px;
+  padding: 26px 0px 10px 20px;
+  overflow: hidden;
+  box-shadow: 4px 4px 12px 0px #bdbec2;
+}
+.react-datepicker-popper[data-placement^=bottom] {
+  margin-top: 0px !important;
+}
+
+.react-datepicker__triangle {
+  display: none;
+}
+
+.react-datepicker__header {
+  background-color: #576970 !important;
+}
+
+.react-datepicker__current-month {
+  color: #fbf7f6 !important;
+}
+
+.react-datepicker__day-name {
+  color: #fbf7f6 !important;
+}
+
+.react-datepicker__day:focus {
+  outline: none;
+}
+
+.react-datepicker__day--selected {
+  background-color: #a5d6c6 !important;
+  color: #fbf7f6 !important;
 }
 
 .recurring-transaction-summary {

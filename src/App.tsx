@@ -14,6 +14,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import AddIncomeGenerator from './pages/AddIncomeGenerator';
 import Navbar from './components/custom/Navbar';
 import Footer from './components/custom/Footer';
+import AddLedgerEntry from './pages/AddLedgerEntry';
 
 interface AppProps {
   isLoggedIn: boolean;
@@ -32,6 +33,7 @@ const App = (props: AppProps) => {
         <PrivateRoute path="/dashboard/admin" component={AdminDashboard} {...props} admin />
         <PrivateRoute path="/dashboard" component={Dashboard} {...props} />
         <PrivateRoute path="/income/add" component={AddIncomeGenerator} {...props} />
+        <PrivateRoute path="/ledger/add" component={AddLedgerEntry} {...props} />
         <Route path="/" component={Landing} />
       </Switch>
       <Footer />
