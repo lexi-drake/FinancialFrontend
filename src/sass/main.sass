@@ -1,5 +1,8 @@
 @import "variables"
 
+*, *:before, *:after
+    box-sizing: border-box
+
 @import "misc"
 @import "button"
 @import "link"
@@ -8,6 +11,7 @@
 @import "footer"
 @import "section"
 @import "content"
+@import "column"
 
 @import "input/input_label"
 @import "input/dropdown"
@@ -17,7 +21,5 @@
 @import "transactions/generator"
 
 body
+    color: $gris-dark-grey
     background-color: $gris-light-grey
-
-*, *:before, *:after
-    box-sizing: border-box

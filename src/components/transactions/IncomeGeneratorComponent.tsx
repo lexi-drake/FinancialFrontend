@@ -5,12 +5,11 @@ import Frequency from "../../models/Frequency"
 import { IncomeGenerator } from "../../models/IncomeGenerator"
 import TransactionType from "../../models/TransactionType"
 import { AppDataState } from "../../store/appdata"
-import { getFrequencies, getIncomeGenerators, getTransactionTypes } from "../../store/ledger/actions"
+import { getFrequencies, getIncomeGenerators } from "../../store/ledger/actions"
 import { MONTHS } from "../../utilities/constants"
 import Content from "../custom/Content"
 import CustomButton from "../custom/CustomButton"
 import CustomLink from "../custom/CustomLink"
-import Section from "../custom/Section"
 import IncomeGeneratorSummary from "./IncomeGeneratorSummary"
 
 interface IncomeGeneratorComponentProps {
@@ -19,7 +18,6 @@ interface IncomeGeneratorComponentProps {
     transactionTypes: TransactionType[];
     getIncomeGenerators: typeof getIncomeGenerators;
     getFrequencies: typeof getFrequencies;
-    getTransactionTypes: typeof getTransactionTypes;
     push: typeof push;
 }
 
@@ -40,32 +38,23 @@ const IncomeGeneratorComponent = (props: IncomeGeneratorComponentProps) => {
         }
     }, [props.frequencies, props.getFrequencies]);
 
-    useEffect(() => {
-        const getTransactionTypes = props.getTransactionTypes;
-        if (props.transactionTypes.length === 0) {
-            getTransactionTypes();
-        }
-    }, [props.transactionTypes, props.getTransactionTypes]);
-
     const onAddSourceOfIncomeClick = () => {
         props.push('/income/add');
     }
 
     return (
         <div className="income-generator-list">
-            <Section>
-                <h1>Sources of income</h1>
-                <Content>
-                    {props.incomeGenerators.map(x =>
-                        <IncomeGeneratorSummary key={x.id} generator={x} types={props.transactionTypes} frequencies={props.frequencies} monthly={monthly} />)
-                    }
-                    <CustomLink first onClick={() => setMonthly(true)}>{MONTHS[new Date().getMonth()]}</CustomLink>
-                    <CustomLink onClick={() => setMonthly(false)}>{new Date().getFullYear()}</CustomLink>
-                </Content>
-                <Content>
-                    <CustomButton onClick={() => onAddSourceOfIncomeClick()}>Add source of income</CustomButton>
-                </Content>
-            </Section>
+            <h1>Sources of income</h1>
+            <Content>
+                {props.incomeGenerators.map(x =>
+                    <IncomeGeneratorSummary key={x.id} generator={x} types={props.transactionTypes} frequencies={props.frequencies} monthly={monthly} />)
+                }
+                <CustomLink first onClick={() => setMonthly(true)}>{MONTHS[new Date().getMonth()]}</CustomLink>
+                <CustomLink onClick={() => setMonthly(false)}>{new Date().getFullYear()}</CustomLink>
+            </Content>
+            <Content>
+                <CustomButton onClick={() => onAddSourceOfIncomeClick()}>Add source of income</CustomButton>
+            </Content>
         </div>
     )
 }
@@ -78,4 +67,4 @@ const mapStateToProps = (state: AppDataState): Partial<IncomeGeneratorComponentP
     };
 }
 
-export default connect(mapStateToProps, { getIncomeGenerators, getFrequencies, getTransactionTypes, push })(IncomeGeneratorComponent as any);
+export default connect(mapStateToProps, { getIncomeGenerators, getFrequencies, push })(IncomeGeneratorComponent as any);

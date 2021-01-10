@@ -34,6 +34,8 @@ const Navbar = (props: NavbarProps) => {
     return (
         <div className="navbar">
             <Container>
+
+                <h1>letskeepthis.cheap</h1>
                 {props.isLoggedIn &&
                     <div>
                         <CustomLink last onClick={() => onLogoutClick()}>Logout</CustomLink>
@@ -46,7 +48,6 @@ const Navbar = (props: NavbarProps) => {
                 {props.isAdmin &&
                     <CustomLink onClick={() => onAdminClick()}>Admin</CustomLink>
                 }
-
             </Container>
         </div>
     );

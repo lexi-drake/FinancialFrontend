@@ -1,5 +1,6 @@
 import Frequency from "../../models/Frequency";
 import { IncomeGenerator } from "../../models/IncomeGenerator";
+import { LedgerEntry } from "../../models/LedgerEntry";
 import SalaryType from "../../models/SalaryType";
 import TransactionType from "../../models/TransactionType";
 import { ActionType, LedgerAction } from "../actions"
@@ -12,6 +13,7 @@ export interface LedgerState {
     salaryTypes: SalaryType[];
     transactionTypes: TransactionType[];
     incomeGenerators: IncomeGenerator[];
+    ledgerEntries: LedgerEntry[];
 }
 
 const defaultState: LedgerState = {
@@ -20,7 +22,8 @@ const defaultState: LedgerState = {
     frequencies: [],
     salaryTypes: [],
     transactionTypes: [],
-    incomeGenerators: []
+    incomeGenerators: [],
+    ledgerEntries: []
 };
 
 export const LedgerReducer = (state: LedgerState = defaultState, action: { type: ActionType, payload: AppDataPayload }) => {
@@ -32,9 +35,10 @@ export const LedgerReducer = (state: LedgerState = defaultState, action: { type:
             };
             break;
         case LedgerAction.SET_CATEGORIES:
+            const categories: string[] = action.payload.categories.map(x => x.category);
             state = {
                 ...state,
-                categories: action.payload.categories
+                categories: categories
             };
             break;
         case LedgerAction.SET_FREQUENCIES:

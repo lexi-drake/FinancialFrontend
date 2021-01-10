@@ -8,7 +8,16 @@
     label
         @extend .input-label
 
+    .icon
+        position: absolute
+        margin: 20px 20px 20px 376px
+
+    svg
+        width: 24px
+        height: 24px
+
     input
+        background-color: $gris-white
         height: 100%
         width: 100%
         font-size: 16px
@@ -32,7 +41,7 @@
 .custom-dropdown-menu
     position: absolute
     width: 420px
-    background-color: white
+    background-color: $gris-white
     margin: -4px 0px 0px -2px
     z-index: 11
     overflow-x: hidden
@@ -49,5 +58,5 @@
     line-height: 18px
 
     &:hover
-        color: white
-        background-color: $gris-green
+        color: $gris-white
+        background-color: $gris-dark-green

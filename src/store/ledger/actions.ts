@@ -2,17 +2,18 @@ import { AnyAction } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { get, post } from "../../utilities/backend_client";
 import { LedgerAction, StoreAction } from "../actions";
-import CategoryRequest from '../../models/CategoryRequest';
+import { Category, CategoryRequest } from '../../models/Category';
 import Frequency from "../../models/Frequency";
 import SalaryType from "../../models/SalaryType";
 import TransactionType from "../../models/TransactionType";
 import { IncomeGenerator, IncomeGeneratorRequest } from "../../models/IncomeGenerator";
+import { DateSpanRequest, LedgerEntry, LedgerEntryRequest } from "../../models/LedgerEntry";
 
 const setLedgerError = (message: string): StoreAction => {
     return { type: LedgerAction.SET_LEDGER_ERROR, payload: { errorMessage: message } };
 }
 
-const setCategories = (categories: string[]): StoreAction => {
+const setCategories = (categories: Category[]): StoreAction => {
     return { type: LedgerAction.SET_CATEGORIES, payload: { categories: categories } };
 }
 
@@ -97,6 +98,44 @@ export const getIncomeGenerators = (): ThunkAction<Promise<void>, {}, {}, AnyAct
         return new Promise<void>(async (resolve) => {
             const path: string = 'ledger/generators';
             const response: StoreAction = await get(path, setIncomeGenerator, setLedgerError);
+            dispatch(response);
+            resolve();
+        });
+    }
+}
+
+const setLedgerEntries = (entries: LedgerEntry[]): StoreAction => {
+    return { type: LedgerAction.SET_LEDGER_ENTRIES, payload: { entries: entries } };
+}
+
+export const getLedgerEntries = (request: DateSpanRequest): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
+    return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+        return new Promise<void>(async (resolve) => {
+            const createPath = (): string => {
+                const toMMDDYYYY = (date: Date): string => {
+                    var month: string = (date.getMonth() + 1).toString().padStart(2, '0');
+                    var day: string = date.getDate().toString().padStart(2, '0');
+                    var year: string = date.getFullYear().toString();
+                    return month + day + year;
+                }
+                return `ledger/${toMMDDYYYY(request.start)}/${toMMDDYYYY(request.end)}`
+            }
+            const response: StoreAction = await get(createPath(), setLedgerEntries, setLedgerError);
+            dispatch(response);
+            resolve();
+        });
+    }
+}
+
+const pushLedgerEntry = (entry: LedgerEntry): StoreAction => {
+    return { type: LedgerAction.PUSH_LEDGER_ENTRY, payload: { entries: [entry] } };
+}
+
+export const addLedgerEntry = (request: LedgerEntryRequest): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
+    return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+        return new Promise<void>(async (resolve) => {
+            const path: string = 'ledger';
+            const response: StoreAction = await post(request, path, pushLedgerEntry, setLedgerError);
             dispatch(response);
             resolve();
         });

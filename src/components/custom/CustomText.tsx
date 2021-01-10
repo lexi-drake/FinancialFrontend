@@ -7,7 +7,7 @@ interface CustomTextProps {
     error?: boolean;
     disabled?: boolean;
     value: string;
-    label?: string;
+    label: string;
     onChange: (value: string) => void;
 }
 
@@ -34,7 +34,7 @@ const CustomText: FunctionComponent<CustomTextProps> = (props) => {
 
     return (
         <div className={calculateClasses()} onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}>
-            <label onClick={() => onLabelClick()}>{props.label ? props.label : ''}</label>
+            <label onClick={() => onLabelClick()}>{props.label}</label>
             <span className='text-pre'>{props.preToken ? props.preToken[0] : ''}</span>
             <input id={id} type={getType()} value={props.value} disabled={props.disabled} onChange={(event) => props.onChange(event.target.value)} />
         </div>

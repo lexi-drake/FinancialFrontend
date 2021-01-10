@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { connect } from "react-redux";
+import AutocompleteField from "../components/custom/AutocompleteField";
 import Container from "../components/custom/Container";
+import Content from "../components/custom/Content";
 import CustomButton from "../components/custom/CustomButton";
 import CustomDropdown, { DropdownOption } from "../components/custom/CustomDropdown";
 import CustomText from "../components/custom/CustomText";
@@ -57,9 +59,6 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
             getTransactionTypes();
         }
     }, [props.transactionTypes, props.getTransactionTypes]);
-
-    const getTransactionType = (id: string) => {
-    }
 
     const setCategory = (value: string) => {
         _setCategory(value);
@@ -121,7 +120,6 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
 
     const salaryTypes: DropdownOption[] = props.salaryTypes.map(x => { return { key: x.id, text: x.description, value: x.id }; });
     const frequencies: DropdownOption[] = props.frequencies.map(x => { return { key: x.id, text: x.description, value: x.id }; });
-    const categories: DropdownOption[] = props.categories.map(x => { return { key: x, text: x, value: x }; });
     const transactionTypes: DropdownOption[] = props.transactionTypes.map(x => { return { key: x.id, text: x.description, value: x.id } });
 
     return (
@@ -131,17 +129,21 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
             </Header>
             <Section>
                 <h1>Details</h1>
-                <CustomText label="Description" value={description} onChange={(value) => setDescription(value)} />
-                <CustomDropdown label="Salary type" value={salaryType} options={salaryTypes} onSelect={(value) => setSalaryType(value)} />
-                <CustomDropdown label="Payment frequency" value={frequency} options={frequencies} onSelect={(value) => setFrequency(value)} />
+                <Content>
+                    <CustomText label="Description" value={description} onChange={(value) => setDescription(value)} />
+                    <CustomDropdown label="Salary type" value={salaryType} options={salaryTypes} onSelect={(value) => setSalaryType(value)} />
+                    <CustomDropdown label="Payment frequency" value={frequency} options={frequencies} onSelect={(value) => setFrequency(value)} />
+                </Content>
             </Section>
             {!showRecurringTransactionFields &&
                 <div>
                     <Section>
                         <h1>Associated recurring transactions</h1>
-                        {recurringTransactions.map(x =>
-                            <RecurringTransactionSummary transaction={x} types={props.transactionTypes} />
-                        )}
+                        <Content>
+                            {recurringTransactions.map(x =>
+                                <RecurringTransactionSummary transaction={x} types={props.transactionTypes} />
+                            )}
+                        </Content>
                     </Section>
                     <CustomButton onClick={() => onAddTransactionClick()}>Add transaction</CustomButton>
                 </div>
@@ -149,10 +151,12 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
             {showRecurringTransactionFields &&
                 <Section>
                     <h1>Recurring transaction details</h1>
-                    <CustomDropdown label="Transaction type" value={transactionType} options={transactionTypes} onSelect={(value) => setTransactionType(value)} />
-                    <CustomText label="Category" value={category} onChange={(value) => setCategory(value)} />
-                    <CustomText label="Description" value={transactionDescription} onChange={(value) => setTransactionDescription(value)} />
-                    <CustomText error={amountError()} label="Amount" value={amount} preToken="$" onChange={(value) => setAmount(value)} />
+                    <Content>
+                        <CustomDropdown label="Transaction type" value={transactionType} options={transactionTypes} onSelect={(value) => setTransactionType(value)} />
+                        <AutocompleteField label="Category" value={category} options={props.categories} onChange={(value) => setCategory(value)} getOptions={(value) => props.getCategories(value)} />
+                        <CustomText label="Description" value={transactionDescription} onChange={(value) => setTransactionDescription(value)} />
+                        <CustomText error={amountError()} label="Amount" value={amount} preToken="$" onChange={(value) => setAmount(value)} />
+                    </Content>
                     <CustomButton disabled={addDisabled()} onClick={() => onAddClick()}>Add</CustomButton>
                 </Section>
             }
