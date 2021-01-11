@@ -1,8 +1,9 @@
 import { connect } from "react-redux";
 import Header from "../components/custom/Header";
 import DashboardContainer from "../components/dashboard/DashboardContainer";
-import IncomeGeneratorComponent from "../components/transactions/IncomeGeneratorComponent";
-import LedgerHistoryComponent from "../components/transactions/LedgerHistoryComponent";
+import IncomeGeneratorComponent from "../components/dashboard/IncomeGeneratorComponent";
+import LedgerHistoryComponent from "../components/dashboard/LedgerHistoryComponent";
+import RecurringTransactionComponent from "../components/dashboard/RecurringTransactionComponent";
 import { AppDataState } from "../store/appdata";
 import { getTransactionTypes } from "../store/ledger/actions";
 
@@ -23,6 +24,7 @@ const Dashboard = (props: DashboardProps) => {
             </Header>
             <LedgerHistoryComponent />
             <IncomeGeneratorComponent />
+            <RecurringTransactionComponent />
         </DashboardContainer>
     );
 }

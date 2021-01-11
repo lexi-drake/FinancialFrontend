@@ -6,9 +6,15 @@
     float: none
 
     .category
-        max-width: 60%
+        display: inline-block
+        width: 40%
         font-weight: bold
         text-overflow: ellipsis
+
+    .date
+        display: inline-block
+        margin: 0px 12px 0px 12px
+        width: 30%
 
     .description
         font-size: 12px
@@ -16,3 +22,6 @@
 
     .amount
         float: right
+
+        &.negative
+            color: $gris-red

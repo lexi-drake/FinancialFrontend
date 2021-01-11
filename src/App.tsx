@@ -15,6 +15,7 @@ import AddIncomeGenerator from './pages/AddIncomeGenerator';
 import Navbar from './components/custom/Navbar';
 import Footer from './components/custom/Footer';
 import AddLedgerEntry from './pages/AddLedgerEntry';
+import AddRecurringTransaction from './pages/AddRecurringTransaction';
 
 interface AppProps {
   isLoggedIn: boolean;
@@ -34,6 +35,7 @@ const App = (props: AppProps) => {
         <PrivateRoute path="/dashboard" component={Dashboard} {...props} />
         <PrivateRoute path="/income/add" component={AddIncomeGenerator} {...props} />
         <PrivateRoute path="/ledger/add" component={AddLedgerEntry} {...props} />
+        <PrivateRoute path="/transaction/add" component={AddRecurringTransaction} {...props} />
         <Route path="/" component={Landing} />
       </Switch>
       <Footer />

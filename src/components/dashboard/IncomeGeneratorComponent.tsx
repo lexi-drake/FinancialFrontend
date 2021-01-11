@@ -10,8 +10,7 @@ import { UsesFrequencies, UsesIncomeGenerators } from "../../utilities/hooks"
 import Content from "../custom/Content"
 import CustomButton from "../custom/CustomButton"
 import CustomLink from "../custom/CustomLink"
-import Section from "../custom/Section"
-import IncomeGeneratorSummary from "./IncomeGeneratorSummary"
+import IncomeGeneratorSummary from "../transactions/IncomeGeneratorSummary"
 
 interface IncomeGeneratorComponentProps {
     incomeGenerators: IncomeGenerator[];

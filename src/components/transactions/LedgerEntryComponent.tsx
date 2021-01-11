@@ -1,4 +1,5 @@
 import { LedgerEntry } from "../../models/LedgerEntry";
+import { getReadableDate } from "../../utilities/dates";
 
 interface LedgerEntryComponentProps {
     entry: LedgerEntry;
@@ -6,15 +7,17 @@ interface LedgerEntryComponentProps {
 
 const LedgerEntryComponent = (props: LedgerEntryComponentProps) => {
 
-    const getAmount = (): string => {
-        const amount: number = props.entry.transactionType === "Income" ? props.entry.amount : -props.entry.amount;
-        return amount.toFixed(2);
+    const calculateAmountClasses = (): string => {
+        const classes: string[] = ['amount'];
+        if (props.entry.transactionType !== "Income") { classes.push('negative'); }
+        return classes.join(' ');
     }
 
     return (
         <div className="ledger-entry">
-            <span className="category">{props.entry.category}</span>
-            <span className="amount">{getAmount()}</span>
+            <div className="category">{props.entry.category}</div>
+            <div className="date">{getReadableDate(props.entry.transactionDate)}</div>
+            <span className={calculateAmountClasses()}>${props.entry.amount.toFixed(2)}</span>
             {!!props.entry.description &&
                 <div className="description">{props.entry.description}</div>
             }

@@ -6,7 +6,6 @@
   margin: 0px 0px 110px 269px;
   height: 100%;
   width: 540px;
-  display: inline-block;
 }
 
 input:focus {
@@ -149,8 +148,9 @@ a {
 }
 
 .dashboard-container {
-  height: 100%;
   margin: 0px 100px 0px 100px;
+  padding: 0px 0px 110px 0px;
+  overflow: auto;
 }
 
 .ledger-history {
@@ -186,12 +186,23 @@ a {
 .ledger-history .after {
   clear: both;
 }
+.ledger-history .total {
+  float: right;
+  font-weight: bold;
+  color: #7d957b;
+}
+.ledger-history .total.negative {
+  color: #ba5056;
+}
+.ledger-history .graph-wrapper {
+  max-height: 300px;
+}
 
 .income-generator-list {
   background-color: #fbf7f6;
   float: left;
-  width: 400px;
-  margin: 0px 69px 0px 0px;
+  width: 365px;
+  margin: 0px 69px 69px 0px;
   padding: 20px 20px 20px 20px;
   box-shadow: 4px 4px 12px 0px #bdbec2;
 }
@@ -209,6 +220,30 @@ a {
   width: 440;
   margin: 0px 0px 8px 100px;
   border: 1px solid #a5d6c6;
+}
+
+.recurring-transaction-list {
+  background-color: #fbf7f6;
+  float: left;
+  width: 365px;
+  margin: 0px 0px 0px 0px;
+  padding: 20px 20px 20px 20px;
+  box-shadow: 4px 4px 12px 0px #bdbec2;
+}
+.recurring-transaction-list h1 {
+  font-size: 24px;
+  line-height: 28px;
+  margin: 0px;
+}
+.recurring-transaction-list p {
+  font-size: 14px;
+  line-height: 18px;
+  margin: 6px 0px 6px 0px;
+}
+.recurring-transaction-list hr {
+  width: 440;
+  margin: 0px 0px 8px 100px;
+  border: 1px solid #f5b8b7;
 }
 
 .input-label, .custom-date-picker label, .custom-text label, .custom-dropdown label {
@@ -428,9 +463,15 @@ a {
   float: none;
 }
 .ledger-entry .category {
-  max-width: 60%;
+  display: inline-block;
+  width: 40%;
   font-weight: bold;
   text-overflow: ellipsis;
+}
+.ledger-entry .date {
+  display: inline-block;
+  margin: 0px 12px 0px 12px;
+  width: 30%;
 }
 .ledger-entry .description {
   font-size: 12px;
@@ -438,6 +479,9 @@ a {
 }
 .ledger-entry .amount {
   float: right;
+}
+.ledger-entry .amount.negative {
+  color: #ba5056;
 }
 
 body {

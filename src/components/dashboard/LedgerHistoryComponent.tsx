@@ -10,7 +10,8 @@ import { UsesLedgerEntries } from "../../utilities/hooks";
 import Content from "../custom/Content";
 import CustomButton from "../custom/CustomButton";
 import CustomDropdown, { DropdownOption } from "../custom/CustomDropdown";
-import LedgerEntryComponent from "./LedgerEntryComponent";
+import LedgerEntryComponent from "../transactions/LedgerEntryComponent";
+import LedgerHistoryGraph from "./LedgerHistoryGraph";
 
 interface LedgerHistoryComponentProps {
     ledgerEntries: LedgerEntry[];
@@ -21,7 +22,7 @@ interface LedgerHistoryComponentProps {
 const LedgerHistoryComponent = (props: LedgerHistoryComponentProps) => {
     const [month, setMonth] = useState(new Date().getMonth());
 
-    UsesLedgerEntries(props.ledgerEntries, props.getLedgerEntries);
+    UsesLedgerEntries(props.getLedgerEntries);
 
     const onAddTransactionClick = () => {
         props.push('ledger/add');
@@ -34,7 +35,6 @@ const LedgerHistoryComponent = (props: LedgerHistoryComponentProps) => {
             date.setMonth(date.getMonth() - i);
             options.push({ key: i.toString(), value: date.getMonth().toString(), text: `${MONTHS[date.getMonth()]}, ${date.getFullYear()}` });
         }
-        console.log(options);
         return options;
     }
 
@@ -43,7 +43,8 @@ const LedgerHistoryComponent = (props: LedgerHistoryComponentProps) => {
         if (!isNaN(numberValue)) {
             setMonth(numberValue);
             const date: Date = new Date();
-            date.setMonth(month);
+            const monthOffset = date.getMonth() + (12 - numberValue) % -12;
+            date.setMonth(date.getMonth() - monthOffset);
             props.getLedgerEntries({
                 start: getFirstDayOfMonth(date.getFullYear(), date.getMonth()),
                 end: getLastDayOfMonth(date.getFullYear(), date.getMonth())
@@ -60,9 +61,29 @@ const LedgerHistoryComponent = (props: LedgerHistoryComponentProps) => {
             .sort((a, b) => b.transactionDate.getTime() - a.transactionDate.getTime());
     }
 
+    const getTotal = (): number => {
+        if (props.ledgerEntries.length === 0) {
+            return 0;
+        }
+        return props.ledgerEntries
+            .map(x => x.transactionType === 'Income' ? x.amount : -x.amount)
+            .reduce((sum, x) => sum + x);
+    }
+
+    const calculateTotalClasses = (): string => {
+        const classes: string[] = ['total'];
+        if (getTotal() <= 0) { classes.push('negative'); }
+        return classes.join(' ');
+    }
+
     return (
         <div className="ledger-history">
             <h1>Transaction history</h1>
+            {props.ledgerEntries.length > 0 &&
+                <Content>
+                    <LedgerHistoryGraph ledgerEntries={getLedgerEntriesForMonth(month)} />
+                </Content>
+            }
             <Content>
                 <CustomButton onClick={() => onAddTransactionClick()}>Add transaction</CustomButton>
                 <CustomDropdown label="Transaction history for month" value={month.toString()} options={createMonthOptions()} onSelect={(value) => setMonthString(value)} />
@@ -72,6 +93,7 @@ const LedgerHistoryComponent = (props: LedgerHistoryComponentProps) => {
                 {getLedgerEntriesForMonth(month).map(x =>
                     <LedgerEntryComponent key={x.id} entry={x} />)
                 }
+                <div className={calculateTotalClasses()}>${getTotal().toFixed()}</div>
             </Content>
         </div>
     );

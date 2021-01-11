@@ -38,14 +38,12 @@ export function UsesIncomeGenerators(incomeGenerators: IncomeGenerator[], getInc
     }, [incomeGenerators, getIncomeGenerators]);
 }
 
-export function UsesLedgerEntries(ledgerEntries: LedgerEntry[], getLedgerEntries: (request: DateSpanRequest) => void) {
+export function UsesLedgerEntries(getLedgerEntries: (request: DateSpanRequest) => void) {
     useEffect(() => {
-        if (ledgerEntries.length === 0) {
-            const date: Date = new Date();
-            getLedgerEntries({
-                start: getFirstDayOfMonth(date.getFullYear(), date.getMonth()),
-                end: getLastDayOfMonth(date.getFullYear(), date.getMonth())
-            });
-        }
-    }, [ledgerEntries, getLedgerEntries]);
+        const date: Date = new Date();
+        getLedgerEntries({
+            start: getFirstDayOfMonth(date.getFullYear(), date.getMonth()),
+            end: getLastDayOfMonth(date.getFullYear(), date.getMonth())
+        });
+    }, [/* This is intentionally left blank so that it will only run when a page loads */]);
 }

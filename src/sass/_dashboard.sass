@@ -1,6 +1,7 @@
 .dashboard-container
-    height: 100%
     margin: 0px 100px 0px 100px
+    padding: 0px 0px 110px 0px
+    overflow: auto
 
 .ledger-history
     background-color: $gris-white
@@ -35,11 +36,22 @@
     .after
         clear: both
 
+    .total
+        float: right
+        font-weight: bold
+        color: $gris-green
+
+        &.negative
+            color: $gris-red
+
+    .graph-wrapper
+        max-height: 300px
+
 .income-generator-list
     background-color: $gris-white
     float: left
-    width: 400px
-    margin: 0px 69px 0px 0px
+    width: 365px
+    margin: 0px 69px 69px 0px
     padding: 20px 20px 20px 20px
     box-shadow: $shadow-standard
 
@@ -57,3 +69,26 @@
         width: 440
         margin: 0px 0px 8px 100px
         border: 1px solid $gris-light-green
+
+.recurring-transaction-list
+    background-color: $gris-white
+    float: left
+    width: 365px
+    margin: 0px 0px 0px 0px
+    padding: 20px 20px 20px 20px
+    box-shadow: $shadow-standard
+
+    h1
+        font-size: 24px
+        line-height: 28px
+        margin: 0px
+
+    p
+        font-size: 14px
+        line-height: 18px
+        margin: 6px 0px 6px 0px
+
+    hr
+        width: 440
+        margin: 0px 0px 8px 100px
+        border: 1px solid $gris-light-red

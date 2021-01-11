@@ -1,6 +1,5 @@
 import { connect } from "react-redux";
 import { AppDataState } from "../../store/appdata";
-import { DAYS, MONTHS } from "../../utilities/constants";
 import Column from "./Column";
 import Container from "./Container";
 
@@ -8,16 +7,6 @@ interface FooterProps {
 }
 
 const Footer = (props: FooterProps) => {
-
-    const getDate = (): string => {
-        const now = new Date();
-        const month: number = now.getMonth();
-        const dayOfWeek: number = now.getDay();
-        const dayOfMonth: number = now.getDate();
-        const year: number = now.getFullYear();
-
-        return `${DAYS[dayOfWeek]} ${MONTHS[month]} ${dayOfMonth}, ${year}`;
-    }
 
     return (
         <div className="footer">
