@@ -1,7 +1,11 @@
 @import "variables"
 
-*, *:before, *:after
+html
+    height: 100%
     box-sizing: border-box
+
+*, *:before, *:after
+    box-sizing: inherit
 
 @import "misc"
 @import "button"
@@ -25,4 +29,8 @@
 
 body
     color: $gris-dark-grey
+    position: relative
+    margin: 0
+    padding-bottom: 110px
+    min-height: 100%
     background-color: $gris-light-grey

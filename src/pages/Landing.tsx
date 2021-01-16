@@ -53,9 +53,9 @@ const Landing = (props: LandingProps) => {
                     every two weeks, I have weekly appointments to budget for, my car
                     insurance is paid every six months, and I have all of my normal monthly
                     expenses like housing, internet, and my phone. That means that, while
-                    most months I can expect two paychecks, some months reward three, and
-                    during some months I clock five weekly appointments and some months I
-                    have four, and keeping track of any payment that isn't made at least
+                    most months I can expect two paychecks, some months I get three, and
+                    during some months I rack up five weekly appointments and other months I
+                    only have four, and keeping track of any payment that isn't made at least
                     monthly is just beyond me.
                 </p>
             </Section>

@@ -16,7 +16,7 @@ const Footer = (props: FooterProps) => {
     }
 
     return (
-        <div className="footer">
+        <footer className="footer">
             <Container>
                 <Column>
                     <h1>Source</h1>
@@ -37,7 +37,7 @@ const Footer = (props: FooterProps) => {
                     <h1>Support</h1>
                 </Column>
             </Container>
-        </div>
+        </footer>
     );
 }
 
