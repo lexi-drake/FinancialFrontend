@@ -1,10 +1,18 @@
 import { useEffect } from "react";
 import Frequency from "../models/Frequency";
 import { IncomeGenerator } from "../models/IncomeGenerator";
-import { DateSpanRequest, LedgerEntry } from "../models/LedgerEntry";
+import { DateSpanRequest } from "../models/LedgerEntry";
 import SalaryType from "../models/SalaryType";
 import TransactionType from "../models/TransactionType";
 import { getFirstDayOfMonth, getLastDayOfMonth } from "./dates";
+
+export function UsesUserCount(count: number, getUserCount: () => void) {
+    useEffect(() => {
+        if (count < 0) {
+            getUserCount()
+        }
+    }, [count, getUserCount]);
+}
 
 export function UsesTransactionTypes(transactionTypes: TransactionType[], getTransactionTypes: () => void) {
     useEffect(() => {

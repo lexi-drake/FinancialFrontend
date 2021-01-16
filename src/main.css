@@ -107,7 +107,10 @@ a {
   width: 100%;
 }
 .footer .custom-link {
-  margin: 16px 24px 0px 24px;
+  font-size: 12px;
+  line-height: 16px;
+  margin: 6px 0px 6px 0px;
+  cursor: pointer;
 }
 .footer .custom-link.first {
   margin-left: 0px;
@@ -122,6 +125,11 @@ a {
   margin: 0px;
 }
 .section p {
+  font-size: 14px;
+  line-height: 18px;
+  margin: 6px 0px 6px 0px;
+}
+.section a {
   font-size: 14px;
   line-height: 18px;
   margin: 6px 0px 6px 0px;

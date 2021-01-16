@@ -3,6 +3,7 @@ import { AppDataPayload } from "../appdata"
 
 export interface UserState {
     error: string;
+    count: number;
     username: string;
     isLoggedIn: boolean;
     isAdmin: boolean;
@@ -10,6 +11,7 @@ export interface UserState {
 
 const defaultState: UserState = {
     error: '',
+    count: -1,
     username: '',
     isLoggedIn: false,
     isAdmin: false,
@@ -23,16 +25,18 @@ export const UserReducer = (state: UserState = defaultState, action: { type: Act
                 error: action.payload.errorMessage
             };
             break;
-        case UserAction.SET_LOGIN_STATUS:
-            // This action-type is dispatched by both login and checkLoggedIn,
-            // so it really needs to handle two different situations: 1) a payload including 
-            // a username & admin status and 2) a payload with only a login status.
-            var updateOptionals: boolean = action.payload.username !== undefined && action.payload.isAdmin !== undefined;
+        case UserAction.SET_USER_COUNT:
             state = {
                 ...state,
-                username: updateOptionals ? action.payload.username : state.username,
+                count: action.payload.userCount
+            };
+            break;
+        case UserAction.SET_LOGIN_STATUS:
+            state = {
+                ...state,
+                username: action.payload.username,
                 isLoggedIn: action.payload.isLoggedIn,
-                isAdmin: updateOptionals ? action.payload.isAdmin : state.isAdmin
+                isAdmin: action.payload.isAdmin
             };
             break;
         case UserAction.SET_ADMIN_STATUS:

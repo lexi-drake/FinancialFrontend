@@ -86,7 +86,7 @@ const LedgerHistoryComponent = (props: LedgerHistoryComponentProps) => {
             }
             <Content>
                 <CustomButton onClick={() => onAddTransactionClick()}>Add transaction</CustomButton>
-                <CustomDropdown label="Transaction history for month" value={month.toString()} options={createMonthOptions()} onSelect={(value) => setMonthString(value)} />
+                <CustomDropdown label="Transaction history for the month of" value={month.toString()} options={createMonthOptions()} onSelect={(value) => setMonthString(value)} />
                 <div className="after" />
             </Content>
             <Content>

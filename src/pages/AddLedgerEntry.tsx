@@ -13,6 +13,7 @@ import Section from "../components/custom/Section";
 import TransactionType from "../models/TransactionType";
 import { AppDataState } from "../store/appdata";
 import { addLedgerEntry, getCategories, getTransactionTypes } from "../store/ledger/actions";
+import { MAXIMUM_CATEGORY_LENGTH, MAXIMUM_DESCRIPTION_LENGTH } from "../utilities/constants";
 import { UsesTransactionTypes } from "../utilities/hooks";
 
 interface AddLedgerEntryProps {
@@ -26,12 +27,24 @@ interface AddLedgerEntryProps {
 
 const AddLedgerEntry = (props: AddLedgerEntryProps) => {
     const [transactionType, setTransactionType] = useState('');
-    const [category, setCategory] = useState('');
-    const [description, setDescription] = useState('');
+    const [category, _setCategory] = useState('');
+    const [description, _setDescription] = useState('');
     const [amount, setAmount] = useState('');
     const [date, setDate] = useState(new Date());
 
     UsesTransactionTypes(props.transactionTypes, props.getTransactionTypes);
+
+    const setCategory = (value: string) => {
+        if (value.length <= MAXIMUM_CATEGORY_LENGTH) {
+            _setCategory(value);
+        }
+    }
+
+    const setDescription = (value: string) => {
+        if (value.length <= MAXIMUM_DESCRIPTION_LENGTH) {
+            _setDescription(value);
+        }
+    }
 
     const amountError = (): boolean => {
         return !!amount && isNaN(parseFloat(amount));

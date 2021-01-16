@@ -11,11 +11,12 @@ import { history } from './store/history';
 import { checkAdmin, checkLoggedIn } from './store/user/actions';
 import PrivateRoute from './pages/PrivateRoute';
 import AdminDashboard from './pages/AdminDashboard';
-import AddIncomeGenerator from './pages/AddIncomeGenerator';
-import Navbar from './components/custom/Navbar';
-import Footer from './components/custom/Footer';
+import AddIncomeGenerator from './pages/AddIncomeGenerator';;
 import AddLedgerEntry from './pages/AddLedgerEntry';
 import AddRecurringTransaction from './pages/AddRecurringTransaction';
+import About from './pages/About';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 interface AppProps {
   isLoggedIn: boolean;
@@ -36,6 +37,7 @@ const App = (props: AppProps) => {
         <PrivateRoute path="/income/add" component={AddIncomeGenerator} {...props} />
         <PrivateRoute path="/ledger/add" component={AddLedgerEntry} {...props} />
         <PrivateRoute path="/transaction/add" component={AddRecurringTransaction} {...props} />
+        <Route path="/about" component={About} />
         <Route path="/" component={Landing} />
       </Switch>
       <Footer />

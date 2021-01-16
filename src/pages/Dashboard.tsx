@@ -15,8 +15,6 @@ const Dashboard = (props: DashboardProps) => {
 
     const headline: string = `Welcome, ${props.username}`
 
-    // TODO (alexa): These 'Container' components are temporary. Replace with better 
-    // components for the dashboard (instead of just two columns).
     return (
         <DashboardContainer>
             <Header>

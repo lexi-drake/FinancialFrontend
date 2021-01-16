@@ -8,6 +8,21 @@ const setUserError = (message: string): StoreAction => {
     return { type: UserAction.SET_USER_ERROR, payload: { errorMessage: message } };
 }
 
+const setUserCount = (count: number): StoreAction => {
+    return { type: UserAction.SET_USER_COUNT, payload: { userCount: count } };
+}
+
+export const getUserCount = (): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
+    return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+        return new Promise<void>(async (resolve) => {
+            const path: string = 'user';
+            const response: StoreAction = await get(path, setUserCount, setUserError);
+            dispatch(response);
+            resolve();
+        });
+    }
+}
+
 const isLoggedIn = (response: LoginResponse): StoreAction => {
     return {
         type: UserAction.SET_LOGIN_STATUS,

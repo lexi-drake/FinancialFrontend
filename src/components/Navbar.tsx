@@ -1,9 +1,9 @@
 import { push } from "connected-react-router";
 import { connect } from "react-redux";
-import { AppDataState } from "../../store/appdata";
-import { logout } from "../../store/user/actions";
-import Container from "./Container";
-import CustomLink from "./CustomLink"
+import { AppDataState } from "../store/appdata";
+import { logout } from "../store/user/actions";
+import Container from "./custom/Container";
+import CustomLink from "./custom/CustomLink"
 
 interface NavbarProps {
     isLoggedIn: boolean;

@@ -1,6 +1,8 @@
 export const MINIMUM_PASSWORD_LENGTH = 8;
 
-// TODO (alexa): this needs to also hold the number of days in each month.
+export const MAXIMUM_CATEGORY_LENGTH = 24;
+export const MAXIMUM_DESCRIPTION_LENGTH = 24;
+
 export const MONTHS: string[] = [
     'January',
     'February',

@@ -16,6 +16,7 @@ import SalaryType from "../models/SalaryType";
 import TransactionType from "../models/TransactionType";
 import { AppDataState } from "../store/appdata";
 import { addIncomeGenerator, getCategories, getFrequencies, getSalaryTypes, getTransactionTypes } from "../store/ledger/actions";
+import { MAXIMUM_CATEGORY_LENGTH, MAXIMUM_DESCRIPTION_LENGTH } from "../utilities/constants";
 import { UsesFrequencies, UsesSalaryTypes, UsesTransactionTypes } from "../utilities/hooks";
 
 interface AddIncomeGeneratorProps {
@@ -32,11 +33,11 @@ interface AddIncomeGeneratorProps {
 }
 
 const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
-    const [category, setCategory] = useState('');
+    const [category, _setCategory] = useState('');
     const [frequency, setFrequency] = useState('');
     const [salaryType, setSalaryType] = useState('');
     const [transactionType, setTransactionType] = useState('');
-    const [description, setDescription] = useState('');
+    const [description, _setDescription] = useState('');
     const [transactionDescription, setTransactionDescription] = useState('');
     const [amount, setAmount] = useState('');
     const [recurringTransactions, setRecurringTransactions] = useState([] as RecurringTransactionRequest[]);
@@ -45,6 +46,18 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
     UsesFrequencies(props.frequencies, props.getFrequencies);
     UsesSalaryTypes(props.salaryTypes, props.getSalaryTypes);
     UsesTransactionTypes(props.transactionTypes, props.getTransactionTypes);
+
+    const setCategory = (value: string) => {
+        if (value.length <= MAXIMUM_CATEGORY_LENGTH) {
+            _setCategory(value);
+        }
+    }
+
+    const setDescription = (value: string) => {
+        if (value.length <= MAXIMUM_DESCRIPTION_LENGTH) {
+            _setDescription(value);
+        }
+    }
 
     const onAddTransactionClick = () => {
         setShowRecurringTransactionFields(true);
