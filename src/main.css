@@ -89,7 +89,7 @@ a {
   margin: 56px 24px 0px 24px;
   display: inline-block;
   float: right;
-  color: #d8d6d7;
+  color: #e0e0e0;
 }
 .navbar .custom-link.last {
   margin-right: 0px;
@@ -513,7 +513,7 @@ body {
   margin: 0;
   padding-bottom: 110px;
   min-height: 100%;
-  background-color: #d8d6d7;
+  background-color: #e0e0e0;
 }
 
 /*# sourceMappingURL=main.css.map */

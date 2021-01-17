@@ -34,7 +34,7 @@ const Navbar = (props: NavbarProps) => {
     return (
         <div className="navbar">
             <Container>
-                <h1 onClick={() => props.push('')}>letskeepthis.cheap</h1>
+                <h1 onClick={() => props.push('')}>letskeepit.cheap</h1>
                 {props.isLoggedIn &&
                     <div>
                         <CustomLink last onClick={() => onLogoutClick()}>Logout</CustomLink>

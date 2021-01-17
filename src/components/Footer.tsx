@@ -16,7 +16,7 @@ const Footer = (props: FooterProps) => {
     }
 
     return (
-        <footer className="footer">
+        <div className="footer">
             <Container>
                 <Column>
                     <h1>Source</h1>
@@ -25,6 +25,9 @@ const Footer = (props: FooterProps) => {
                     </div>
                     <div>
                         <a href="https://www.github.com/lexi-drake/FinancialBackend" target="_blank" rel="noreferrer">Back end</a>
+                    </div>
+                    <div>
+                        <a href="https://www.github.com/lexi-drake/FinancialWorker" target="_blank" rel="noreferrer">Worker</a>
                     </div>
                 </Column>
                 <Column>
@@ -37,7 +40,7 @@ const Footer = (props: FooterProps) => {
                     <h1>Support</h1>
                 </Column>
             </Container>
-        </footer>
+        </div>
     );
 }
 

@@ -11,7 +11,7 @@ import { history } from './store/history';
 import { checkAdmin, checkLoggedIn } from './store/user/actions';
 import PrivateRoute from './pages/PrivateRoute';
 import AdminDashboard from './pages/AdminDashboard';
-import AddIncomeGenerator from './pages/AddIncomeGenerator';;
+import AddIncomeGenerator from './pages/AddIncomeGenerator';
 import AddLedgerEntry from './pages/AddLedgerEntry';
 import AddRecurringTransaction from './pages/AddRecurringTransaction';
 import About from './pages/About';
