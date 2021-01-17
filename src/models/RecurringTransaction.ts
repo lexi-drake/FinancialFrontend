@@ -5,6 +5,8 @@ export interface RecurringTransaction {
     amount: number;
     frequencyId: string;
     transactionType: string;
+    lastTriggered: Date;
+    lastExecuted: Date;
 }
 
 export interface RecurringTransactionRequest {
@@ -13,4 +15,5 @@ export interface RecurringTransactionRequest {
     amount: number;
     frequencyId: string;
     transactionTypeId: string;
+    lastTriggered: Date;
 }

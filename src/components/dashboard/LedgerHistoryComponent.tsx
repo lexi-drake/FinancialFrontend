@@ -6,7 +6,6 @@ import { AppDataState } from "../../store/appdata";
 import { getLedgerEntries } from "../../store/ledger/actions";
 import { MONTHS } from "../../utilities/constants";
 import { getFirstDayOfMonth, getLastDayOfMonth } from "../../utilities/dates";
-import { UsesLedgerEntries } from "../../utilities/hooks";
 import Content from "../custom/Content";
 import CustomButton from "../custom/CustomButton";
 import CustomDropdown, { DropdownOption } from "../custom/CustomDropdown";
@@ -21,8 +20,6 @@ interface LedgerHistoryComponentProps {
 
 const LedgerHistoryComponent = (props: LedgerHistoryComponentProps) => {
     const [month, setMonth] = useState(new Date().getMonth());
-
-    UsesLedgerEntries(props.getLedgerEntries);
 
     const onAddTransactionClick = () => {
         props.push('ledger/add');

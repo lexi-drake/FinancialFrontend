@@ -27,3 +27,32 @@ export const DAYS: string[] = [
     'Friday',
     'Saturday'
 ];
+
+export type MonthDay = {
+    month: number,
+    day: number,
+    description: string
+};
+export const FIXED_BANK_HOLIDAYS: MonthDay[] = [
+    { month: 0, day: 1, description: "New Year's Day" },
+    { month: 6, day: 4, description: "Independence Day" },
+    { month: 10, day: 11, description: "Veteran's Day" },
+    { month: 11, day: 24, description: "Christmas Eve" },
+    { month: 11, day: 25, description: "Christmas Day" }
+]
+
+export type MonthWeekDay = {
+    month: number,
+    week: number,
+    day: number,
+    description: string
+};
+// https://stackoverflow.com/questions/32342753/calculate-holidays-in-javascript
+export const FLOATING_HOLIDAYS: MonthWeekDay[] = [
+    { month: 0, week: 2, day: 1, description: "Martin Luther King, Jr. Day" },
+    { month: 1, week: 2, day: 1, description: "President's Day" },
+    { month: 4, week: -1, day: 1, description: "Memorial Day" },
+    { month: 8, week: 0, day: 1, description: "Labor Day" },
+    { month: 9, week: 1, day: 1, description: "Indigenous Peoples' Day" },
+    { month: 10, week: 3, day: 4, description: "Thanksgiving Day" },
+]

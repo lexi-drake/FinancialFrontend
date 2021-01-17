@@ -463,6 +463,37 @@ a {
   display: block;
 }
 
+.recurring-transaction {
+  width: 100%;
+  font-size: 16px;
+  line-height: 20px;
+  margin: 6px 0px 6px 0px;
+  float: none;
+}
+.recurring-transaction .category {
+  display: inline-block;
+  width: 40%;
+  font-weight: bold;
+  text-overflow: ellipsis;
+}
+.recurring-transaction .times {
+  display: inline-block;
+  font-size: 14px;
+  line-height: 18px;
+  margin: 0px 12px 0px 12px;
+  width: 30%;
+}
+.recurring-transaction .description {
+  font-size: 12px;
+  line-height: 16px;
+}
+.recurring-transaction .amount {
+  float: right;
+}
+.recurring-transaction .amount.negative {
+  color: #ba5056;
+}
+
 .income-generator-summary {
   width: 100%;
   font-size: 16px;
@@ -470,6 +501,8 @@ a {
   margin: 6px 0px 6px 0px;
 }
 .income-generator-summary .description {
+  display: inline-block;
+  width: 50%;
   font-weight: bold;
   text-overflow: ellipsis;
 }
@@ -493,6 +526,8 @@ a {
 }
 .ledger-entry .date {
   display: inline-block;
+  font-size: 14px;
+  line-height: 18px;
   margin: 0px 12px 0px 12px;
   width: 30%;
 }

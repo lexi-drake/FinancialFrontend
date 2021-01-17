@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Redirect, Route, RouteProps, useLocation } from "react-router";
+import Container from "../components/custom/Container";
+import Header from "../components/custom/Header";
 import { checkAdmin, checkLoggedIn } from "../store/user/actions";
 import { setRedirectPath } from "../utilities/utilities";
 
@@ -26,9 +28,13 @@ const PrivateRoute = (props: PrivateRouteProps) => {
     }, [props.admin, props.checkLoggedIn, props.checkAdmin, hasChecked]);
 
     if (!hasChecked) {
-        // TODO (alexa): render something meaningful while checking to see if the 
-        // user is logged in.
-        return <h1>Loading</h1>
+        return (
+            <Container>
+                <Header>
+                    <h1>Loading</h1>
+                </Header>
+            </Container>
+        );
     }
 
     const isPermitted = (): boolean => {

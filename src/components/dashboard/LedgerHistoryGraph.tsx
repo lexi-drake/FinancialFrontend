@@ -33,7 +33,6 @@ const LedgerHistoryGraph = (props: LedgerHistoryGraphProps) => {
             return [labels, values];
         }
         const [labels, values] = getLabelsAndValues();
-        let colorIndex = 0;
         return {
             labels: labels,
             datasets: [
@@ -50,7 +49,6 @@ const LedgerHistoryGraph = (props: LedgerHistoryGraphProps) => {
                         ];
                         const value = data.dataset.data[data.dataIndex];
                         const color = colors[value % colors.length];
-                        colorIndex += 7;
                         return color;
                     }
                 }

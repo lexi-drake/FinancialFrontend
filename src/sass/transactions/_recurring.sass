@@ -26,3 +26,33 @@
     .after
         clear: both
         display: block
+
+.recurring-transaction
+    width: 100%
+    font-size: 16px
+    line-height: 20px
+    margin: 6px 0px 6px 0px
+    float: none
+
+    .category
+        display: inline-block
+        width: 40%
+        font-weight: bold
+        text-overflow: ellipsis
+
+    .times
+        display: inline-block
+        font-size: 14px
+        line-height: 18px
+        margin: 0px 12px 0px 12px
+        width: 30%
+
+    .description
+        font-size: 12px
+        line-height: 16px
+
+    .amount
+        float: right
+
+        &.negative
+            color: $gris-red

@@ -4,17 +4,32 @@ import DashboardContainer from "../components/dashboard/DashboardContainer";
 import IncomeGeneratorComponent from "../components/dashboard/IncomeGeneratorComponent";
 import LedgerHistoryComponent from "../components/dashboard/LedgerHistoryComponent";
 import RecurringTransactionComponent from "../components/dashboard/RecurringTransactionComponent";
+import Frequency from "../models/Frequency";
 import { AppDataState } from "../store/appdata";
-import { getTransactionTypes } from "../store/ledger/actions";
+import { getFrequencies, getIncomeGenerators, getLedgerEntries, getRecurringTransactions } from "../store/ledger/actions";
+import { UsesFrequencies, UsesIncomeGenerators, UsesLedgerEntries, UsesRecurringTransactions } from "../utilities/hooks";
 
 interface DashboardProps {
     username: string;
+    frequencies: Frequency[];
+    getLedgerEntries: typeof getLedgerEntries;
+    getIncomeGenerators: typeof getIncomeGenerators;
+    getRecurringTransactions: typeof getRecurringTransactions;
+    getFrequencies: typeof getFrequencies;
 }
 
 const Dashboard = (props: DashboardProps) => {
 
+    UsesLedgerEntries(props.getLedgerEntries);
+    UsesIncomeGenerators(props.getIncomeGenerators);
+    UsesRecurringTransactions(props.getRecurringTransactions);
+    UsesFrequencies(props.frequencies, props.getFrequencies);
+
     const headline: string = `Welcome, ${props.username}`
 
+    // TODO (alexa): add modals for delting ledger entries, income generators
+    // and recurring transactions.
+    // TODO (alexa): add explanations for how to use each component.
     return (
         <DashboardContainer>
             <Header>
@@ -30,7 +45,8 @@ const Dashboard = (props: DashboardProps) => {
 const mapStateToProps = (state: AppDataState): Partial<DashboardProps> => {
     return {
         username: state.user.username,
+        frequencies: state.ledger.frequencies
     };
 }
 
-export default connect(mapStateToProps, { getTransactionTypes })(Dashboard as any);
+export default connect(mapStateToProps, { getLedgerEntries, getIncomeGenerators, getRecurringTransactions, getFrequencies })(Dashboard as any);

@@ -49,9 +49,8 @@ const AdminDashboard = (props: AdminDashboardProps) => {
         });
     }
 
-    // TODO (alexa): I'm not sure what I want the admin dashboard to be for,
-    // but this works as a temporary solution so that I can add some default
-    // values to the database.
+    // TODO (alexa): hide this stuff in a modal or something
+    // and repurpose the admin-dashboard for message-handling.
     return (
         <Container>
             <Header>

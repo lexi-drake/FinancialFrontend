@@ -1,5 +1,6 @@
 import Frequency from "../../models/Frequency";
 import { IncomeGenerator } from "../../models/IncomeGenerator"
+import { getTimesPerMonthFromLastTriggeredAndFrequency, getTimesPerYearFromLastTriggeredAndFrequency } from "../../utilities/dates";
 
 interface IncomeGeneratorSummaryProps {
     generator: IncomeGenerator;
@@ -10,9 +11,16 @@ interface IncomeGeneratorSummaryProps {
 const IncomeGeneratorSummary = (props: IncomeGeneratorSummaryProps) => {
 
     const getNumberOfTransactions = (): number => {
-        // TODO (alexa): actually calculate this value using tick-dates
-        const perAnnum: number = props.frequencies.filter(x => x.id === props.generator.frequencyId)[0].approxTimesPerYear;
-        return props.monthly ? perAnnum / 21 : perAnnum;
+        if (props.generator.recurringTransactions.length === 0) {
+            return 0;
+        }
+        const lastTriggered: Date = props.generator.recurringTransactions[0].lastTriggered;
+        const frequencyId: string = props.generator.recurringTransactions[0].frequencyId;
+
+        if (props.monthly) {
+            return getTimesPerMonthFromLastTriggeredAndFrequency(lastTriggered, frequencyId, props.frequencies);
+        }
+        return getTimesPerYearFromLastTriggeredAndFrequency(lastTriggered, frequencyId, props.frequencies)
     }
 
     const calculateTotalIncome = (): number => {
@@ -31,8 +39,8 @@ const IncomeGeneratorSummary = (props: IncomeGeneratorSummaryProps) => {
 
     return (
         <div className="income-generator-summary">
-            <span className="description">{props.generator.description}</span>
-            <span className="net">${calculateTotalIncome().toFixed(2)}</span>
+            <div className="description">{props.generator.description}</div>
+            <div className="net">${calculateTotalIncome().toFixed(2)}</div>
             <hr />
         </div>
     )

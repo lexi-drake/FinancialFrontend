@@ -5,11 +5,12 @@ import AutocompleteField from "../components/custom/AutocompleteField";
 import Container from "../components/custom/Container";
 import Content from "../components/custom/Content";
 import CustomButton from "../components/custom/CustomButton";
+import CustomDatepicker from "../components/custom/CustomDatepicker";
 import CustomDropdown, { DropdownOption } from "../components/custom/CustomDropdown";
 import CustomText from "../components/custom/CustomText";
 import Header from "../components/custom/Header";
 import Section from "../components/custom/Section";
-import RecurringTransactionSummary from "../components/transactions/RecurringTransactionSummary";
+import RecurringTransactionRequestSummary from "../components/transactions/RecurringTransactionRequestSummary";
 import Frequency from "../models/Frequency";
 import { RecurringTransactionRequest } from "../models/RecurringTransaction";
 import SalaryType from "../models/SalaryType";
@@ -17,6 +18,7 @@ import TransactionType from "../models/TransactionType";
 import { AppDataState } from "../store/appdata";
 import { addIncomeGenerator, getCategories, getFrequencies, getSalaryTypes, getTransactionTypes } from "../store/ledger/actions";
 import { MAXIMUM_CATEGORY_LENGTH, MAXIMUM_DESCRIPTION_LENGTH } from "../utilities/constants";
+import { getDateFromFrequency } from "../utilities/dates";
 import { UsesFrequencies, UsesSalaryTypes, UsesTransactionTypes } from "../utilities/hooks";
 
 interface AddIncomeGeneratorProps {
@@ -42,10 +44,22 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
     const [amount, setAmount] = useState('');
     const [recurringTransactions, setRecurringTransactions] = useState([] as RecurringTransactionRequest[]);
     const [showRecurringTransactionFields, setShowRecurringTransactionFields] = useState(false);
+    const [lastTriggered, setLastTriggered] = useState(new Date());
 
     UsesFrequencies(props.frequencies, props.getFrequencies);
     UsesSalaryTypes(props.salaryTypes, props.getSalaryTypes);
     UsesTransactionTypes(props.transactionTypes, props.getTransactionTypes);
+
+    const handleDateChanged = (date: Date | [Date, Date] | null) => {
+        if (date instanceof Date) {
+            setLastTriggered(date);
+        }
+    }
+
+    // Minimum date is dependent on the selected frequency.
+    const getMinDate = (): Date => {
+        return getDateFromFrequency(frequency, props.frequencies);
+    }
 
     const setCategory = (value: string) => {
         if (value.length <= MAXIMUM_CATEGORY_LENGTH) {
@@ -80,7 +94,8 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
             description: transactionDescription,
             amount: parseFloat(amount),
             frequencyId: '',    // This will be set when the entire request is generated.
-            transactionTypeId: transactionType
+            transactionTypeId: transactionType,
+            lastTriggered: new Date()
         };
         setRecurringTransactions([...recurringTransactions, transaction]);
         // Clear our entries.
@@ -103,7 +118,7 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
             description: description,
             salaryTypeId: salaryType,
             frequencyId: frequency,
-            recurringTransactions: recurringTransactions.map(x => { return { ...x, frequencyId: frequency }; })
+            recurringTransactions: recurringTransactions.map(x => { return { ...x, frequencyId: frequency, lastTriggered: lastTriggered }; })
         });
         props.push('/dashboard');
     }
@@ -123,6 +138,7 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
                     <CustomText label="Description" value={description} onChange={(value) => setDescription(value)} />
                     <CustomDropdown label="Salary type" value={salaryType} options={salaryTypes} onSelect={(value) => setSalaryType(value)} />
                     <CustomDropdown label="Payment frequency" value={frequency} options={frequencies} onSelect={(value) => setFrequency(value)} />
+                    <CustomDatepicker label="Last executed" value={lastTriggered} onChange={(date) => handleDateChanged(date)} minDate={getMinDate()} maxDate={new Date()} />
                 </Content>
             </Section>
             {!showRecurringTransactionFields &&
@@ -136,7 +152,7 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
                         }
                         {recurringTransactions.length > 0 &&
                             recurringTransactions.map(x =>
-                                <RecurringTransactionSummary transaction={x} types={props.transactionTypes} />
+                                <RecurringTransactionRequestSummary transaction={x} types={props.transactionTypes} />
                             )}
                     </Content>
                     <Content>

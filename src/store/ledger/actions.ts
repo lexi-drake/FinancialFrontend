@@ -8,6 +8,7 @@ import SalaryType from "../../models/SalaryType";
 import TransactionType from "../../models/TransactionType";
 import { IncomeGenerator, IncomeGeneratorRequest } from "../../models/IncomeGenerator";
 import { DateSpanRequest, LedgerEntry, LedgerEntryRequest } from "../../models/LedgerEntry";
+import { RecurringTransaction, RecurringTransactionRequest } from "../../models/RecurringTransaction";
 
 const setLedgerError = (message: string): StoreAction => {
     return { type: LedgerAction.SET_LEDGER_ERROR, payload: { errorMessage: message } };
@@ -148,6 +149,50 @@ export const addLedgerEntry = (request: LedgerEntryRequest): ThunkAction<Promise
         return new Promise<void>(async (resolve) => {
             const path: string = 'ledger';
             const response: StoreAction = await post(request, path, pushLedgerEntry, setLedgerError);
+            dispatch(response);
+            resolve();
+        });
+    }
+}
+
+const setRecurringTransactions = (transactions: RecurringTransaction[]): StoreAction => {
+    return {
+        type: LedgerAction.SET_RECURRING_TRANSACTIONS,
+        payload: {
+            recurringTransactions: transactions.map(x => {
+                return {
+                    ...x,
+                    // Dates are parsed as strings by default.
+                    lastExecuted: new Date(x.lastExecuted),
+                    lastTriggered: new Date(x.lastTriggered)
+                }
+            })
+        }
+    };
+}
+
+export const getRecurringTransactions = (): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
+    return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+        return new Promise<void>(async (resolve) => {
+            const path: string = 'ledger/recurringtransactions';
+            const response: StoreAction = await get(path, setRecurringTransactions, setLedgerError);
+            dispatch(response);
+            resolve();
+        });
+    }
+}
+
+const pushRecurringTransaction = (transaction: RecurringTransaction): StoreAction => {
+    transaction.lastExecuted = new Date(transaction.lastExecuted);
+    transaction.lastTriggered = new Date(transaction.lastTriggered);
+    return { type: LedgerAction.PUSH_RECURRING_TRANSACTION, payload: { recurringTransactions: [transaction] } };
+}
+
+export const addRecurringTransaction = (request: RecurringTransactionRequest): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
+    return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+        return new Promise<void>(async (resolve) => {
+            const path: string = 'ledger/recurringtransaction';
+            const response: StoreAction = await post(request, path, pushRecurringTransaction, setLedgerError);
             dispatch(response);
             resolve();
         });

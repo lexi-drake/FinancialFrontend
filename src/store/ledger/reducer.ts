@@ -1,6 +1,7 @@
 import Frequency from "../../models/Frequency";
 import { IncomeGenerator } from "../../models/IncomeGenerator";
 import { LedgerEntry } from "../../models/LedgerEntry";
+import { RecurringTransaction } from "../../models/RecurringTransaction";
 import SalaryType from "../../models/SalaryType";
 import TransactionType from "../../models/TransactionType";
 import { ActionType, LedgerAction } from "../actions"
@@ -14,6 +15,7 @@ export interface LedgerState {
     transactionTypes: TransactionType[];
     incomeGenerators: IncomeGenerator[];
     ledgerEntries: LedgerEntry[];
+    recurringTransactions: RecurringTransaction[];
 }
 
 const defaultState: LedgerState = {
@@ -23,7 +25,8 @@ const defaultState: LedgerState = {
     salaryTypes: [],
     transactionTypes: [],
     incomeGenerators: [],
-    ledgerEntries: []
+    ledgerEntries: [],
+    recurringTransactions: []
 };
 
 export const LedgerReducer = (state: LedgerState = defaultState, action: { type: ActionType, payload: AppDataPayload }) => {
@@ -86,6 +89,18 @@ export const LedgerReducer = (state: LedgerState = defaultState, action: { type:
             state = {
                 ...state,
                 ledgerEntries: [...state.ledgerEntries, ...action.payload.entries]
+            };
+            break;
+        case LedgerAction.PUSH_RECURRING_TRANSACTION:
+            state = {
+                ...state,
+                recurringTransactions: [...state.recurringTransactions, ...action.payload.recurringTransactions]
+            };
+            break;
+        case LedgerAction.SET_RECURRING_TRANSACTIONS:
+            state = {
+                ...state,
+                recurringTransactions: action.payload.recurringTransactions
             };
             break;
     }

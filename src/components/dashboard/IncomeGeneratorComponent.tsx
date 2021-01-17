@@ -4,9 +4,7 @@ import { connect } from "react-redux"
 import Frequency from "../../models/Frequency"
 import { IncomeGenerator } from "../../models/IncomeGenerator"
 import { AppDataState } from "../../store/appdata"
-import { getFrequencies, getIncomeGenerators } from "../../store/ledger/actions"
 import { MONTHS } from "../../utilities/constants"
-import { UsesFrequencies, UsesIncomeGenerators } from "../../utilities/hooks"
 import Content from "../custom/Content"
 import CustomButton from "../custom/CustomButton"
 import CustomLink from "../custom/CustomLink"
@@ -15,16 +13,11 @@ import IncomeGeneratorSummary from "../transactions/IncomeGeneratorSummary"
 interface IncomeGeneratorComponentProps {
     incomeGenerators: IncomeGenerator[];
     frequencies: Frequency[];
-    getIncomeGenerators: typeof getIncomeGenerators;
-    getFrequencies: typeof getFrequencies;
     push: typeof push;
 }
 
 const IncomeGeneratorComponent = (props: IncomeGeneratorComponentProps) => {
     const [monthly, setMonthly] = useState(true);
-
-    UsesIncomeGenerators(props.incomeGenerators, props.getIncomeGenerators);
-    UsesFrequencies(props.frequencies, props.getFrequencies);
 
     const onAddSourceOfIncomeClick = () => {
         props.push('/income/add');
@@ -54,4 +47,4 @@ const mapStateToProps = (state: AppDataState): Partial<IncomeGeneratorComponentP
     };
 }
 
-export default connect(mapStateToProps, { getIncomeGenerators, getFrequencies, push })(IncomeGeneratorComponent as any);
+export default connect(mapStateToProps, { push })(IncomeGeneratorComponent as any);

@@ -4,6 +4,7 @@ import { IncomeGenerator } from "../models/IncomeGenerator";
 import { DateSpanRequest } from "../models/LedgerEntry";
 import SalaryType from "../models/SalaryType";
 import TransactionType from "../models/TransactionType";
+import { getRecurringTransactions } from "../store/ledger/actions";
 import { getFirstDayOfMonth, getLastDayOfMonth } from "./dates";
 
 export function UsesUserCount(count: number, getUserCount: () => void) {
@@ -38,12 +39,10 @@ export function UsesSalaryTypes(salaryTypes: SalaryType[], getSalaryTypes: () =>
     }, [salaryTypes, getSalaryTypes]);
 }
 
-export function UsesIncomeGenerators(incomeGenerators: IncomeGenerator[], getIncomeGenerators: () => void) {
+export function UsesIncomeGenerators(getIncomeGenerators: () => void) {
     useEffect(() => {
-        if (incomeGenerators.length === 0) {
-            getIncomeGenerators();
-        }
-    }, [incomeGenerators, getIncomeGenerators]);
+        getIncomeGenerators();
+    }, [/* This is intentionally left blank so that it will only run when a page loads */]);
 }
 
 export function UsesLedgerEntries(getLedgerEntries: (request: DateSpanRequest) => void) {
@@ -53,5 +52,11 @@ export function UsesLedgerEntries(getLedgerEntries: (request: DateSpanRequest) =
             start: getFirstDayOfMonth(date.getFullYear(), date.getMonth()),
             end: getLastDayOfMonth(date.getFullYear(), date.getMonth())
         });
+    }, [/* This is intentionally left blank so that it will only run when a page loads */]);
+}
+
+export function UsesRecurringTransactions(getRecurringTransactions: () => void) {
+    useEffect(() => {
+        getRecurringTransactions();
     }, [/* This is intentionally left blank so that it will only run when a page loads */]);
 }
