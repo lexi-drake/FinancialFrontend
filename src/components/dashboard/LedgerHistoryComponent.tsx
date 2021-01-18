@@ -81,6 +81,7 @@ const LedgerHistoryComponent = (props: LedgerHistoryComponentProps) => {
         setMonth(new Date().getMonth());
     }
 
+    // TODO (alexa): add ability to switch between graphs.
     return (
         <div className="ledger-history">
             <h1>Transaction history</h1>

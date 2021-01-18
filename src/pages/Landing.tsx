@@ -33,7 +33,7 @@ const Landing = (props: LandingProps) => {
             <Header>
                 <h1>What is letskeepit.cheap?</h1>
                 <p>
-                    A free, open source budgetting app.
+                    A free, open source budgeting app.
                 </p>
             </Header>
             <Section>
@@ -47,7 +47,7 @@ const Landing = (props: LandingProps) => {
             <Section>
                 <h1>Why?</h1>
                 <p>
-                    Budgetting is hard, and I need an online tool to help me keep track of
+                    Budgeting is hard, and I need an online tool to help me keep track of
                     my spending. I've tried keeping track on paper and in spreadsheets, but
                     I realized that my budget varies from week to week: my dayjob pays out
                     every two weeks, I have weekly appointments to budget for, my car
@@ -60,12 +60,12 @@ const Landing = (props: LandingProps) => {
                 </p>
             </Section>
             <Section>
-                <h1>There's a bunch of budgetting apps, why use this one?</h1>
+                <h1>There's a bunch of budgeting apps, why use this one?</h1>
                 <p>
                     Privacy is important to me, and I'm pretty careful about how much of my
                     personal information gets onto the internet. I was really turned off by
-                    the amount of information that other budgetting apps were asking of me.
-                    I decided to try my hand at making a budgetting app that I want to use,
+                    the amount of information that other budgeting apps were asking of me.
+                    I decided to try my hand at making a budgeting app that I want to use,
                     without giving up anything I don't want to.
                 </p>
                 <p>

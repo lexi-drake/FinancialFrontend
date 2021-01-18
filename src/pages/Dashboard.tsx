@@ -27,7 +27,6 @@ const Dashboard = (props: DashboardProps) => {
 
     const headline: string = `Welcome, ${props.username}`
 
-    // TODO (alexa): add explanations for how to use each component.
     return (
         <DashboardContainer>
             <Header>
