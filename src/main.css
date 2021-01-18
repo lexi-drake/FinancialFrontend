@@ -303,6 +303,7 @@ a {
   transform: translate(-50%, -50%);
   border-radius: 4px;
   box-shadow: 4px 4px 12px 0px #35343a;
+  z-index: 11;
 }
 
 .modal-header {
@@ -659,8 +660,9 @@ a {
     margin: 0px;
   }
   .navbar .custom-link {
+    width: 20%;
     float: none;
-    margin: 0px, 8px 0px 8px;
+    margin: 0px 20px 0px 20px;
   }
 
   .footer {
@@ -714,8 +716,20 @@ a {
     margin: 12px 0px 12px 0px;
     width: 280px;
   }
+
+  .modal {
+    position: static;
+  }
+
+  .modal-body {
+    width: 100%;
+    position: absolute;
+    transform: none;
+    top: 0;
+    left: 0;
+  }
 }
-@media only screen and (max-width: 1000px) {
+@media only screen and (min-width: 601px) and (max-width: 1000px) {
   html, body {
     max-width: 100%;
     height: 100%;
@@ -800,6 +814,18 @@ a {
   .custom-date-picker {
     margin: 12px 0px 12px 0px;
     width: 280px;
+  }
+
+  .modal {
+    position: static;
+  }
+
+  .modal-body {
+    width: 100%;
+    position: absolute;
+    transform: none;
+    top: 0;
+    left: 0;
   }
 }
 body {
