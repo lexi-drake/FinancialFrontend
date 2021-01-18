@@ -27,8 +27,6 @@ const Dashboard = (props: DashboardProps) => {
 
     const headline: string = `Welcome, ${props.username}`
 
-    // TODO (alexa): add modals for delting ledger entries, income generators
-    // and recurring transactions.
     // TODO (alexa): add explanations for how to use each component.
     return (
         <DashboardContainer>

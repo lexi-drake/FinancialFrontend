@@ -5,21 +5,26 @@ import Frequency from "../../models/Frequency";
 import { IncomeGenerator } from "../../models/IncomeGenerator";
 import { RecurringTransaction } from "../../models/RecurringTransaction";
 import { AppDataState } from "../../store/appdata";
+import { deleteRecurringTransaction, getRecurringTransactions } from "../../store/ledger/actions";
 import { MONTHS } from "../../utilities/constants";
 import Content from "../custom/Content";
 import CustomButton from "../custom/CustomButton";
 import CustomLink from "../custom/CustomLink";
 import RecurringTransactionSummary from "../transactions/RecurringTransactionSummary";
+import RecurringTransactionModal from "./modals/RecurringTransactionModal";
 
 interface RecurringTransactionComponentProps {
     generators: IncomeGenerator[];
     recurringTransactions: RecurringTransaction[];
     frequencies: Frequency[];
+    getRecurringTransactions: typeof getRecurringTransactions;
+    deleteRecurringTransaction: typeof deleteRecurringTransaction;
     push: typeof push;
 }
 
 const RecurringTransactionComponent = (props: RecurringTransactionComponentProps) => {
     const [monthly, setMonthly] = useState(true);
+    const [id, setId] = useState('');
 
     const onAddRecurringTransactionClick = () => {
         props.push('transaction/add');
@@ -37,7 +42,7 @@ const RecurringTransactionComponent = (props: RecurringTransactionComponentProps
             <h1>Recurring transactions</h1>
             <Content>
                 {transactionsWithoutGenerators().map(x =>
-                    <RecurringTransactionSummary key={x.id} transaction={x} frequencies={props.frequencies} monthly={monthly} />)
+                    <RecurringTransactionSummary key={x.id} transaction={x} frequencies={props.frequencies} monthly={monthly} onClick={(value) => setId(value)} />)
                 }
                 <CustomLink first onClick={() => setMonthly(true)}>{MONTHS[new Date().getMonth()]}</CustomLink>
                 <CustomLink onClick={() => setMonthly(false)}>{new Date().getFullYear()}</CustomLink>
@@ -45,6 +50,7 @@ const RecurringTransactionComponent = (props: RecurringTransactionComponentProps
             <Content>
                 <CustomButton onClick={() => onAddRecurringTransactionClick()}>Add transaction</CustomButton>
             </Content>
+            <RecurringTransactionModal id={id} transactions={props.recurringTransactions} getRecurringTransactions={props.getRecurringTransactions} deleteRecurringTransaction={props.deleteRecurringTransaction} frequencies={props.frequencies} close={() => setId('')} />
         </div>
     );
 }
@@ -57,4 +63,4 @@ const mapStateToProps = (state: AppDataState): Partial<RecurringTransactionCompo
     };
 }
 
-export default connect(mapStateToProps, { push })(RecurringTransactionComponent as any);
+export default connect(mapStateToProps, { getRecurringTransactions, deleteRecurringTransaction, push })(RecurringTransactionComponent as any);

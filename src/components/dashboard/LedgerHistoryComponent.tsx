@@ -3,7 +3,7 @@ import { useState } from "react";
 import { connect } from "react-redux";
 import { LedgerEntry } from "../../models/LedgerEntry";
 import { AppDataState } from "../../store/appdata";
-import { getLedgerEntries } from "../../store/ledger/actions";
+import { deleteLedgerEntry, getLedgerEntries } from "../../store/ledger/actions";
 import { MONTHS } from "../../utilities/constants";
 import { getFirstDayOfMonth, getLastDayOfMonth } from "../../utilities/dates";
 import Content from "../custom/Content";
@@ -11,15 +11,18 @@ import CustomButton from "../custom/CustomButton";
 import CustomDropdown, { DropdownOption } from "../custom/CustomDropdown";
 import LedgerEntryComponent from "../transactions/LedgerEntryComponent";
 import LedgerHistoryGraph from "./LedgerHistoryGraph";
+import LedgerEntryModal from "./modals/LedgerEntryModal";
 
 interface LedgerHistoryComponentProps {
     ledgerEntries: LedgerEntry[];
     getLedgerEntries: typeof getLedgerEntries;
+    deleteLedgerEntry: typeof deleteLedgerEntry;
     push: typeof push;
 }
 
 const LedgerHistoryComponent = (props: LedgerHistoryComponentProps) => {
     const [month, setMonth] = useState(new Date().getMonth());
+    const [id, setId] = useState('');
 
     const onAddTransactionClick = () => {
         props.push('ledger/add');
@@ -73,6 +76,11 @@ const LedgerHistoryComponent = (props: LedgerHistoryComponentProps) => {
         return classes.join(' ');
     }
 
+    const onModalClose = () => {
+        setId('');
+        setMonth(new Date().getMonth());
+    }
+
     return (
         <div className="ledger-history">
             <h1>Transaction history</h1>
@@ -88,10 +96,11 @@ const LedgerHistoryComponent = (props: LedgerHistoryComponentProps) => {
             </Content>
             <Content>
                 {getLedgerEntriesForMonth(month).map(x =>
-                    <LedgerEntryComponent key={x.id} entry={x} />)
+                    <LedgerEntryComponent key={x.id} entry={x} onClick={(value) => setId(value)} />)
                 }
                 <div className={calculateTotalClasses()}>${getTotal().toFixed()}</div>
             </Content>
+            <LedgerEntryModal id={id} entries={props.ledgerEntries} getLedgerEntries={props.getLedgerEntries} deleteLedgerEntry={props.deleteLedgerEntry} close={() => onModalClose()} />
         </div>
     );
 }
@@ -102,4 +111,4 @@ const mapStateToProps = (state: AppDataState): Partial<LedgerHistoryComponentPro
     };
 }
 
-export default connect(mapStateToProps, { getLedgerEntries, push })(LedgerHistoryComponent as any);
+export default connect(mapStateToProps, { getLedgerEntries, deleteLedgerEntry, push })(LedgerHistoryComponent as any);

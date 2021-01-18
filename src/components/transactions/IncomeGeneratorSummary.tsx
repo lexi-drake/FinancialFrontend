@@ -6,6 +6,7 @@ interface IncomeGeneratorSummaryProps {
     generator: IncomeGenerator;
     frequencies: Frequency[];
     monthly: boolean;
+    onClick: (value: string) => void;
 }
 
 const IncomeGeneratorSummary = (props: IncomeGeneratorSummaryProps) => {
@@ -15,7 +16,7 @@ const IncomeGeneratorSummary = (props: IncomeGeneratorSummaryProps) => {
             return 0;
         }
         const lastTriggered: Date = props.generator.recurringTransactions[0].lastTriggered;
-        const frequencyId: string = props.generator.recurringTransactions[0].frequencyId;
+        const frequencyId: string = props.generator.frequencyId;
 
         if (props.monthly) {
             return getTimesPerMonthFromLastTriggeredAndFrequency(lastTriggered, frequencyId, props.frequencies);
@@ -38,7 +39,7 @@ const IncomeGeneratorSummary = (props: IncomeGeneratorSummaryProps) => {
     }
 
     return (
-        <div className="income-generator-summary">
+        <div className="income-generator-summary" onClick={() => props.onClick(props.generator.id)}>
             <div className="description">{props.generator.description}</div>
             <div className="net">${calculateTotalIncome().toFixed(2)}</div>
             <hr />

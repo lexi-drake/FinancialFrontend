@@ -103,6 +103,24 @@ export const LedgerReducer = (state: LedgerState = defaultState, action: { type:
                 recurringTransactions: action.payload.recurringTransactions
             };
             break;
+        case LedgerAction.DELETE_INCOME_GENERATOR:
+            state = {
+                ...state,
+                incomeGenerators: []
+            };
+            break;
+        case LedgerAction.DELETE_LEDGER_ENTRY:
+            state = {
+                ...state,
+                ledgerEntries: []
+            };
+            break;
+        case LedgerAction.DELETE_RECURRING_TRANSACTION:
+            state = {
+                ...state,
+                recurringTransactions: []
+            };
+            break;
     }
     return state;
 }

@@ -40,7 +40,7 @@ const AdminDashboard = (props: AdminDashboardProps) => {
             || isNaN(parseInt(timesPerYear));
     }
 
-    const onSubmitFrequencyClicked = () => {
+    const onSubmitFrequencyClick = () => {
         setFrequencyDescription('');
         setTimesPerYear('');
         props.submitFrequency({
@@ -70,7 +70,7 @@ const AdminDashboard = (props: AdminDashboardProps) => {
                     <CustomText value={frequencyDescription} label="Description" onChange={(value) => setFrequencyDescription(value)} />
                     <CustomText value={timesPerYear} label="Approx. times per year" onChange={(value) => setTimesPerYear(value)} />
                 </Content>
-                <CustomButton disabled={submitFrequencyDisabled()} onClick={() => onSubmitFrequencyClicked()}>Submit Frequency</CustomButton>
+                <CustomButton disabled={submitFrequencyDisabled()} onClick={() => onSubmitFrequencyClick()}>Submit Frequency</CustomButton>
             </Section>
         </Container>
     );

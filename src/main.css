@@ -45,6 +45,12 @@ input:focus {
   border-radius: 16px;
   cursor: pointer;
 }
+.custom-button.error {
+  background-color: #ba5056;
+}
+.custom-button.error:hover {
+  background-color: #8f0e22;
+}
 .custom-button:hover {
   background-color: #576970;
 }
@@ -269,6 +275,75 @@ a {
   border: 1px solid #f5b8b7;
 }
 
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 11;
+}
+
+.modal-body {
+  background-color: #fbf7f6;
+  position: fixed;
+  width: 420px;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 4px;
+  box-shadow: 4px 4px 12px 0px #35343a;
+}
+
+.modal-header {
+  text-align: center;
+  height: 113px;
+  color: #fbf7f6;
+  background-color: #207bad;
+  padding: 40px 0px 47px 0px;
+}
+.modal-header h1 {
+  font-size: 24px;
+  line-height: 26px;
+}
+
+.modal-content {
+  padding: 20px 20px 20px 20px;
+  font-size: 14px;
+  line-height: 18px;
+}
+.modal-content h1 {
+  text-align: center;
+  font-size: 24px;
+  line-height: 28px;
+}
+.modal-content .custom-button {
+  display: inline-block;
+  margin: 20px 5px 20px 5px;
+}
+
+.name-value {
+  padding: 6px 0px 8px 0px;
+}
+.name-value .name-value-name {
+  display: inline-block;
+  float: left;
+  max-width: 45%;
+  text-overflow: ellipsis;
+  font-weight: bold;
+}
+.name-value .name-value-value {
+  display: inline-block;
+  float: right;
+  text-align: right;
+  max-width: 45%;
+}
+.name-value .after {
+  clear: both;
+}
+
 .input-label, .custom-date-picker label, .custom-text label, .custom-dropdown label {
   position: absolute;
   margin: 0px 0px 0px 20px;
@@ -469,6 +544,7 @@ a {
   line-height: 20px;
   margin: 6px 0px 6px 0px;
   float: none;
+  cursor: pointer;
 }
 .recurring-transaction .category {
   display: inline-block;
@@ -499,6 +575,7 @@ a {
   font-size: 16px;
   line-height: 20px;
   margin: 6px 0px 6px 0px;
+  cursor: pointer;
 }
 .income-generator-summary .description {
   display: inline-block;
@@ -517,6 +594,7 @@ a {
   line-height: 20px;
   margin: 6px 0px 6px 0px;
   float: none;
+  cursor: pointer;
 }
 .ledger-entry .category {
   display: inline-block;

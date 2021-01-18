@@ -6,6 +6,7 @@ interface RecurringTransactionSummaryProps {
     transaction: RecurringTransaction;
     frequencies: Frequency[];
     monthly: boolean;
+    onClick: (value: string) => void;
 }
 
 const RecurringTransactionSummary = (props: RecurringTransactionSummaryProps) => {
@@ -34,7 +35,7 @@ const RecurringTransactionSummary = (props: RecurringTransactionSummaryProps) =>
     const [amount, times] = props.monthly ? getTimesPerMonth() : getTimesPerYear();
 
     return (
-        <div className="recurring-transaction">
+        <div className="recurring-transaction" onClick={() => props.onClick(props.transaction.id)}>
             <div className="category">{props.transaction.category}</div>
             <div className="times">{`$${props.transaction.amount.toFixed(2)} x ${times}`}</div>
             <span className={calculateAmountClasses()}>${amount.toFixed(2)}</span>

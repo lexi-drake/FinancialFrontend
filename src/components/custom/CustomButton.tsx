@@ -3,6 +3,7 @@ import { FunctionComponent } from "react";
 interface CustomButtonProps {
     onClick: () => void;
     disabled?: boolean;
+    error?: boolean;
 }
 
 const CustomButton: FunctionComponent<CustomButtonProps> = (props) => {
@@ -16,6 +17,7 @@ const CustomButton: FunctionComponent<CustomButtonProps> = (props) => {
     const calculateClasses = (): string => {
         const classes: string[] = ['custom-button'];
         if (props.disabled) { classes.push('disabled'); }
+        if (props.error) { classes.push('error'); }
         return classes.join(' ');
     }
 

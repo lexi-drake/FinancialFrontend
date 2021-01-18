@@ -3,6 +3,7 @@ import { getReadableDate } from "../../utilities/dates";
 
 interface LedgerEntryComponentProps {
     entry: LedgerEntry;
+    onClick: (value: string) => void;
 }
 
 const LedgerEntryComponent = (props: LedgerEntryComponentProps) => {
@@ -14,7 +15,7 @@ const LedgerEntryComponent = (props: LedgerEntryComponentProps) => {
     }
 
     return (
-        <div className="ledger-entry">
+        <div className="ledger-entry" onClick={() => props.onClick(props.entry.id)}>
             <div className="category">{props.entry.category}</div>
             <div className="date">{getReadableDate(props.entry.transactionDate)}</div>
             <span className={calculateAmountClasses()}>${props.entry.amount.toFixed(2)}</span>

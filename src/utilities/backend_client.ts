@@ -77,6 +77,27 @@ const makeAuthGetRequest = async (path: string, refreshIfFailed: boolean = true,
     return response;
 }
 
+const makeAuthDeleteRequest = async (path: string, refreshIfFailed: boolean = true, options: AxiosRequestConfig = defaultOptions): Promise<AuthResponse> => {
+    // See documentation for 'makeAuthDeleteRequest' for an approximation of how this method should be
+    // commented; the logic is all pretty much the same.
+    const response: AuthResponse = await client.delete(path)
+        .then(response => response.data)
+        .then(async (data) => {
+            return { error: false, content: data };
+        }).catch(async (error: AxiosError) => {
+            if (error.response?.status === 401 && refreshIfFailed) {
+                const refreshResponse = await refreshToken();
+                if (!refreshResponse.error) {
+                    return await makeAuthGetRequest(path, false);
+                }
+                return refreshResponse;
+            } else {
+                return { error: true, content: parseErrorMessage(error) };
+            }
+        });
+    return response;
+}
+
 export const post = async (request: any, path: string, successAction: SuccessAction, failureAction: FailureAction): Promise<StoreAction> => {
     const response: AuthResponse = await makeAuthPostRequest(request, path);
     if (response.error) {
@@ -88,6 +109,15 @@ export const post = async (request: any, path: string, successAction: SuccessAct
 
 export const get = async (path: string, successAction: SuccessAction, failureAction: FailureAction): Promise<StoreAction> => {
     const response: AuthResponse = await makeAuthGetRequest(path);
+    if (response.error) {
+        return failureAction(response.content);
+    } else {
+        return successAction(response.content);
+    }
+}
+
+export const del = async (path: string, successAction: SuccessAction, failureAction: FailureAction): Promise<StoreAction> => {
+    const response: AuthResponse = await makeAuthDeleteRequest(path);
     if (response.error) {
         return failureAction(response.content);
     } else {

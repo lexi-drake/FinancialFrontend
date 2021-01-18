@@ -1,6 +1,6 @@
 import { AnyAction } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import { get, post } from "../../utilities/backend_client";
+import { del, get, post } from "../../utilities/backend_client";
 import { LedgerAction, StoreAction } from "../actions";
 import { Category, CategoryRequest } from '../../models/Category';
 import Frequency from "../../models/Frequency";
@@ -193,6 +193,53 @@ export const addRecurringTransaction = (request: RecurringTransactionRequest): T
         return new Promise<void>(async (resolve) => {
             const path: string = 'ledger/recurringtransaction';
             const response: StoreAction = await post(request, path, pushRecurringTransaction, setLedgerError);
+            dispatch(response);
+            resolve();
+        });
+    }
+}
+
+const clearIncomeGenerators = (): StoreAction => {
+    return { type: LedgerAction.DELETE_INCOME_GENERATOR, payload: {} };
+}
+
+export const deleteIncomeGenerator = (id: string): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
+    return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+        return new Promise<void>(async (resolve) => {
+            const path: string = `ledger/generator/${id}`;
+            const response: StoreAction = await del(path, clearIncomeGenerators, setLedgerError);
+            dispatch(response);
+            resolve();
+        });
+    }
+}
+
+
+const clearLedgerEntries = (): StoreAction => {
+    return { type: LedgerAction.DELETE_LEDGER_ENTRY, payload: {} };
+}
+
+export const deleteLedgerEntry = (id: string): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
+    return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+        return new Promise<void>(async (resolve) => {
+            const path: string = `ledger/${id}`;
+            const response: StoreAction = await del(path, clearLedgerEntries, setLedgerError);
+            dispatch(response);
+            resolve();
+        });
+    }
+}
+
+
+const clearRecurringTransactions = (): StoreAction => {
+    return { type: LedgerAction.DELETE_RECURRING_TRANSACTION, payload: {} };
+}
+
+export const deleteRecurringTransaction = (id: string): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
+    return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+        return new Promise<void>(async (resolve) => {
+            const path: string = `ledger/recurringtransaction/${id}`;
+            const response: StoreAction = await del(path, clearRecurringTransactions, setLedgerError);
             dispatch(response);
             resolve();
         });
