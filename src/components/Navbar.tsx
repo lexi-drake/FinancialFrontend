@@ -1,4 +1,5 @@
 import { push } from "connected-react-router";
+import { Fragment } from "react";
 import { connect } from "react-redux";
 import { AppDataState } from "../store/appdata";
 import { logout } from "../store/user/actions";
@@ -36,10 +37,10 @@ const Navbar = (props: NavbarProps) => {
             <Container>
                 <h1 onClick={() => props.push('')}>letskeepit.cheap</h1>
                 {props.isLoggedIn &&
-                    <div>
+                    <Fragment>
                         <CustomLink last onClick={() => onLogoutClick()}>Logout</CustomLink>
                         <CustomLink onClick={() => onDashboardClick()}>Dashboard</CustomLink>
-                    </div>
+                    </Fragment>
                 }
                 {!props.isLoggedIn &&
                     <CustomLink onClick={() => onLoginClick()}>Login</CustomLink>
