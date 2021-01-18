@@ -4,6 +4,7 @@ import { LedgerEntry } from "../../models/LedgerEntry";
 import { RecurringTransaction } from "../../models/RecurringTransaction";
 import SalaryType from "../../models/SalaryType";
 import TransactionType from "../../models/TransactionType";
+import { sortFrequencies } from "../../utilities/utilities";
 import { ActionType, LedgerAction } from "../actions"
 import { AppDataPayload } from "../appdata"
 
@@ -46,6 +47,7 @@ export const LedgerReducer = (state: LedgerState = defaultState, action: { type:
             };
             break;
         case LedgerAction.SET_FREQUENCIES:
+            sortFrequencies(action.payload.frequencies);
             state = {
                 ...state,
                 frequencies: action.payload.frequencies

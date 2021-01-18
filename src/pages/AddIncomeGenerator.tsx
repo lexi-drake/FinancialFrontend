@@ -7,8 +7,10 @@ import Content from "../components/custom/Content";
 import CustomButton from "../components/custom/CustomButton";
 import CustomDatepicker from "../components/custom/CustomDatepicker";
 import CustomDropdown, { DropdownOption } from "../components/custom/CustomDropdown";
+import CustomLink from "../components/custom/CustomLink";
 import CustomText from "../components/custom/CustomText";
 import Header from "../components/custom/Header";
+import Modal, { ModalContent, ModalHeader } from "../components/custom/Modal";
 import Section from "../components/custom/Section";
 import RecurringTransactionRequestSummary from "../components/transactions/RecurringTransactionRequestSummary";
 import Frequency from "../models/Frequency";
@@ -45,6 +47,7 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
     const [recurringTransactions, setRecurringTransactions] = useState([] as RecurringTransactionRequest[]);
     const [showRecurringTransactionFields, setShowRecurringTransactionFields] = useState(false);
     const [lastTriggered, setLastTriggered] = useState(new Date());
+    const [showHelp, setShowHelp] = useState(false);
 
     UsesFrequencies(props.frequencies, props.getFrequencies);
     UsesSalaryTypes(props.salaryTypes, props.getSalaryTypes);
@@ -131,6 +134,7 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
         <Container>
             <Header>
                 <h1>Add a source of income</h1>
+                <CustomLink onClick={() => setShowHelp(true)}>What is this?</CustomLink>
             </Header>
             <Section>
                 <h1>Details</h1>
@@ -177,6 +181,61 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
             <Section>
                 <CustomButton disabled={addSourceOfIncomeDisabled()} onClick={() => onAddSourceOfIncomeClick()}>Add source of income</CustomButton>
             </Section>
+            <Modal show={showHelp}>
+                <ModalHeader>
+                    <h1>Help</h1>
+                </ModalHeader>
+                <ModalContent>
+                    <Section>
+                        <h1>Overview</h1>
+                        <p>
+                            On this page, you can add a source of income to your
+                            account. Sources of income are really just collections
+                            of recurring transactions that all occur together.
+                        </p>
+                    </Section>
+                    <Section>
+                        <h1>Details</h1>
+                        <p>
+                            <strong>Description</strong> is the name of the source
+                            of income. This could be the job-title or employer, but
+                            whatever works for you is best.
+                        </p>
+                        <p>
+                            <strong>Salary type</strong> can be either hourly or
+                            salary. This is currently just a cosmetic option, but
+                            functionality to support hourly/salary differences may
+                            come in the future.
+                        </p>
+                        <p>
+                            <strong>Payment frequency</strong> indicates how frequently
+                            the source of income pays out. Most sources of income
+                            are going to be Biweekly (every two weeks) or Semimonthly
+                            (twice per month).
+                        </p>
+                        <p>
+                            <strong>Last executed</strong> is the date on which you
+                            were last <em>scheduled</em> to be paid. Behind the scenes,
+                            this, along with the payment frequency, helps us determine
+                            when this source of income will trigger in the future.
+                        </p>
+                    </Section>
+                    <Section>
+                        <h1>Associated recurring transactions</h1>
+                        <p>
+                            You can add one or more recurring transactions to a
+                            source of income. Recurring transactions can include
+                            how much the source of income pays (as <em>income</em>),
+                            how much is paid in taxes or into a retirement account
+                            (as <em>expenditure</em>), or anything else associated
+                            with the source of income.
+                        </p>
+                    </Section>
+                    <Section>
+                        <CustomButton onClick={() => setShowHelp(false)}>Close</CustomButton>
+                    </Section>
+                </ModalContent>
+            </Modal>
         </Container>
     );
 }

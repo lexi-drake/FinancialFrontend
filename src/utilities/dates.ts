@@ -45,7 +45,7 @@ const getDaysIntervalFromTimesPerYear = (timesPerYear: number): number => {
         case 26:
             return 14;
         default:
-            // If it's monthly or less often, the calculations that this is 
+            // If it's semi-monthly or less often, the calculations that this is 
             // used for are different. It's easier to check for a 0 value 
             // returned from this than to account for those differences here.
             return 0;

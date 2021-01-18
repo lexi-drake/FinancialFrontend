@@ -117,6 +117,11 @@ a {
   width: 269px;
   height: 4px;
 }
+.header .custom-link {
+  margin: 0px;
+  font-size: 16px;
+  line-height: 24px;
+}
 
 .footer {
   position: relative;

@@ -1,5 +1,5 @@
 import { push } from "connected-react-router";
-import { useState } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import AutocompleteField from "../components/custom/AutocompleteField";
 import Container from "../components/custom/Container";
@@ -7,8 +7,10 @@ import Content from "../components/custom/Content";
 import CustomButton from "../components/custom/CustomButton";
 import CustomDatepicker from "../components/custom/CustomDatepicker";
 import CustomDropdown, { DropdownOption } from "../components/custom/CustomDropdown";
+import CustomLink from "../components/custom/CustomLink";
 import CustomText from "../components/custom/CustomText";
 import Header from "../components/custom/Header";
+import Modal, { ModalContent, ModalHeader } from "../components/custom/Modal";
 import Section from "../components/custom/Section";
 import TransactionType from "../models/TransactionType";
 import { AppDataState } from "../store/appdata";
@@ -31,6 +33,7 @@ const AddLedgerEntry = (props: AddLedgerEntryProps) => {
     const [description, _setDescription] = useState('');
     const [amount, setAmount] = useState('');
     const [date, setDate] = useState(new Date());
+    const [showHelp, setShowHelp] = useState(false);
 
     UsesTransactionTypes(props.transactionTypes, props.getTransactionTypes);
 
@@ -83,6 +86,7 @@ const AddLedgerEntry = (props: AddLedgerEntryProps) => {
         <Container>
             <Header>
                 <h1>Add a transaction</h1>
+                <CustomLink onClick={() => setShowHelp(true)}>What is this?</CustomLink>
             </Header>
             <Section>
                 <Content>
@@ -96,6 +100,52 @@ const AddLedgerEntry = (props: AddLedgerEntryProps) => {
                     <CustomButton onClick={() => onAddTransactionClick()}>Add transaction</CustomButton>
                 </Content>
             </Section>
+            <Modal show={showHelp}>
+                <ModalHeader>
+                    <h1>Help</h1>
+                </ModalHeader>
+                <ModalContent>
+                    <Section>
+                        <h1>Overview</h1>
+                        <p>
+                            On this page, you can add a single, one-off transaction
+                            to your account.
+                        </p>
+                    </Section>
+                    <Section>
+                        <h1>Details</h1>
+                        <p>
+                            <strong>Transaction type</strong> indicates whether
+                            the transaction represents positive cash-flow
+                            (<em>income</em>) or negative cash-flow (<em>expenditure</em>).
+                        </p>
+                        <p>
+                            <strong>Category</strong> indicates what group this transaction
+                            falls into when determining where money is coming-from or
+                            going towards.
+                        </p>
+                        <p>
+                            <strong>Description</strong> can be anything that helps
+                            you identify or remember this specific transaction. It
+                            is not used for any sort of grouping, like category is.
+                        </p>
+                        <p>
+                            <strong>Amount</strong> is the dollar amount of the
+                            transaction. Values should always be positive (hehind
+                            the scenes, <em>expenditures</em> are handled as
+                            negative values.
+                        </p>
+                        <p>
+                            <strong>Transaction date</strong> is the date on which
+                            this transaction occured. Right now, you can't add
+                            transactions that occured more than one month ago.
+                        </p>
+                    </Section>
+                    <Section>
+                        <CustomButton onClick={() => setShowHelp(false)}>Close</CustomButton>
+                    </Section>
+                </ModalContent>
+            </Modal>
         </Container>
     );
 }
