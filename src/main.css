@@ -209,7 +209,7 @@ a {
   margin: 6px 0px 6px 0px;
 }
 .ledger-history hr {
-  width: 660px;
+  width: 69% px;
   margin: 0px 0px 0px 100px;
   border: 1px solid #2baed3;
 }
@@ -231,9 +231,6 @@ a {
 .ledger-history .total.negative {
   color: #ba5056;
 }
-.ledger-history .graph-wrapper {
-  max-height: 300px;
-}
 
 .income-generator-list {
   background-color: #fbf7f6;
@@ -254,7 +251,7 @@ a {
   margin: 6px 0px 6px 0px;
 }
 .income-generator-list hr {
-  width: 440;
+  width: 60%;
   margin: 0px 0px 8px 100px;
   border: 1px solid #a5d6c6;
 }
@@ -278,7 +275,7 @@ a {
   margin: 6px 0px 6px 0px;
 }
 .recurring-transaction-list hr {
-  width: 440;
+  width: 69%;
   margin: 0px 0px 8px 100px;
   border: 1px solid #f5b8b7;
 }
@@ -518,33 +515,46 @@ a {
 }
 
 .recurring-transaction-summary {
-  width: 420px;
+  max-width: 420px;
   margin: 6px 0px 6px 0px;
 }
 .recurring-transaction-summary .category {
+  display: inline-block;
   font-size: 16px;
   line-height: 20px;
   font-weight: bold;
   text-overflow: ellipsis;
 }
 .recurring-transaction-summary .type {
+  display: inline-block;
   font-size: 14px;
   line-height: 18px;
   padding: 0px 0px 0px 12px;
 }
 .recurring-transaction-summary .amount {
+  display: inline-block;
   font-size: 16px;
   line-height: 20px;
   float: right;
-  max-width: 50%;
+  max-width: 30%;
 }
 .recurring-transaction-summary .description {
   font-size: 12px;
   line-height: 16px;
 }
 .recurring-transaction-summary .after {
+  display: inline-block;
+  float: right;
+  margin: 0px 0px 0px 8px;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  background-color: #ba5056;
   clear: both;
-  display: block;
+  cursor: pointer;
+}
+.recurring-transaction-summary .after:hover {
+  background-color: #8f0e22;
 }
 
 .recurring-transaction {
@@ -800,20 +810,14 @@ a {
 
   .custom-dropdown {
     margin: 12px 0px 12px 0px;
-    width: 280px;
-  }
-  .custom-dropdown .custom-dropdown-menu {
-    width: 280px;
   }
 
   .custom-text {
     margin: 12px 0px 12px 0px;
-    width: 280px;
   }
 
   .custom-date-picker {
     margin: 12px 0px 12px 0px;
-    width: 280px;
   }
 
   .modal {

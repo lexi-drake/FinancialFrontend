@@ -122,7 +122,8 @@ const AddLedgerEntry = (props: AddLedgerEntryProps) => {
                         <p>
                             <strong>Category</strong> indicates what group this transaction
                             falls into when determining where money is coming-from or
-                            going towards.
+                            going towards. <strong>Note: categories are shared across users,
+                            so DO NOT include personal information in the category field.</strong>
                         </p>
                         <p>
                             <strong>Description</strong> can be anything that helps

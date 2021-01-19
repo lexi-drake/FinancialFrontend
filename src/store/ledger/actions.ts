@@ -91,6 +91,10 @@ export const addIncomeGenerator = (request: IncomeGeneratorRequest): ThunkAction
 }
 
 const setIncomeGenerator = (generators: IncomeGenerator[]): StoreAction => {
+    generators.map(g => g.recurringTransactions.map(t => {
+        t.lastExecuted = new Date(t.lastExecuted);
+        t.lastTriggered = new Date(t.lastTriggered);
+    }));
     return { type: LedgerAction.SET_INCOME_GENERATORS, payload: { incomeGenerators: generators } };
 }
 

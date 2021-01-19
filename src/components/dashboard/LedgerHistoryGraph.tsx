@@ -1,12 +1,17 @@
-import { HorizontalBar } from 'react-chartjs-2';
+import { Pie } from 'react-chartjs-2';
 import { ChartOptions } from 'chart.js'
 import { LedgerEntry } from "../../models/LedgerEntry";
+import { useState } from 'react';
+import Content from '../custom/Content';
+import CustomLink from '../custom/CustomLink';
+import Chart from 'chart.js';
 
 interface LedgerHistoryGraphProps {
     ledgerEntries: LedgerEntry[]
 }
 
 const LedgerHistoryGraph = (props: LedgerHistoryGraphProps) => {
+    const [graph, setGraph] = useState('Expenditures');
 
     const getData = (type: string): { labels: any, datasets: any } => {
         const getLabelsAndValues = (): [string[], number[]] => {
@@ -33,24 +38,23 @@ const LedgerHistoryGraph = (props: LedgerHistoryGraphProps) => {
             return [labels, values];
         }
         const [labels, values] = getLabelsAndValues();
+        let colorIndex = 0;
+        const availableColors: string[] = [
+            '#f5b8b7', '#ba5056', '#8f0e22',    // Reds
+            '#a5d6c6', '#7d957b', '#576970',    // Greens
+            '#2baed3', '#207bad', '#113691'     // Blues
+        ];
+        const colors: string[] = [];
+        for (const i in values) {
+            colors.push(availableColors[colorIndex % availableColors.length]);
+            colorIndex += 7;
+        }
         return {
             labels: labels,
             datasets: [
                 {
                     data: values,
-                    backgroundColor: (data: { dataset: any, dataIndex: any }) => {
-                        if (!data.dataset === undefined || data.dataset.data === undefined || data.dataIndex === undefined) {
-                            return '#bdbec2';
-                        }
-                        const colors: string[] = [
-                            '#f5b8b7', '#ba5056', '#8f0e22',    // Reds
-                            '#a5d6c6', '#7d957b', '#576970',    // Greens
-                            '#2baed3', '#207bad', '#113691'     // Blues
-                        ];
-                        const value = data.dataset.data[data.dataIndex];
-                        const color = colors[value % colors.length];
-                        return color;
-                    }
+                    backgroundColor: colors
                 }
             ]
         }
@@ -67,7 +71,7 @@ const LedgerHistoryGraph = (props: LedgerHistoryGraphProps) => {
                 xAxes: [
                     {
                         ticks: {
-                            beginAtZero: true
+                            display: false,
                         },
                         gridLines: {
                             display: false
@@ -76,6 +80,9 @@ const LedgerHistoryGraph = (props: LedgerHistoryGraphProps) => {
                 ],
                 yAxes: [
                     {
+                        ticks: {
+                            display: false
+                        },
                         gridLines: {
                             display: false
                         }
@@ -83,23 +90,28 @@ const LedgerHistoryGraph = (props: LedgerHistoryGraphProps) => {
                 ]
             },
             legend: {
-                display: false
+                display: true
             },
-
             responsive: true,
-            maintainAspectRatio: false
+            maintainAspectRatio: true
         }
         return options;
     };
 
+    const getGraph = (): any => {
+        if (graph === 'Income') {
+            return <Pie data={getData('Income')} options={options('Income')} />
+        }
+        return <Pie data={getData('Expenditure')} options={options('Expenditures')} />
+    }
+
     return (
         <div className="ledger-history-graph">
-            <div className="graph-wrapper">
-                <HorizontalBar data={getData('Income')} options={options('Income')} />
-            </div>
-            <div className="graph-wrapper">
-                <HorizontalBar data={getData('Expenditure')} options={options('Expenditures')} />
-            </div>
+            {getGraph()}
+            <Content>
+                <CustomLink onClick={() => setGraph('Income')}>Income</CustomLink>
+                <CustomLink onClick={() => setGraph('Expenditures')}>Expenditures</CustomLink>
+            </Content>
         </div>
     );
 }

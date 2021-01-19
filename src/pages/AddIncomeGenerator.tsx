@@ -76,6 +76,11 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
         }
     }
 
+    const onDeleteClick = (value: string) => {
+        setRecurringTransactions(recurringTransactions
+            .filter(x => x.description !== value));
+    }
+
     const onAddTransactionClick = () => {
         setShowRecurringTransactionFields(true);
     }
@@ -156,7 +161,7 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
                         }
                         {recurringTransactions.length > 0 &&
                             recurringTransactions.map(x =>
-                                <RecurringTransactionRequestSummary transaction={x} types={props.transactionTypes} />
+                                <RecurringTransactionRequestSummary transaction={x} types={props.transactionTypes} onClick={(value) => onDeleteClick(value)} />
                             )}
                     </Content>
                     <Content>
@@ -228,7 +233,9 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
                             how much the source of income pays (as <em>income</em>),
                             how much is paid in taxes or into a retirement account
                             (as <em>expenditure</em>), or anything else associated
-                            with the source of income.
+                            with the source of income. <strong>Note: categories are
+                            shared across users, so DO NOT include personal information
+                            in the category field.</strong>
                         </p>
                     </Section>
                     <Section>

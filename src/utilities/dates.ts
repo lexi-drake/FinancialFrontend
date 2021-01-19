@@ -94,11 +94,12 @@ const getDatesInMonthByInteval = (lastTriggered: Date, interval: number): Date[]
             }
             if (tempDate.getMonth() === currentMonth) {
                 dates.push(tempDate);
-                continue;
+                break;
             }
-        }
-        if (date.getMonth() === currentMonth) {
-            dates.push(date);
+        } else {
+            if (date.getMonth() === currentMonth) {
+                dates.push(new Date(date.getFullYear(), date.getMonth(), date.getDate()));
+            }
         }
     } while (date.getMonth() === currentMonth)
     return dates;

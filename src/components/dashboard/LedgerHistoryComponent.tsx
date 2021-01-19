@@ -81,7 +81,6 @@ const LedgerHistoryComponent = (props: LedgerHistoryComponentProps) => {
         setMonth(new Date().getMonth());
     }
 
-    // TODO (alexa): add ability to switch between graphs.
     return (
         <div className="ledger-history">
             <h1>Transaction history</h1>
@@ -99,7 +98,7 @@ const LedgerHistoryComponent = (props: LedgerHistoryComponentProps) => {
                 {getLedgerEntriesForMonth(month).map(x =>
                     <LedgerEntryComponent key={x.id} entry={x} onClick={(value) => setId(value)} />)
                 }
-                <div className={calculateTotalClasses()}>${getTotal().toFixed()}</div>
+                <div className={calculateTotalClasses()}>${getTotal().toFixed(2)}</div>
             </Content>
             <LedgerEntryModal id={id} entries={props.ledgerEntries} getLedgerEntries={props.getLedgerEntries} deleteLedgerEntry={props.deleteLedgerEntry} close={() => onModalClose()} />
         </div>

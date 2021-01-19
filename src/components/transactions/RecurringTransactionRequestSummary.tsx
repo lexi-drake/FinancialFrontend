@@ -4,6 +4,7 @@ import TransactionType from "../../models/TransactionType"
 interface RecurringTransactionRequestSummaryProps {
     transaction: RecurringTransactionRequest;
     types: TransactionType[];
+    onClick: (value: string) => void;
 }
 
 const RecurringTransactionRequestSummary = (props: RecurringTransactionRequestSummaryProps) => {
@@ -18,12 +19,12 @@ const RecurringTransactionRequestSummary = (props: RecurringTransactionRequestSu
             <span className="category">{props.transaction.category}</span>
             <span className="type">{getReadableType()}</span>
 
+            <span className="after" onClick={() => props.onClick(props.transaction.description)} />
             <span className="amount">${props.transaction.amount.toFixed(2)}</span>
 
             {!!props.transaction.description &&
                 <div className="description">{props.transaction.description}</div>
             }
-            <div className="after" />
         </div >
     );
 }
