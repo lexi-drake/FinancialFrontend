@@ -68,6 +68,16 @@ const AddRecurringTransaction = (props: AddRecurringTransactionProps) => {
         return getDateFromFrequency(frequency, props.frequencies);
     }
 
+    const addTransactionDisabled = (): boolean => {
+        const numberAmount: number = parseFloat(amount);
+        return !transactionType
+            || !category
+            // Description is optional.
+            || isNaN(numberAmount) || numberAmount <= 0
+            || !frequency
+            || !lastTriggered;
+    }
+
     const onAddTransactionClick = async () => {
         await props.addRecurringTransaction({
             category: category,
@@ -99,7 +109,7 @@ const AddRecurringTransaction = (props: AddRecurringTransactionProps) => {
                     <CustomDatepicker label="Last executed" value={lastTriggered} onChange={(date) => handleDateChanged(date)} minDate={getMinDate()} maxDate={new Date()} />
                 </Content>
                 <Content>
-                    <CustomButton onClick={() => onAddTransactionClick()}>Add transaction</CustomButton>
+                    <CustomButton disabled={addTransactionDisabled()} onClick={() => onAddTransactionClick()}>Add transaction</CustomButton>
                 </Content>
             </Section>
             <Modal show={showHelp}>

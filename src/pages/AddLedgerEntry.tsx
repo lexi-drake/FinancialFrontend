@@ -63,9 +63,18 @@ const AddLedgerEntry = (props: AddLedgerEntryProps) => {
     // needing to check for negative dates (.getTime() returns negative numbers
     // for dates prior to 1970, for example). This also just simplifies use-cases.
     const getMinDate = (): Date => {
-        const date = new Date();
+        const date: Date = new Date();
         date.setMonth(date.getMonth() - 1);
         return date;
+    }
+
+    const addTransactionDisabled = (): boolean => {
+        const numberAmount: number = parseFloat(amount);
+        return !transactionType
+            || !category
+            // description is optional.
+            || isNaN(numberAmount) || numberAmount <= 0
+            || !date;
     }
 
     const onAddTransactionClick = async () => {
@@ -97,7 +106,7 @@ const AddLedgerEntry = (props: AddLedgerEntryProps) => {
                     <CustomDatepicker label="Transaction date" value={date} onChange={(date) => handleDateChanged(date)} minDate={getMinDate()} maxDate={new Date()} />
                 </Content>
                 <Content>
-                    <CustomButton onClick={() => onAddTransactionClick()}>Add transaction</CustomButton>
+                    <CustomButton disabled={addTransactionDisabled()} onClick={() => onAddTransactionClick()}>Add transaction</CustomButton>
                 </Content>
             </Section>
             <Modal show={showHelp}>

@@ -90,9 +90,10 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
     }
 
     const addDisabled = (): boolean => {
+        const numberAmount: number = parseFloat(amount);
         return !category
             // description is optional
-            || isNaN(parseFloat(amount))
+            || isNaN(numberAmount) || numberAmount <= 0
             || !transactionType;
     }
 
@@ -157,7 +158,7 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
                         {recurringTransactions.length === 0 &&
                             <p>
                                 This source of income has no transactions.
-                                </p>
+                            </p>
                         }
                         {recurringTransactions.length > 0 &&
                             recurringTransactions.map(x =>
