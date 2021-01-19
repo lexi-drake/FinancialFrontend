@@ -209,8 +209,8 @@ a {
   margin: 6px 0px 6px 0px;
 }
 .ledger-history hr {
-  width: 69% px;
-  margin: 0px 0px 0px 100px;
+  float: right;
+  width: 69%;
   border: 1px solid #2baed3;
 }
 .ledger-history .custom-button {
@@ -251,8 +251,8 @@ a {
   margin: 6px 0px 6px 0px;
 }
 .income-generator-list hr {
-  width: 60%;
-  margin: 0px 0px 8px 100px;
+  float: right;
+  width: 69%;
   border: 1px solid #a5d6c6;
 }
 
@@ -275,6 +275,7 @@ a {
   margin: 6px 0px 6px 0px;
 }
 .recurring-transaction-list hr {
+  float: right;
   width: 69%;
   margin: 0px 0px 8px 100px;
   border: 1px solid #f5b8b7;
