@@ -90,11 +90,19 @@ export const addIncomeGenerator = (request: IncomeGeneratorRequest): ThunkAction
     }
 }
 
-const setIncomeGenerator = (generators: IncomeGenerator[]): StoreAction => {
-    generators.map(g => g.recurringTransactions.map(t => {
-        t.lastExecuted = new Date(t.lastExecuted);
-        t.lastTriggered = new Date(t.lastTriggered);
-    }));
+const setIncomeGenerators = (generators: IncomeGenerator[]): StoreAction => {
+    generators = generators.map(g => {
+        return {
+            ...g,
+            recurringTransactions: g.recurringTransactions.map(t => {
+                return {
+                    ...t,
+                    lastExecuted: new Date(t.lastExecuted),
+                    lastTriggered: new Date(t.lastTriggered)
+                };
+            })
+        };
+    });
     return { type: LedgerAction.SET_INCOME_GENERATORS, payload: { incomeGenerators: generators } };
 }
 
@@ -102,7 +110,7 @@ export const getIncomeGenerators = (): ThunkAction<Promise<void>, {}, {}, AnyAct
     return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
         return new Promise<void>(async (resolve) => {
             const path: string = 'ledger/generators';
-            const response: StoreAction = await get(path, setIncomeGenerator, setLedgerError);
+            const response: StoreAction = await get(path, setIncomeGenerators, setLedgerError);
             dispatch(response);
             resolve();
         });

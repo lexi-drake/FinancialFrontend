@@ -47,6 +47,7 @@ export type MonthWeekDay = {
     day: number,
     description: string
 };
+
 // https://stackoverflow.com/questions/32342753/calculate-holidays-in-javascript
 export const FLOATING_HOLIDAYS: MonthWeekDay[] = [
     { month: 0, week: 2, day: 1, description: "Martin Luther King, Jr. Day" },
@@ -56,3 +57,9 @@ export const FLOATING_HOLIDAYS: MonthWeekDay[] = [
     { month: 9, week: 1, day: 1, description: "Indigenous Peoples' Day" },
     { month: 10, week: 3, day: 4, description: "Thanksgiving Day" },
 ]
+
+export const CHART_COLORS: string[] = [
+    '#f5b8b7', '#ba5056', '#8f0e22',    // Reds
+    '#a5d6c6', '#7d957b', '#576970',    // Greens
+    '#2baed3', '#207bad', '#113691'     // Blues
+];

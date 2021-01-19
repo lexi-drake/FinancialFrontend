@@ -4,6 +4,7 @@ import { LedgerEntry } from "../../models/LedgerEntry";
 import { useState } from 'react';
 import Content from '../custom/Content';
 import CustomLink from '../custom/CustomLink';
+import { CHART_COLORS } from '../../utilities/constants';
 
 interface LedgerHistoryGraphProps {
     ledgerEntries: LedgerEntry[]
@@ -13,7 +14,7 @@ const LedgerHistoryGraph = (props: LedgerHistoryGraphProps) => {
     const [graph, setGraph] = useState('Expenditures');
 
     const getData = (type: string): { labels: any, datasets: any } => {
-        const getLabelsAndValues = (): [string[], number[]] => {
+        const getLabelsAndValues = (): [string[], number[], string[]] => {
             const data: Record<string, number> = {};
             for (const entry of props.ledgerEntries) {
                 if (entry.transactionType === type) {
@@ -30,24 +31,17 @@ const LedgerHistoryGraph = (props: LedgerHistoryGraphProps) => {
             }
             const labels: string[] = [];
             const values: number[] = [];
+            const colors: string[] = [];
+            let colorIndex = 0;
             for (const key in data) {
                 labels.push(key);
                 values.push(data[key]);
+                colors.push(CHART_COLORS[colorIndex % CHART_COLORS.length]);
+                colorIndex += 7;
             }
-            return [labels, values];
+            return [labels, values, colors];
         }
-        const [labels, values] = getLabelsAndValues();
-        let colorIndex = 0;
-        const availableColors: string[] = [
-            '#f5b8b7', '#ba5056', '#8f0e22',    // Reds
-            '#a5d6c6', '#7d957b', '#576970',    // Greens
-            '#2baed3', '#207bad', '#113691'     // Blues
-        ];
-        const colors: string[] = [];
-        for (let i = 0; i < values.length; i++) {
-            colors[i] = availableColors[colorIndex % availableColors.length];
-            colorIndex += 7;
-        }
+        const [labels, values, colors] = getLabelsAndValues();
         return {
             labels: labels,
             datasets: [
