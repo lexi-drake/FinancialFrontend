@@ -21,7 +21,6 @@ const IncomeGeneratorModal = (props: IncomeGeneratorModalProps) => {
     const getSelectedGenerator = (): IncomeGenerator | null => {
         const selected: IncomeGenerator[] = props.generators.filter(x => x.id === props.id);
         if (selected.length === 0) {
-            props.close();
             return null;
         }
         return selected[0];

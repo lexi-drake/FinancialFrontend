@@ -42,23 +42,14 @@ const LedgerHistoryComponent = (props: LedgerHistoryComponentProps) => {
         const numberValue: number = parseInt(value);
         if (!isNaN(numberValue)) {
             setMonth(numberValue);
-            const date: Date = new Date();
+            let date: Date = new Date();
             const monthOffset = date.getMonth() + (12 - numberValue) % -12;
-            date.setMonth(date.getMonth() - monthOffset);
+            date = new Date(date.getFullYear(), date.getMonth() - monthOffset, date.getDate());
             props.getLedgerEntries({
                 start: getFirstDayOfMonth(date.getFullYear(), date.getMonth()),
                 end: getLastDayOfMonth(date.getFullYear(), date.getMonth())
             });
         }
-    }
-
-    const getLedgerEntriesForMonth = (month: number): LedgerEntry[] => {
-        const date = new Date();
-        date.setMonth(month);
-        return props.ledgerEntries
-            .filter(x => x.transactionDate.getTime() > getFirstDayOfMonth(date.getFullYear(), month).getTime())
-            .filter(x => x.transactionDate.getTime() < getLastDayOfMonth(date.getFullYear(), month).getTime())
-            .sort((a, b) => b.transactionDate.getTime() - a.transactionDate.getTime());
     }
 
     const getTotal = (): number => {
@@ -86,7 +77,7 @@ const LedgerHistoryComponent = (props: LedgerHistoryComponentProps) => {
             <h1>Transaction history</h1>
             {props.ledgerEntries.length > 0 &&
                 <Content>
-                    <LedgerHistoryGraph ledgerEntries={getLedgerEntriesForMonth(month)} />
+                    <LedgerHistoryGraph ledgerEntries={props.ledgerEntries} />
                 </Content>
             }
             <Content>
@@ -95,7 +86,7 @@ const LedgerHistoryComponent = (props: LedgerHistoryComponentProps) => {
                 <div className="after" />
             </Content>
             <Content>
-                {getLedgerEntriesForMonth(month).map(x =>
+                {props.ledgerEntries.map(x =>
                     <LedgerEntryComponent key={x.id} entry={x} onClick={(value) => setId(value)} />)
                 }
                 <div className={calculateTotalClasses()}>${getTotal().toFixed(2)}</div>

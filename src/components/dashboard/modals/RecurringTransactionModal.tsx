@@ -20,7 +20,6 @@ const RecurringTransactionModal = (props: RecurringTransactionModalProps) => {
     const getSelectedTransaction = (): RecurringTransaction | null => {
         const selected: RecurringTransaction[] = props.transactions.filter(x => x.id === props.id);
         if (selected.length === 0) {
-            props.close();
             return null;
         }
         return selected[0];
