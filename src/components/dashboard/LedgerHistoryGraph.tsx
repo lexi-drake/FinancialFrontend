@@ -93,9 +93,9 @@ const LedgerHistoryGraph = (props: LedgerHistoryGraphProps) => {
 
     const getGraph = (): any => {
         if (graph === 'Income') {
-            return <Pie data={getData('Income')} options={options('Income')} />
+            return <Pie width={300} height={300} data={getData('Income')} options={options('Income')} />
         }
-        return <Pie data={getData('Expenditure')} options={options('Expenditures')} />
+        return <Pie width={300} height={300} data={getData('Expenditure')} options={options('Expenditures')} />
     }
 
     return (
