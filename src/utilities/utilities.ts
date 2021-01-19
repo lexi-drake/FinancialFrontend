@@ -1,4 +1,5 @@
 import Frequency from "../models/Frequency";
+import { LedgerEntry } from "../models/LedgerEntry";
 
 const REDIRECT_PATH = 'RedirectPath';
 
@@ -26,6 +27,18 @@ export const sortFrequencies = (array: Frequency[]) => {
         }
         if (b.approxTimesPerYear > a.approxTimesPerYear) {
             return -1;
+        }
+        return 0;
+    });
+}
+
+export const sortLedgerEntries = (array: LedgerEntry[]) => {
+    array.sort((a, b) => {
+        if (a.transactionDate > b.transactionDate) {
+            return -1;
+        }
+        if (b.transactionDate > a.transactionDate) {
+            return 1;
         }
         return 0;
     });

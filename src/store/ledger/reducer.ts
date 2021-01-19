@@ -4,7 +4,7 @@ import { LedgerEntry } from "../../models/LedgerEntry";
 import { RecurringTransaction } from "../../models/RecurringTransaction";
 import SalaryType from "../../models/SalaryType";
 import TransactionType from "../../models/TransactionType";
-import { sortFrequencies } from "../../utilities/utilities";
+import { sortFrequencies, sortLedgerEntries } from "../../utilities/utilities";
 import { ActionType, LedgerAction } from "../actions"
 import { AppDataPayload } from "../appdata"
 
@@ -66,9 +66,9 @@ export const LedgerReducer = (state: LedgerState = defaultState, action: { type:
             };
             break;
         case LedgerAction.PUSH_INCOME_GENERATOR:
-            // This seems unneccessary, but it is required to change the reference
-            // of state.incomeGenerators so that React will know when to handle
-            // the state updating.
+            // TODO (alexa): the push actions are sort of outdated
+            // now that the resources are reloaded from the backend
+            // every time a new one is added. 
             const generators = [...state.incomeGenerators, ...action.payload.incomeGenerators];
             state = {
                 ...state,
@@ -82,6 +82,7 @@ export const LedgerReducer = (state: LedgerState = defaultState, action: { type:
             };
             break;
         case LedgerAction.SET_LEDGER_ENTRIES:
+            sortLedgerEntries(action.payload.entries);
             state = {
                 ...state,
                 ledgerEntries: action.payload.entries
