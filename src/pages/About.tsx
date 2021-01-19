@@ -16,13 +16,16 @@ const About = (props: AboutProps) => {
                 <h1>About</h1>
             </Header>
             <Section>
-                <h1>How does this work?</h1>
+                <h1>I made a mistake! How do I delete a transaction/source of income/recurring transaction?</h1>
                 <p>
-                    Coming soon...
+                    Nothing in letskeepit.cheap is permanent. To delete a
+                    transaction/source of income/recurring transaction, just
+                    click on it from the Dashboard page and a modal will
+                    appear that will let you delete the entry.
                 </p>
             </Section>
             <Section>
-                <h1>My account doesn't work anymore?</h1>
+                <h1>Why doesn't my account work anymore?</h1>
                 <p>
                     Accounts (and all of the data associated with them) are
                     automatically deleted after 45 days of inactivity. I do

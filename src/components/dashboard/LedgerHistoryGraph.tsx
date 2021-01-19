@@ -86,7 +86,7 @@ const LedgerHistoryGraph = (props: LedgerHistoryGraphProps) => {
                 display: true
             },
             responsive: true,
-            maintainAspectRatio: true
+            maintainAspectRatio: false
         }
         return options;
     };
