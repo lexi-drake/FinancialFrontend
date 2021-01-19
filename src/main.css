@@ -600,13 +600,15 @@ a {
 }
 .income-generator-summary .description {
   display: inline-block;
-  width: 50%;
+  width: 60%;
   font-weight: bold;
   text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .income-generator-summary .net {
   float: right;
-  max-width: 50%;
+  max-width: 40%;
 }
 
 .ledger-entry {
