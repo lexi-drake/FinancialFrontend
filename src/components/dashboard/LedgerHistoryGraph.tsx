@@ -44,8 +44,8 @@ const LedgerHistoryGraph = (props: LedgerHistoryGraphProps) => {
             '#2baed3', '#207bad', '#113691'     // Blues
         ];
         const colors: string[] = [];
-        for (const _ in values) {
-            colors.push(availableColors[colorIndex % availableColors.length]);
+        for (let i = 0; i < values.length; i++) {
+            colors[i] = availableColors[colorIndex % availableColors.length];
             colorIndex += 7;
         }
         return {
