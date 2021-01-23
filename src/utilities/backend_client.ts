@@ -11,7 +11,7 @@ const defaultOptions: AxiosRequestConfig = {
         'Accept': 'application/json',
     },
     withCredentials: true,
-    baseURL: 'https://financial-backend-alexa.herokuapp.com/api/'
+    baseURL: 'https://api.letskeepit.cheap/api/'
 }
 
 const client = axios.create(defaultOptions);

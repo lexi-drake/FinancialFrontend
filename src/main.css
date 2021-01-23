@@ -188,6 +188,7 @@ a {
   margin: 0px 100px 0px 100px;
   padding: 0px 0px 110px 0px;
   overflow: auto;
+  height: 100%;
 }
 
 .ledger-history {
