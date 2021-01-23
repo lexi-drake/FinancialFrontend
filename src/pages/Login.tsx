@@ -51,7 +51,7 @@ const Login = (props: LoginProps) => {
     }
 
     const loginDisabled = (): boolean => {
-        // We enforce minimum password length in sign-up but not login
+        // The minimum password length is enforced at sign-up but not login
         return !username || !password;
     }
 

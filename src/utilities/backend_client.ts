@@ -25,7 +25,7 @@ interface AuthResponse {
 }
 
 const refreshToken = async (): Promise<AuthResponse> => {
-    // We only want to try to refresh our token once.
+    // Only try to refresh the token once.
     return await makeAuthGetRequest('user/refresh', false)
 }
 
@@ -35,21 +35,19 @@ const makeAuthPostRequest = async (request: any, path: string, refreshIfFailed: 
         .then(async (data) => {
             return { error: false, content: data };
         }).catch(async (error: AxiosError) => {
-            // If the bad response-code is because we're not authorized, we want to try (only once)
-            // to refresh our token.
+            // If the bad response-code is because the request is not authorized,
+            // so an attempt is made to refresh the token. 
             if (error.response?.status === 401 && refreshIfFailed) {
                 const refreshResponse = await refreshToken();
-
-                // If we got a positive response-code, we'll retry the original request, this time
-                // specifying that we don't want to retry if it fails.
+                // If the refresh request was successful, retry the original request.
                 if (!refreshResponse.error) {
                     return await makeAuthPostRequest(path, request, false);
                 }
-                // Our attempt to refresh our token failed, so we're just going to return an error.
+                // The attempt to refresh the token failed. Return the error.
                 return refreshResponse;
             } else {
                 // Either the request failed because of reasons that aren't related to authentication
-                // or we aren't supposed to retry on failure.
+                // or this was the second attempt to make the request.
                 return { error: true, content: parseErrorMessage(error) };
             }
         });
