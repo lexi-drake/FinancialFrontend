@@ -647,6 +647,7 @@ a {
     height: 100%;
     overflow-x: hidden;
     padding-bottom: 0px !important;
+    display: block !important;
   }
 
   #root {
@@ -751,6 +752,7 @@ a {
     height: 100%;
     overflow-x: hidden;
     padding-bottom: 0px !important;
+    display: block !important;
   }
 
   #root {
