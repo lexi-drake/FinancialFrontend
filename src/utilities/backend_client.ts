@@ -15,9 +15,6 @@ const defaultOptions: AxiosRequestConfig = {
 }
 
 const client = axios.create(defaultOptions);
-const parseErrorMessage = (error: AxiosError): string => {
-    return `${error.message}`;
-}
 
 interface AuthResponse {
     error: boolean;
@@ -48,7 +45,7 @@ const makeAuthPostRequest = async (request: any, path: string, refreshIfFailed: 
             } else {
                 // Either the request failed because of reasons that aren't related to authentication
                 // or this was the second attempt to make the request.
-                return { error: true, content: parseErrorMessage(error) };
+                return { error: true, content: error };
             }
         });
     return response;
@@ -69,7 +66,7 @@ const makeAuthGetRequest = async (path: string, refreshIfFailed: boolean = true,
                 }
                 return refreshResponse;
             } else {
-                return { error: true, content: parseErrorMessage(error) };
+                return { error: true, content: error };
             }
         });
     return response;
@@ -90,7 +87,7 @@ const makeAuthDeleteRequest = async (path: string, refreshIfFailed: boolean = tr
                 }
                 return refreshResponse;
             } else {
-                return { error: true, content: parseErrorMessage(error) };
+                return { error: true, content: error };
             }
         });
     return response;

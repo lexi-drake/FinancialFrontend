@@ -31,6 +31,13 @@ input:focus {
   cursor: not-allowed;
 }
 
+.error {
+  height: 32px;
+  width: 420px;
+  text-align: right;
+  color: #8f0e22;
+}
+
 .custom-button {
   background-color: #7d957b;
   color: #fbf7f6;
@@ -146,6 +153,8 @@ a {
 }
 
 .section {
+  font-size: 14px;
+  line-height: 18px;
   padding: 20px 0px 40px 0px;
 }
 .section h1 {
@@ -154,8 +163,6 @@ a {
   margin: 0px;
 }
 .section p {
-  font-size: 14px;
-  line-height: 18px;
   margin: 6px 0px 6px 0px;
 }
 .section a {
@@ -744,6 +751,10 @@ a {
     transform: none;
     top: 0;
     left: 0;
+  }
+
+  .error {
+    width: 280px;
   }
 }
 @media only screen and (min-width: 601px) and (max-width: 1000px) {

@@ -7,12 +7,16 @@ import Header from "../components/custom/Header";
 import Section from "../components/custom/Section";
 import UserInfo from "../components/UserInfo";
 import { AppDataState } from "../store/appdata";
-import { checkLoggedIn, login } from "../store/user/actions";
+import { checkLoggedIn, clearUserError, login } from "../store/user/actions";
+import { MINIMUM_PASSWORD_LENGTH } from "../utilities/constants";
+import { ClearsUserError } from "../utilities/hooks";
 import { clearRedirectPath, getRedirectPath } from "../utilities/utilities";
 
 interface LoginProps {
+    error: string;
     isLoggedIn: boolean;
     checkLoggedIn: typeof checkLoggedIn;
+    clearUserError: typeof clearUserError;
     login: typeof login;
     push: typeof push;
 }
@@ -20,6 +24,7 @@ interface LoginProps {
 const Login = (props: LoginProps) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [processing, setProcessing] = useState(false);
 
     useEffect(() => {
         const checkLoggedIn = props.checkLoggedIn;
@@ -36,11 +41,16 @@ const Login = (props: LoginProps) => {
         }
     }, [props.isLoggedIn, props.checkLoggedIn, props.push]);
 
+    ClearsUserError(props.clearUserError);
+
     const onLoginClick = async () => {
+        props.clearUserError();
+        setProcessing(true);
         await props.login({
             username: username,
             password: password
         });
+        setProcessing(false);
         const redirectPath = getRedirectPath();
         if (redirectPath) {
             props.push(redirectPath);
@@ -50,10 +60,8 @@ const Login = (props: LoginProps) => {
         }
     }
 
-    const loginDisabled = (): boolean => {
-        // The minimum password length is enforced at sign-up but not login
-        return !username || !password;
-    }
+    // The minimum password length is enforced at sign-up but not login
+    const loginDisabled = (): boolean => processing || !username || password.length < MINIMUM_PASSWORD_LENGTH;
 
     return (
         <Container>
@@ -61,8 +69,11 @@ const Login = (props: LoginProps) => {
                 <h1>Login</h1>
             </Header>
             <Section>
-                <UserInfo username={username} password={password} handleUsernameChanged={(value) => setUsername(value)} handlePasswordChanged={(value) => setPassword(value)} />
-                <CustomButton disabled={loginDisabled()} onClick={() => onLoginClick()}>Login</CustomButton>
+                <div className="error">
+                    {props.error}
+                </div>
+                <UserInfo error={!!props.error} username={username} password={password} handleUsernameChanged={(value) => setUsername(value)} handlePasswordChanged={(value) => setPassword(value)} />
+                <CustomButton disabled={loginDisabled()} onClick={() => onLoginClick()}>{processing ? 'Logging in' : 'Log in'}</CustomButton>
             </Section>
         </Container>
     );
@@ -70,8 +81,9 @@ const Login = (props: LoginProps) => {
 
 const mapStateToProps = (state: AppDataState): Partial<LoginProps> => {
     return {
+        error: state.user.error,
         isLoggedIn: state.user.isLoggedIn
     };
 }
 
-export default connect(mapStateToProps, { checkLoggedIn, login, push })(Login as any);
+export default connect(mapStateToProps, { checkLoggedIn, clearUserError, login, push })(Login as any);

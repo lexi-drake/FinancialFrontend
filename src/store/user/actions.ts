@@ -3,9 +3,36 @@ import { AnyAction } from 'redux';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { StoreAction, UserAction } from '../actions';
 import { get, post } from '../../utilities/backend_client';
+import { AxiosError } from 'axios';
 
-const setUserError = (message: string): StoreAction => {
-    return { type: UserAction.SET_USER_ERROR, payload: { errorMessage: message } };
+const setUserError = (error: AxiosError): StoreAction => {
+    if (!error.response) {
+        return { type: UserAction.SET_USER_ERROR, payload: { errorMessage: 'Unknown error' } };
+    }
+    const getErrorMessage = (code: number, data: any): string => {
+        const getValidationError = (data: any): string => {
+            const passwordErrors: string[] = data.errors.Password ?? [];
+            const usernameErrors: string[] = data.errors.Username ?? [];
+            return `${passwordErrors.join(' ')} ${usernameErrors.join(' ')}`.trim();
+        }
+        switch (code) {
+            case 400: return getValidationError(data);
+            case 404: return 'Incorrect username or password';
+            case 500: return 'Something went wrong. Try again soon';
+            default: return 'Unknown error'
+        }
+    }
+
+    return {
+        type: UserAction.SET_USER_ERROR,
+        payload: {
+            errorMessage: getErrorMessage(error.response?.status, error.response?.data)
+        }
+    };
+}
+
+export const clearUserError = (): ThunkAction<void, {}, {}, AnyAction> => dispatch => {
+    dispatch({ type: UserAction.SET_USER_ERROR, payload: { errorMessage: '' } });
 }
 
 const setUserCount = (count: number): StoreAction => {

@@ -58,3 +58,9 @@ export function UsesRecurringTransactions(getRecurringTransactions: () => void) 
         getRecurringTransactions();
     }, [getRecurringTransactions]);
 }
+
+export function ClearsUserError(clearUserError: () => void) {
+    useEffect(() => {
+        clearUserError();
+    }, [clearUserError]);
+}
