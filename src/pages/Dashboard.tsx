@@ -24,6 +24,9 @@ const Dashboard = (props: DashboardProps) => {
 
     const headline: string = `Welcome, ${props.username}`
 
+    // TODO (alexa): this needs another component that just displays the
+    // total flex-spending for the month. I imagine it across the width of
+    // the dashboard (in all sizes) at the top, under the header.
     return (
         <DashboardContainer>
             <Header>
