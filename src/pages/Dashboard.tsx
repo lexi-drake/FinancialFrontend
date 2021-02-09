@@ -7,7 +7,7 @@ import RecurringTransactionComponent from "../components/dashboard/RecurringTran
 import Frequency from "../models/Frequency";
 import { AppDataState } from "../store/appdata";
 import { getFrequencies, getIncomeGenerators, getLedgerEntries, getRecurringTransactions } from "../store/ledger/actions";
-import { UsesFrequencies, UsesIncomeGenerators, UsesRecurringTransactions } from "../utilities/hooks";
+import { UsesFrequencies } from "../utilities/hooks";
 
 interface DashboardProps {
     username: string;
