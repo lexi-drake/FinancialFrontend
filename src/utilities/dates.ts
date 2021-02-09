@@ -119,7 +119,11 @@ export const getTimesPerMonthFromLastTriggeredAndFrequency = (lastTriggered: Dat
     }
     const triggeredPast: Date[] = getDatesInMonthByInteval(lastTriggered, -daysInterval);
     const triggeredFuture: Date[] = getDatesInMonthByInteval(lastTriggered, daysInterval);
-    return [...triggeredPast, lastTriggered, ...triggeredFuture].length;
+    const dates = [...triggeredPast, ...triggeredFuture];
+    if (lastTriggered.getMonth() === new Date().getMonth()) {
+        dates.push(lastTriggered);
+    }
+    return dates.length;
 }
 
 const getDatesInYearByInterval = (lastTriggered: Date, interval: number): Date[] => {
