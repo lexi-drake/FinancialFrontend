@@ -18,6 +18,8 @@ interface IncomeGeneratorModalProps {
 
 const IncomeGeneratorModal = (props: IncomeGeneratorModalProps) => {
 
+    // TODO (alexa): size of modals needs to be adjusted to better fit the
+    // screen (only for full-size windows) and need to be scrollable.
     const getSelectedGenerator = (): IncomeGenerator | null => {
         const selected: IncomeGenerator[] = props.generators.filter(x => x.id === props.id);
         if (selected.length === 0) {
