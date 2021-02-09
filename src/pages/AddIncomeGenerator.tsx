@@ -18,7 +18,7 @@ import { RecurringTransactionRequest } from "../models/RecurringTransaction";
 import SalaryType from "../models/SalaryType";
 import TransactionType from "../models/TransactionType";
 import { AppDataState } from "../store/appdata";
-import { addIncomeGenerator, getCategories, getFrequencies, getSalaryTypes, getTransactionTypes } from "../store/ledger/actions";
+import { addIncomeGenerator, clearCategories, getCategories, getFrequencies, getSalaryTypes, getTransactionTypes } from "../store/ledger/actions";
 import { MAXIMUM_CATEGORY_LENGTH, MAXIMUM_DESCRIPTION_LENGTH } from "../utilities/constants";
 import { getDateFromFrequency } from "../utilities/dates";
 import { UsesFrequencies, UsesSalaryTypes, UsesTransactionTypes } from "../utilities/hooks";
@@ -29,6 +29,7 @@ interface AddIncomeGeneratorProps {
     salaryTypes: SalaryType[];
     transactionTypes: TransactionType[];
     getCategories: typeof getCategories;
+    clearCategories: typeof clearCategories;
     getFrequencies: typeof getFrequencies;
     getSalaryTypes: typeof getSalaryTypes;
     getTransactionTypes: typeof getTransactionTypes;
@@ -175,7 +176,7 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
                     <h1>Recurring transaction details</h1>
                     <Content>
                         <CustomDropdown label="Transaction type" value={transactionType} options={transactionTypes} onSelect={(value) => setTransactionType(value)} />
-                        <AutocompleteField label="Category" value={category} options={props.categories} onChange={(value) => setCategory(value)} getOptions={(value) => props.getCategories(value)} />
+                        <AutocompleteField label="Category" value={category} options={props.categories} onChange={(value) => setCategory(value)} getOptions={(value) => props.getCategories(value)} clearOptions={() => props.clearCategories()} />
                         <CustomText label="Description" value={transactionDescription} onChange={(value) => setTransactionDescription(value)} />
                         <CustomText error={amountError()} label="Amount" value={amount} preToken="$" onChange={(value) => setAmount(value)} />
                     </Content>
@@ -257,4 +258,4 @@ const mapStateToProps = (state: AppDataState): Partial<AddIncomeGeneratorProps> 
     };
 }
 
-export default connect(mapStateToProps, { getCategories, getFrequencies, getSalaryTypes, getTransactionTypes, addIncomeGenerator, push })(AddSourceOfIncome as any);
+export default connect(mapStateToProps, { getCategories, clearCategories, getFrequencies, getSalaryTypes, getTransactionTypes, addIncomeGenerator, push })(AddSourceOfIncome as any);

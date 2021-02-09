@@ -14,7 +14,7 @@ import Modal, { ModalContent, ModalHeader } from "../components/custom/Modal";
 import Section from "../components/custom/Section";
 import TransactionType from "../models/TransactionType";
 import { AppDataState } from "../store/appdata";
-import { addLedgerEntry, getCategories, getTransactionTypes } from "../store/ledger/actions";
+import { addLedgerEntry, clearCategories, getCategories, getTransactionTypes } from "../store/ledger/actions";
 import { MAXIMUM_CATEGORY_LENGTH, MAXIMUM_DESCRIPTION_LENGTH } from "../utilities/constants";
 import { UsesTransactionTypes } from "../utilities/hooks";
 
@@ -22,6 +22,7 @@ interface AddLedgerEntryProps {
     categories: string[];
     transactionTypes: TransactionType[];
     getCategories: typeof getCategories;
+    clearCategories: typeof clearCategories;
     getTransactionTypes: typeof getTransactionTypes;
     addLedgerEntry: typeof addLedgerEntry;
     push: typeof push;
@@ -100,7 +101,7 @@ const AddLedgerEntry = (props: AddLedgerEntryProps) => {
             <Section>
                 <Content>
                     <CustomDropdown label="Transaction type" value={transactionType} options={transactionTypes} onSelect={(value) => setTransactionType(value)} />
-                    <AutocompleteField label="Category" value={category} options={props.categories} onChange={(value) => setCategory(value)} getOptions={(value) => props.getCategories(value)} />
+                    <AutocompleteField label="Category" value={category} options={props.categories} onChange={(value) => setCategory(value)} getOptions={(value) => props.getCategories(value)} clearOptions={() => props.clearCategories()} />
                     <CustomText label="Description" value={description} onChange={(value) => setDescription(value)} />
                     <CustomText label="Amount" error={amountError()} preToken="$" value={amount} onChange={(value) => setAmount(value)} />
                     <CustomDatepicker label="Transaction date" value={date} onChange={(date) => handleDateChanged(date)} minDate={getMinDate()} maxDate={new Date()} />
@@ -167,4 +168,4 @@ const mapStateToProps = (state: AppDataState): Partial<AddLedgerEntryProps> => {
     };
 }
 
-export default connect(mapStateToProps, { getCategories, getTransactionTypes, addLedgerEntry, push })(AddLedgerEntry as any);
+export default connect(mapStateToProps, { getCategories, clearCategories, getTransactionTypes, addLedgerEntry, push })(AddLedgerEntry as any);

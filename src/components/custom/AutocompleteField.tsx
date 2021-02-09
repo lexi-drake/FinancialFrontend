@@ -7,6 +7,7 @@ interface AutocompleteFieldProps {
     value: string;
     onChange: (value: string) => void;
     getOptions: (value: string) => void;
+    clearOptions: () => void;
 }
 
 const AutocompleteField = (props: AutocompleteFieldProps) => {
@@ -27,7 +28,8 @@ const AutocompleteField = (props: AutocompleteFieldProps) => {
 
     const onSelect = (value: string) => {
         setFocused(false);
-        onChange(value);
+        props.onChange(value);
+        props.clearOptions();
     }
 
     const calculateClasses = (): string => {

@@ -18,6 +18,10 @@ const setCategories = (categories: Category[]): StoreAction => {
     return { type: LedgerAction.SET_CATEGORIES, payload: { categories: categories } };
 }
 
+export const clearCategories = (): ThunkAction<void, {}, {}, AnyAction> => dispatch => {
+    dispatch(setCategories([]));
+}
+
 export const getCategories = (partial: string): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
     return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
         return new Promise<void>(async (resolve) => {
