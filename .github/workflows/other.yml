@@ -3,7 +3,7 @@ name: CI
 on: push
 
 jobs:
-  build_and_test:
+  test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
@@ -12,7 +12,4 @@ jobs:
       with:
         node-version: 15
     - run: npm ci
-    - run: npm run build 
-
-    - name: test 
     - run: npm test
