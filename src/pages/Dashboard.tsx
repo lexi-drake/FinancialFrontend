@@ -7,7 +7,7 @@ import RecurringTransactionComponent from "../components/dashboard/RecurringTran
 import Frequency from "../models/Frequency";
 import { AppDataState } from "../store/appdata";
 import { getFrequencies, getIncomeGenerators, getLedgerEntries, getRecurringTransactions } from "../store/ledger/actions";
-import { UsesFrequencies, UsesIncomeGenerators, UsesLedgerEntries, UsesRecurringTransactions } from "../utilities/hooks";
+import { UsesFrequencies, UsesIncomeGenerators, UsesRecurringTransactions } from "../utilities/hooks";
 
 interface DashboardProps {
     username: string;
@@ -20,9 +20,6 @@ interface DashboardProps {
 
 const Dashboard = (props: DashboardProps) => {
 
-    UsesLedgerEntries(props.getLedgerEntries);
-    UsesIncomeGenerators(props.getIncomeGenerators);
-    UsesRecurringTransactions(props.getRecurringTransactions);
     UsesFrequencies(props.frequencies, props.getFrequencies);
 
     const headline: string = `Welcome, ${props.username}`

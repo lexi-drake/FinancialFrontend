@@ -1,3 +1,5 @@
+import { LedgerAction } from "../store/actions";
+
 export const MINIMUM_PASSWORD_LENGTH = 8;
 
 export const MAXIMUM_CATEGORY_LENGTH = 24;
@@ -63,3 +65,5 @@ export const CHART_COLORS: string[] = [
     '#a5d6c6', '#7d957b', '#576970',    // Greens
     '#2baed3', '#207bad', '#113691'     // Blues
 ];
+
+export const NULL_ACTION = (input: any) => ({ type: LedgerAction.NULL_ACTION, payload: {} });

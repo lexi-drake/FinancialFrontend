@@ -7,6 +7,7 @@ import { RecurringTransaction } from "../../models/RecurringTransaction";
 import { AppDataState } from "../../store/appdata";
 import { deleteRecurringTransaction, getRecurringTransactions } from "../../store/ledger/actions";
 import { MONTHS } from "../../utilities/constants";
+import { UsesRecurringTransactions } from "../../utilities/hooks";
 import Content from "../custom/Content";
 import CustomButton from "../custom/CustomButton";
 import CustomLink from "../custom/CustomLink";
@@ -25,6 +26,8 @@ interface RecurringTransactionComponentProps {
 const RecurringTransactionComponent = (props: RecurringTransactionComponentProps) => {
     const [monthly, setMonthly] = useState(true);
     const [id, setId] = useState('');
+
+    UsesRecurringTransactions(props.getRecurringTransactions);
 
     const onAddRecurringTransactionClick = () => {
         props.push('transaction/add');

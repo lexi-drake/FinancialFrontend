@@ -65,16 +65,6 @@ export const LedgerReducer = (state: LedgerState = defaultState, action: { type:
                 transactionTypes: action.payload.transactionTypes
             };
             break;
-        case LedgerAction.PUSH_INCOME_GENERATOR:
-            // TODO (alexa): the push actions are sort of outdated
-            // now that the resources are reloaded from the backend
-            // every time a new one is added. 
-            const generators = [...state.incomeGenerators, ...action.payload.incomeGenerators];
-            state = {
-                ...state,
-                incomeGenerators: generators
-            };
-            break;
         case LedgerAction.SET_INCOME_GENERATORS:
             state = {
                 ...state,
@@ -88,40 +78,10 @@ export const LedgerReducer = (state: LedgerState = defaultState, action: { type:
                 ledgerEntries: action.payload.entries
             };
             break;
-        case LedgerAction.PUSH_LEDGER_ENTRY:
-            state = {
-                ...state,
-                ledgerEntries: [...state.ledgerEntries, ...action.payload.entries]
-            };
-            break;
-        case LedgerAction.PUSH_RECURRING_TRANSACTION:
-            state = {
-                ...state,
-                recurringTransactions: [...state.recurringTransactions, ...action.payload.recurringTransactions]
-            };
-            break;
         case LedgerAction.SET_RECURRING_TRANSACTIONS:
             state = {
                 ...state,
                 recurringTransactions: action.payload.recurringTransactions
-            };
-            break;
-        case LedgerAction.DELETE_INCOME_GENERATOR:
-            state = {
-                ...state,
-                incomeGenerators: []
-            };
-            break;
-        case LedgerAction.DELETE_LEDGER_ENTRY:
-            state = {
-                ...state,
-                ledgerEntries: []
-            };
-            break;
-        case LedgerAction.DELETE_RECURRING_TRANSACTION:
-            state = {
-                ...state,
-                recurringTransactions: []
             };
             break;
     }

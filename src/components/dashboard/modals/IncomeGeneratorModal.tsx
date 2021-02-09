@@ -38,8 +38,7 @@ const IncomeGeneratorModal = (props: IncomeGeneratorModalProps) => {
     }
 
     const onDeleteClick = async () => {
-        await props.deleteIncomeGenerator(props.id);
-        props.getIncomeGenerators();
+        props.deleteIncomeGenerator(props.id);
         props.close();
     }
 
@@ -56,7 +55,7 @@ const IncomeGeneratorModal = (props: IncomeGeneratorModalProps) => {
                 <Section>
                     <h1>Recurring transactions</h1>
                     {generator?.recurringTransactions.map(x =>
-                        <RecurringTransactionSummary transaction={x} frequencies={props.frequencies} monthly={true} onClick={(value) => console.log(value)} />)
+                        <RecurringTransactionSummary transaction={x} frequencies={props.frequencies} monthly={true} onClick={() => { }} />)
 
                     }
                 </Section>

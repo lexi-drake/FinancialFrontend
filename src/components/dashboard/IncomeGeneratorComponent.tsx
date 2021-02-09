@@ -6,6 +6,7 @@ import { IncomeGenerator } from "../../models/IncomeGenerator"
 import { AppDataState } from "../../store/appdata"
 import { deleteIncomeGenerator, getIncomeGenerators } from "../../store/ledger/actions"
 import { MONTHS } from "../../utilities/constants"
+import { UsesIncomeGenerators } from "../../utilities/hooks"
 import Content from "../custom/Content"
 import CustomButton from "../custom/CustomButton"
 import CustomLink from "../custom/CustomLink"
@@ -23,6 +24,8 @@ interface IncomeGeneratorComponentProps {
 const IncomeGeneratorComponent = (props: IncomeGeneratorComponentProps) => {
     const [monthly, setMonthly] = useState(true);
     const [id, setId] = useState('');
+
+    UsesIncomeGenerators(props.getIncomeGenerators);
 
     const onAddSourceOfIncomeClick = () => {
         props.push('/income/add');

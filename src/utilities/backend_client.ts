@@ -111,11 +111,6 @@ export const get = async (path: string, successAction: SuccessAction, failureAct
     }
 }
 
-export const del = async (path: string, successAction: SuccessAction, failureAction: FailureAction): Promise<StoreAction> => {
-    const response: AuthResponse = await makeAuthDeleteRequest(path);
-    if (response.error) {
-        return failureAction(response.content);
-    } else {
-        return successAction(response.content);
-    }
+export const del = async (path: string) => {
+    await makeAuthDeleteRequest(path);
 }
