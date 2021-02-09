@@ -1,6 +1,6 @@
 import { LedgerEntry } from "../../../models/LedgerEntry";
 import { deleteLedgerEntry, getLedgerEntries } from "../../../store/ledger/actions";
-import { getFirstDayOfMonth, getLastDayOfMonth, getReadableDate } from "../../../utilities/dates";
+import { getReadableDate } from "../../../utilities/dates";
 import CustomButton from "../../custom/CustomButton";
 import Modal, { ModalContent, ModalHeader } from "../../custom/Modal"
 import NameValue from "../../custom/NameValue";
@@ -28,12 +28,6 @@ const LedgerEntryModal = (props: LedgerEntryModalProps) => {
 
     const onDeleteClick = () => {
         props.deleteLedgerEntry(props.id);
-        const year = new Date().getFullYear();
-        const month = new Date().getMonth();
-        props.getLedgerEntries({
-            start: getFirstDayOfMonth(year, month),
-            end: getLastDayOfMonth(year, month)
-        });
         props.close();
     }
 

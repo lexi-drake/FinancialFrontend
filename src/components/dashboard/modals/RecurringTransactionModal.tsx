@@ -37,8 +37,7 @@ const RecurringTransactionModal = (props: RecurringTransactionModalProps) => {
     }
 
     const onDeleteClick = async () => {
-        await props.deleteRecurringTransaction(props.id);
-        props.getRecurringTransactions();
+        props.deleteRecurringTransaction(props.id);
         props.close();
     }
 
