@@ -15,7 +15,7 @@ import Section from "../components/custom/Section"
 import Frequency from "../models/Frequency"
 import TransactionType from "../models/TransactionType"
 import { AppDataState } from "../store/appdata"
-import { addRecurringTransaction, getCategories, getTransactionTypes } from "../store/ledger/actions"
+import { addRecurringTransaction, clearCategories, getCategories, getTransactionTypes } from "../store/ledger/actions"
 import { MAXIMUM_CATEGORY_LENGTH, MAXIMUM_DESCRIPTION_LENGTH } from "../utilities/constants"
 import { getDateFromFrequency } from "../utilities/dates"
 import { UsesTransactionTypes } from "../utilities/hooks"
@@ -25,6 +25,7 @@ interface AddRecurringTransactionProps {
     frequencies: Frequency[];
     transactionTypes: TransactionType[];
     getCategories: typeof getCategories;
+    clearCategories: typeof clearCategories;
     getTransactionTypes: typeof getTransactionTypes;
     addRecurringTransaction: typeof addRecurringTransaction;
     push: typeof push;
@@ -102,7 +103,7 @@ const AddRecurringTransaction = (props: AddRecurringTransactionProps) => {
             <Section>
                 <Content>
                     <CustomDropdown label="Transaction type" value={transactionType} options={transactionTypes} onSelect={(value) => setTransactionType(value)} />
-                    <AutocompleteField label="Category" value={category} options={props.categories} onChange={(value) => setCategory(value)} getOptions={(value) => props.getCategories(value)} />
+                    <AutocompleteField label="Category" value={category} options={props.categories} onChange={(value) => setCategory(value)} getOptions={(value) => props.getCategories(value)} clearOptions={() => props.clearCategories()} />
                     <CustomText label="Description" value={description} onChange={(value) => setDescription(value)} />
                     <CustomText label="Amount" error={amountError()} preToken="$" value={amount} onChange={(value) => setAmount(value)} />
                     <CustomDropdown label="Frequency" value={frequency} options={frequencies} onSelect={(value) => setFrequency(value)} />
@@ -182,4 +183,4 @@ const mapStateToProps = (state: AppDataState): Partial<AddRecurringTransactionPr
     };
 }
 
-export default connect(mapStateToProps, { getCategories, getTransactionTypes, addRecurringTransaction, push })(AddRecurringTransaction as any);
+export default connect(mapStateToProps, { getCategories, clearCategories, getTransactionTypes, addRecurringTransaction, push })(AddRecurringTransaction as any);
