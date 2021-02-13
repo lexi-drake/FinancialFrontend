@@ -4,7 +4,9 @@ import { LedgerEntry } from "../../models/LedgerEntry";
 import { RecurringTransaction } from "../../models/RecurringTransaction";
 import SalaryType from "../../models/SalaryType";
 import TransactionType from "../../models/TransactionType";
-import { sortFrequencies, sortLedgerEntries } from "../../utilities/utilities";
+import { sortLedgerEntries } from "../../utilities/ledger_entries";
+import { transactionsWithoutGenerators } from "../../utilities/recurring_transactions";
+import { sortFrequencies } from "../../utilities/utilities";
 import { ActionType, LedgerAction } from "../actions"
 import { AppDataPayload } from "../appdata"
 
@@ -68,7 +70,8 @@ export const LedgerReducer = (state: LedgerState = defaultState, action: { type:
         case LedgerAction.SET_INCOME_GENERATORS:
             state = {
                 ...state,
-                incomeGenerators: action.payload.incomeGenerators
+                incomeGenerators: action.payload.incomeGenerators,
+                recurringTransactions: transactionsWithoutGenerators(state.recurringTransactions, action.payload.incomeGenerators)
             };
             break;
         case LedgerAction.SET_LEDGER_ENTRIES:
@@ -81,7 +84,7 @@ export const LedgerReducer = (state: LedgerState = defaultState, action: { type:
         case LedgerAction.SET_RECURRING_TRANSACTIONS:
             state = {
                 ...state,
-                recurringTransactions: action.payload.recurringTransactions
+                recurringTransactions: transactionsWithoutGenerators(action.payload.recurringTransactions, state.incomeGenerators)
             };
             break;
     }

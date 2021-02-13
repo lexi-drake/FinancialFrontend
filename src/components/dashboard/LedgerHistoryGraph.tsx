@@ -36,8 +36,9 @@ const LedgerHistoryGraph = (props: LedgerHistoryGraphProps) => {
             for (const key in data) {
                 labels.push(key);
                 values.push(data[key]);
-                colors.push(CHART_COLORS[colorIndex % CHART_COLORS.length]);
-                colorIndex += 7;
+                colors.push(CHART_COLORS[colorIndex]);
+                console.log(key, CHART_COLORS[colorIndex]);
+                colorIndex = (colorIndex + 7) % CHART_COLORS.length;
             }
             return [labels, values, colors];
         }

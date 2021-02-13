@@ -170,3 +170,18 @@ export const getTimesPerYearFromLastTriggeredAndFrequency = (lastTriggered: Date
     const triggeredFuture: Date[] = getDatesInYearByInterval(lastTriggered, daysInterval);
     return [...triggeredPast, lastTriggered, ...triggeredFuture].length;
 }
+
+export const getTimesPerMonth = (lastTriggered: Date, frequencyId: string, frequencies: Frequency[], amount: number): [number, string] => {
+    const timesPerMonth: number = getTimesPerMonthFromLastTriggeredAndFrequency(lastTriggered, frequencyId, frequencies);
+    const total: number = timesPerMonth * amount;
+    if (timesPerMonth < 1) {
+        return [total, timesPerMonth.toFixed(2)];
+    }
+    return [total, timesPerMonth.toFixed(0)];
+}
+
+export const getTimesPerYear = (lastTriggered: Date, frequencyId: string, frequencies: Frequency[], amount: number): [number, string] => {
+    const timesPerYear: number = getTimesPerYearFromLastTriggeredAndFrequency(lastTriggered, frequencyId, frequencies);
+    const total: number = timesPerYear * amount;
+    return [total, timesPerYear.toFixed(0)];
+}
