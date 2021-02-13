@@ -27,6 +27,9 @@ const IncomeGeneratorComponent = (props: IncomeGeneratorComponentProps) => {
 
     UsesIncomeGenerators(props.getIncomeGenerators);
 
+    // TODO (alexa): this needs a summary of total income like the ledger-
+    // history component has for total transactions.
+
     const onAddSourceOfIncomeClick = () => {
         props.push('/income/add');
     }
