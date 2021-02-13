@@ -2,12 +2,12 @@ import { push } from "connected-react-router";
 import { useState } from "react";
 import { connect } from "react-redux";
 import Frequency from "../../models/Frequency";
-import { IncomeGenerator } from "../../models/IncomeGenerator";
 import { RecurringTransaction } from "../../models/RecurringTransaction";
 import { AppDataState } from "../../store/appdata";
 import { deleteRecurringTransaction, getRecurringTransactions } from "../../store/ledger/actions";
 import { MONTHS } from "../../utilities/constants";
-import { getAmountAndTimes, getNumberOfTransactions, transactionsWithoutGenerators } from "../../utilities/utilities";
+import { getTotalRecurringTransactions } from "../../utilities/recurring_transactions";
+import { getAmountAndTimes } from "../../utilities/utilities";
 import Content from "../custom/Content";
 import CustomButton from "../custom/CustomButton";
 import CustomLink from "../custom/CustomLink";
@@ -15,7 +15,6 @@ import RecurringTransactionSummary from "../transactions/RecurringTransactionSum
 import RecurringTransactionModal from "./modals/RecurringTransactionModal";
 
 interface RecurringTransactionComponentProps {
-    generators: IncomeGenerator[];
     recurringTransactions: RecurringTransaction[];
     frequencies: Frequency[];
     deleteRecurringTransaction: typeof deleteRecurringTransaction;
@@ -26,20 +25,11 @@ const RecurringTransactionComponent = (props: RecurringTransactionComponentProps
     const [monthly, setMonthly] = useState(true);
     const [id, setId] = useState('');
 
-
-
-    const getTotal = (): number => {
-        if (props.recurringTransactions.length === 0) {
-            return 0;
-        }
-        return transactionsWithoutGenerators(props.recurringTransactions, props.generators)
-            .map(x => getNumberOfTransactions(x.lastTriggered, x.frequencyId, props.frequencies, monthly) * (x.transactionType === 'Income' ? x.amount : -x.amount))
-            .reduce((sum, x) => sum + x);
-    }
+    const total: number = getTotalRecurringTransactions(props.recurringTransactions, props.frequencies, monthly);
 
     const calculateTotalClasses = (): string => {
         const classes: string[] = ['total'];
-        if (getTotal() <= 0) { classes.push('negative'); }
+        if (total <= 0) { classes.push('negative'); }
         return classes.join(' ');
     }
 
@@ -47,7 +37,7 @@ const RecurringTransactionComponent = (props: RecurringTransactionComponentProps
         <div className="recurring-transaction-list">
             <h1>Recurring transactions</h1>
             <Content>
-                {transactionsWithoutGenerators(props.recurringTransactions, props.generators).map(x => {
+                {props.recurringTransactions.map(x => {
                     const [total, times] = getAmountAndTimes(x, props.frequencies, monthly);
                     return <RecurringTransactionSummary
                         key={x.id}
@@ -59,7 +49,7 @@ const RecurringTransactionComponent = (props: RecurringTransactionComponentProps
                         onClick={() => setId(x.id)} />
                 })
                 }
-                <div className={calculateTotalClasses()}>{getTotal().toFixed(2)}</div>
+                <div className={calculateTotalClasses()}>{total.toFixed(2)}</div>
                 <CustomLink first onClick={() => setMonthly(true)}>{MONTHS[new Date().getMonth()]}</CustomLink>
                 <CustomLink onClick={() => setMonthly(false)}>{new Date().getFullYear()}</CustomLink>
             </Content>
@@ -73,7 +63,6 @@ const RecurringTransactionComponent = (props: RecurringTransactionComponentProps
 
 const mapStateToProps = (state: AppDataState): Partial<RecurringTransactionComponentProps> => {
     return {
-        generators: state.ledger.incomeGenerators,
         recurringTransactions: state.ledger.recurringTransactions,
         frequencies: state.ledger.frequencies
     };

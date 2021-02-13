@@ -12,7 +12,8 @@ import { AppDataState } from "../store/appdata";
 import { getFrequencies, getIncomeGenerators, getLedgerEntries, getRecurringTransactions } from "../store/ledger/actions";
 import { MONTHS } from "../utilities/constants";
 import { UsesFrequencies, UsesIncomeGenerators, UsesLedgerEntries, UsesRecurringTransactions } from "../utilities/hooks";
-import { calculateIncome, getNumberOfTransactions, transactionsWithoutGenerators } from "../utilities/utilities";
+import { getTotalIncomeGenerators } from "../utilities/income_generators";
+import { getTotalRecurringTransactions } from "../utilities/recurring_transactions";
 
 interface DashboardProps {
     username: string;
@@ -36,22 +37,6 @@ const Dashboard = (props: DashboardProps) => {
     const headline: string = `Welcome, ${props.username}`
 
     const displayText = (): string => {
-        const calculateTotalIncome = (): number => {
-            if (props.incomeGenerators.length === 0) {
-                return 0;
-            }
-            return props.incomeGenerators.map(x => calculateIncome(x, props.frequencies, true))
-                .reduce((sum, x) => sum + x);
-        }
-
-        const calculateTotalRecurringTransactions = (): number => {
-            if (props.recurringTransactions.length === 0) {
-                return 0;
-            }
-            return transactionsWithoutGenerators(props.recurringTransactions, props.incomeGenerators)
-                .map(x => getNumberOfTransactions(x.lastTriggered, x.frequencyId, props.frequencies, true) * (x.transactionType === 'Income' ? x.amount : -x.amount))
-                .reduce((sum, x) => sum + x);
-        }
 
         const calculateTotalEntries = (): number => {
             if (props.ledgerEntries.length === 0) {
@@ -62,7 +47,7 @@ const Dashboard = (props: DashboardProps) => {
                 .reduce((sum, x) => sum + x);
         }
 
-        const total = calculateTotalIncome() + calculateTotalRecurringTransactions() + calculateTotalEntries();
+        const total = Math.max(getTotalIncomeGenerators(props.incomeGenerators, props.frequencies, true) + getTotalRecurringTransactions(props.recurringTransactions, props.frequencies, true) + calculateTotalEntries(), 0);
 
         return `Remaining budget for ${MONTHS[new Date().getMonth()]}: $${total.toFixed(2)}`
     }

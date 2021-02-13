@@ -60,7 +60,7 @@ input:focus {
   background-color: #8f0e22;
 }
 .custom-button:hover {
-  background-color: #576970;
+  background-color: #1d6476;
 }
 
 .custom-link {
@@ -375,7 +375,7 @@ a {
 .input-label-active, .custom-date-picker.active label, .custom-text.active label, .custom-dropdown.active label {
   font-size: 10px;
   line-height: 14px;
-  color: #576970;
+  color: #1d6476;
   margin: 0px 0px 0px 20px;
   transform: translate(0, 4px);
 }
@@ -431,6 +431,7 @@ a {
   max-height: 180px;
   border: 2px solid;
   border-color: #7d957b;
+  cursor: pointer;
 }
 
 .custom-dropdown-item {
@@ -442,7 +443,7 @@ a {
 }
 .custom-dropdown-item:hover {
   color: #fbf7f6;
-  background-color: #576970;
+  background-color: #1d6476;
 }
 
 .custom-text {
@@ -506,7 +507,7 @@ a {
 }
 
 .react-datepicker__header {
-  background-color: #576970 !important;
+  background-color: #1d6476 !important;
 }
 
 .react-datepicker__current-month {
