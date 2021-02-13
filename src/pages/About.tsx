@@ -16,7 +16,7 @@ const About = (props: AboutProps) => {
                 <h1>About</h1>
             </Header>
             <Section>
-                <h1>I made a mistake! How do I delete a transaction/source of income/recurring transaction?</h1>
+                <h1>How do I delete a transaction/source of income/recurring transaction?</h1>
                 <p>
                     Nothing in letskeepit.cheap is permanent. To delete a
                     transaction/source of income/recurring transaction, just
@@ -40,6 +40,9 @@ const About = (props: AboutProps) => {
                 <h1>Credits</h1>
                 <p>
                     Favicon made by <a href="https://www.flaticon.com/authors/kiranshastry" title="Kiranshastry">Kiranshastry</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+                </p>
+                <p>
+                    Down arrow icon based on icon by <a href="https://www.flaticon.com/authors/roundicons" title="Roundicons">Roundicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
                 </p>
             </Section>
         </Container>
