@@ -13,7 +13,7 @@ const DownArrowIcon = (props: DownArrowIconProps) => {
 
     return (
         <div className="icon" onClick={() => onClick()}>
-            <img src="./down-arrow.png" />
+            <img src="./down-arrow.png" alt="" />
         </div>
     );
 }
