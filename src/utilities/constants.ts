@@ -61,9 +61,9 @@ export const FLOATING_HOLIDAYS: MonthWeekDay[] = [
 ]
 
 export const CHART_COLORS: string[] = [
-    '#f5b8b7', '#ba5056', '#8f0e22',    // Reds
-    '#a5d6c6', '#7d957b', '#576970',    // Greens
-    '#2baed3', '#207bad', '#113691'     // Blues
+    '#f5b8b7', '#ba5056', '#e05654', '#8f0e22',     // Reds
+    '#a5d6c6', '#7d957b', '#91cac3', '#576970',     // Greens
+    '#2baed3', '#207bad', '#2787be', '#113691'      // Blues
 ];
 
 export const NULL_ACTION = (input: any) => ({ type: LedgerAction.NULL_ACTION, payload: {} });

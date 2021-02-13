@@ -22,7 +22,7 @@ interface LedgerHistoryComponentProps {
 }
 
 const LedgerHistoryComponent = (props: LedgerHistoryComponentProps) => {
-    const [month, setMonth] = useState(new Date().getMonth());
+    const [month, setMonth] = useState(0);
     const [id, setId] = useState('');
 
     UsesLedgerEntries(props.getLedgerEntries);
@@ -36,7 +36,7 @@ const LedgerHistoryComponent = (props: LedgerHistoryComponentProps) => {
         for (let i = 0; i < 12; i++) {
             const date: Date = new Date();
             date.setMonth(date.getMonth() - i);
-            options.push({ key: i.toString(), value: date.getMonth().toString(), text: `${MONTHS[date.getMonth()]}, ${date.getFullYear()}` });
+            options.push({ key: i.toString(), value: i.toString(), text: `${MONTHS[date.getMonth()]}, ${date.getFullYear()}` });
         }
         return options;
     }
@@ -46,8 +46,7 @@ const LedgerHistoryComponent = (props: LedgerHistoryComponentProps) => {
         if (!isNaN(numberValue)) {
             setMonth(numberValue);
             let date: Date = new Date();
-            const monthOffset = date.getMonth() + (12 - numberValue) % -12;
-            date = new Date(date.getFullYear(), date.getMonth() - monthOffset, date.getDate());
+            date = new Date(date.getFullYear(), date.getMonth() - numberValue, date.getDate());
             props.getLedgerEntries({
                 start: getFirstDayOfMonth(date.getFullYear(), date.getMonth()),
                 end: getLastDayOfMonth(date.getFullYear(), date.getMonth())
