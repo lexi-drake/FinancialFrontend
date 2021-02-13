@@ -29,6 +29,9 @@ const RecurringTransactionComponent = (props: RecurringTransactionComponentProps
 
     UsesRecurringTransactions(props.getRecurringTransactions);
 
+    // TODO (alexa): this needs a recurring transaction summary like the
+    // ledger-history has for transactions. 
+
     const onAddRecurringTransactionClick = () => {
         props.push('transaction/add');
     }
