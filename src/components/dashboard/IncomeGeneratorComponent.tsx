@@ -12,6 +12,7 @@ import CustomButton from "../custom/CustomButton"
 import CustomLink from "../custom/CustomLink"
 import IncomeGeneratorSummary from "../transactions/IncomeGeneratorSummary"
 import IncomeGeneratorModal from "./modals/IncomeGeneratorModal"
+import { getTimesPerMonthFromLastTriggeredAndFrequency, getTimesPerYearFromLastTriggeredAndFrequency } from "../../utilities/dates";
 
 interface IncomeGeneratorComponentProps {
     incomeGenerators: IncomeGenerator[];
@@ -27,11 +28,52 @@ const IncomeGeneratorComponent = (props: IncomeGeneratorComponentProps) => {
 
     UsesIncomeGenerators(props.getIncomeGenerators);
 
-    // TODO (alexa): this needs a summary of total income like the ledger-
-    // history component has for total transactions.
+    const getNumberOfTransactions = (generator: IncomeGenerator): number => {
+        if (generator.recurringTransactions.length === 0) {
+            return 0;
+        }
+        const lastTriggered: Date = generator.recurringTransactions[0].lastTriggered;
+        const frequencyId: string = generator.frequencyId;
+
+        if (monthly) {
+            return getTimesPerMonthFromLastTriggeredAndFrequency(lastTriggered, frequencyId, props.frequencies);
+        }
+        return getTimesPerYearFromLastTriggeredAndFrequency(lastTriggered, frequencyId, props.frequencies)
+    }
+
+    const calculateTotalIncome = (generator: IncomeGenerator): number => {
+        if (props.frequencies.length === 0) {
+            return 0;
+        }
+
+        const getAmountPerPeriod = (value: number, transactionType: string): number => {
+            return transactionType === "Income" ? value : -value;
+        }
+
+        return generator.recurringTransactions
+            .map(x => getAmountPerPeriod(x.amount, x.transactionType) * getNumberOfTransactions(generator))
+            .reduce((sum, x) => sum + x);
+    }
 
     const onAddSourceOfIncomeClick = () => {
         props.push('/income/add');
+    }
+
+    const getTotal = (): number => {
+        if (props.incomeGenerators.length === 0) {
+            return 0;
+        }
+        return props.incomeGenerators
+            .map(x => x.recurringTransactions
+                .map(t => getNumberOfTransactions(x) * (t.transactionType === 'Income' ? t.amount : -t.amount)))
+            .flat()
+            .reduce((sum, x) => sum + x);
+    }
+
+    const calculateTotalClasses = (): string => {
+        const classes: string[] = ['total'];
+        if (getTotal() <= 0) { classes.push('negative'); }
+        return classes.join(' ');
     }
 
     return (
@@ -39,8 +81,9 @@ const IncomeGeneratorComponent = (props: IncomeGeneratorComponentProps) => {
             <h1>Sources of income</h1>
             <Content>
                 {props.incomeGenerators.map(x =>
-                    <IncomeGeneratorSummary key={x.id} generator={x} frequencies={props.frequencies} monthly={monthly} onClick={(value) => setId(value)} />)
+                    <IncomeGeneratorSummary key={x.id} id={x.id} description={x.description} income={calculateTotalIncome(x)} onClick={(value) => setId(value)} />)
                 }
+                <div className={calculateTotalClasses()}>${getTotal().toFixed(2)}</div>
                 <CustomLink first onClick={() => setMonthly(true)}>{MONTHS[new Date().getMonth()]}</CustomLink>
                 <CustomLink onClick={() => setMonthly(false)}>{new Date().getFullYear()}</CustomLink>
             </Content>

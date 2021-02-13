@@ -1,5 +1,7 @@
 import Frequency from "../models/Frequency";
 import { LedgerEntry } from "../models/LedgerEntry";
+import { RecurringTransaction } from "../models/RecurringTransaction";
+import { getTimesPerMonth, getTimesPerYear } from './dates';
 
 const REDIRECT_PATH = 'RedirectPath';
 
@@ -43,3 +45,8 @@ export const sortLedgerEntries = (array: LedgerEntry[]) => {
         return 0;
     });
 }
+
+export const getAmountAndTimes = (transaction: RecurringTransaction, frequencies: Frequency[], monthly: boolean): [number, string] =>
+    monthly ?
+        getTimesPerMonth(transaction.lastTriggered, transaction.frequencyId, frequencies, transaction.amount)
+        : getTimesPerYear(transaction.lastTriggered, transaction.frequencyId, frequencies, transaction.amount);

@@ -1,50 +1,15 @@
-import Frequency from "../../models/Frequency";
-import { IncomeGenerator } from "../../models/IncomeGenerator"
-import { getTimesPerMonthFromLastTriggeredAndFrequency, getTimesPerYearFromLastTriggeredAndFrequency } from "../../utilities/dates";
-
 interface IncomeGeneratorSummaryProps {
-    generator: IncomeGenerator;
-    frequencies: Frequency[];
-    monthly: boolean;
+    id: string;
+    description: string;
+    income: number;
     onClick: (value: string) => void;
 }
 
-const IncomeGeneratorSummary = (props: IncomeGeneratorSummaryProps) => {
-
-    const getNumberOfTransactions = (): number => {
-        if (props.generator.recurringTransactions.length === 0) {
-            return 0;
-        }
-        const lastTriggered: Date = props.generator.recurringTransactions[0].lastTriggered;
-        const frequencyId: string = props.generator.frequencyId;
-
-        if (props.monthly) {
-            return getTimesPerMonthFromLastTriggeredAndFrequency(lastTriggered, frequencyId, props.frequencies);
-        }
-        return getTimesPerYearFromLastTriggeredAndFrequency(lastTriggered, frequencyId, props.frequencies)
-    }
-
-    const calculateTotalIncome = (): number => {
-        if (props.frequencies.length === 0) {
-            return 0;
-        }
-
-        const getAmountPerPeriod = (value: number, transactionType: string): number => {
-            return transactionType === "Income" ? value : -value;
-        }
-
-        return props.generator.recurringTransactions
-            .map(x => getAmountPerPeriod(x.amount, x.transactionType) * getNumberOfTransactions())
-            .reduce((sum, x) => sum + x);
-    }
-
-    return (
-        <div className="income-generator-summary" onClick={() => props.onClick(props.generator.id)}>
-            <div className="description">{props.generator.description}</div>
-            <div className="net">${calculateTotalIncome().toFixed(2)}</div>
-            <hr />
-        </div>
-    )
-}
+const IncomeGeneratorSummary = (props: IncomeGeneratorSummaryProps) =>
+    <div className="income-generator-summary" onClick={() => props.onClick(props.id)}>
+        <div className="description">{props.description}</div>
+        <div className="net">${props.income.toFixed(2)}</div>
+        <hr />
+    </div>
 
 export default IncomeGeneratorSummary;

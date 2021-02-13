@@ -6,6 +6,7 @@ import RecurringTransactionSummary from "../../transactions/RecurringTransaction
 import NameValue from "../../custom/NameValue";
 import Section from "../../custom/Section";
 import { deleteIncomeGenerator, getIncomeGenerators } from "../../../store/ledger/actions";
+import { getAmountAndTimes } from "../../../utilities/utilities";
 
 interface IncomeGeneratorModalProps {
     id: string;
@@ -56,8 +57,17 @@ const IncomeGeneratorModal = (props: IncomeGeneratorModalProps) => {
                 </Section>
                 <Section>
                     <h1>Recurring transactions</h1>
-                    {generator?.recurringTransactions.map(x =>
-                        <RecurringTransactionSummary transaction={x} frequencies={props.frequencies} monthly={true} onClick={() => { }} />)
+                    {generator?.recurringTransactions.map(x => {
+                        const [total, times] = getAmountAndTimes(x, props.frequencies, true);
+                        return <RecurringTransactionSummary
+                            key={x.id}
+                            amount={x.amount}
+                            total={total}
+                            times={times}
+                            category={x.category}
+                            description={x.description}
+                            onClick={() => { }} />
+                    })
 
                     }
                 </Section>
