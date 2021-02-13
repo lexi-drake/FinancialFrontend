@@ -5,22 +5,19 @@ import Modal, { ModalContent, ModalHeader } from "../../custom/Modal"
 import RecurringTransactionSummary from "../../transactions/RecurringTransactionSummary";
 import NameValue from "../../custom/NameValue";
 import Section from "../../custom/Section";
-import { deleteIncomeGenerator, getIncomeGenerators } from "../../../store/ledger/actions";
+import { deleteIncomeGenerator } from "../../../store/ledger/actions";
 import { getAmountAndTimes } from "../../../utilities/utilities";
 
 interface IncomeGeneratorModalProps {
     id: string;
     generators: IncomeGenerator[];
     frequencies: Frequency[];
-    getIncomeGenerators: typeof getIncomeGenerators;
     deleteIncomeGenerator: typeof deleteIncomeGenerator;
     close: () => void;
 }
 
 const IncomeGeneratorModal = (props: IncomeGeneratorModalProps) => {
 
-    // TODO (alexa): size of modals needs to be adjusted to better fit the
-    // screen (only for full-size windows) and need to be scrollable.
     const getSelectedGenerator = (): IncomeGenerator | null => {
         const selected: IncomeGenerator[] = props.generators.filter(x => x.id === props.id);
         if (selected.length === 0) {

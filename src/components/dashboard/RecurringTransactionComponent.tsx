@@ -7,20 +7,17 @@ import { RecurringTransaction } from "../../models/RecurringTransaction";
 import { AppDataState } from "../../store/appdata";
 import { deleteRecurringTransaction, getRecurringTransactions } from "../../store/ledger/actions";
 import { MONTHS } from "../../utilities/constants";
-import { UsesRecurringTransactions } from "../../utilities/hooks";
-import { getAmountAndTimes } from "../../utilities/utilities";
+import { getAmountAndTimes, getNumberOfTransactions, transactionsWithoutGenerators } from "../../utilities/utilities";
 import Content from "../custom/Content";
 import CustomButton from "../custom/CustomButton";
 import CustomLink from "../custom/CustomLink";
 import RecurringTransactionSummary from "../transactions/RecurringTransactionSummary";
 import RecurringTransactionModal from "./modals/RecurringTransactionModal";
-import { getTimesPerMonthFromLastTriggeredAndFrequency, getTimesPerYearFromLastTriggeredAndFrequency } from "../../utilities/dates";
 
 interface RecurringTransactionComponentProps {
     generators: IncomeGenerator[];
     recurringTransactions: RecurringTransaction[];
     frequencies: Frequency[];
-    getRecurringTransactions: typeof getRecurringTransactions;
     deleteRecurringTransaction: typeof deleteRecurringTransaction;
     push: typeof push;
 }
@@ -29,30 +26,14 @@ const RecurringTransactionComponent = (props: RecurringTransactionComponentProps
     const [monthly, setMonthly] = useState(true);
     const [id, setId] = useState('');
 
-    UsesRecurringTransactions(props.getRecurringTransactions);
 
-    const transactionsWithoutGenerators = (): RecurringTransaction[] => {
-        const generatorTransactionIds: string[] = props.generators.map(x => x.recurringTransactions)
-            .flat()
-            .map(x => x.id);
-        return props.recurringTransactions.filter(x => !generatorTransactionIds.includes(x.id));
-    }
-    const getNumberOfTransactions = (transaction: RecurringTransaction): number => {
-        const lastTriggered: Date = transaction.lastTriggered;
-        const frequencyId: string = transaction.frequencyId;
-
-        if (monthly) {
-            return getTimesPerMonthFromLastTriggeredAndFrequency(lastTriggered, frequencyId, props.frequencies);
-        }
-        return getTimesPerYearFromLastTriggeredAndFrequency(lastTriggered, frequencyId, props.frequencies)
-    }
 
     const getTotal = (): number => {
         if (props.recurringTransactions.length === 0) {
             return 0;
         }
-        return transactionsWithoutGenerators()
-            .map(x => getNumberOfTransactions(x) * (x.transactionType === 'Income' ? x.amount : -x.amount))
+        return transactionsWithoutGenerators(props.recurringTransactions, props.generators)
+            .map(x => getNumberOfTransactions(x.lastTriggered, x.frequencyId, props.frequencies, monthly) * (x.transactionType === 'Income' ? x.amount : -x.amount))
             .reduce((sum, x) => sum + x);
     }
 
@@ -66,7 +47,7 @@ const RecurringTransactionComponent = (props: RecurringTransactionComponentProps
         <div className="recurring-transaction-list">
             <h1>Recurring transactions</h1>
             <Content>
-                {transactionsWithoutGenerators().map(x => {
+                {transactionsWithoutGenerators(props.recurringTransactions, props.generators).map(x => {
                     const [total, times] = getAmountAndTimes(x, props.frequencies, monthly);
                     return <RecurringTransactionSummary
                         key={x.id}
@@ -85,7 +66,7 @@ const RecurringTransactionComponent = (props: RecurringTransactionComponentProps
             <Content>
                 <CustomButton onClick={() => props.push('transaction/add')}>Add transaction</CustomButton>
             </Content>
-            <RecurringTransactionModal id={id} transactions={props.recurringTransactions} getRecurringTransactions={props.getRecurringTransactions} deleteRecurringTransaction={props.deleteRecurringTransaction} frequencies={props.frequencies} close={() => setId('')} />
+            <RecurringTransactionModal id={id} transactions={props.recurringTransactions} deleteRecurringTransaction={props.deleteRecurringTransaction} frequencies={props.frequencies} close={() => setId('')} />
         </div>
     );
 }

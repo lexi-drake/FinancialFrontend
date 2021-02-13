@@ -1,6 +1,6 @@
 import Frequency from "../../../models/Frequency";
 import { RecurringTransaction } from "../../../models/RecurringTransaction";
-import { deleteRecurringTransaction, getRecurringTransactions } from "../../../store/ledger/actions";
+import { deleteRecurringTransaction } from "../../../store/ledger/actions";
 import CustomButton from "../../custom/CustomButton";
 import Modal, { ModalContent, ModalHeader } from "../../custom/Modal";
 import NameValue from "../../custom/NameValue";
@@ -10,7 +10,6 @@ interface RecurringTransactionModalProps {
     id: string;
     transactions: RecurringTransaction[];
     frequencies: Frequency[];
-    getRecurringTransactions: typeof getRecurringTransactions;
     deleteRecurringTransaction: typeof deleteRecurringTransaction;
     close: () => void;
 }
