@@ -301,7 +301,7 @@ a {
 .modal-body {
   background-color: #fbf7f6;
   position: fixed;
-  width: 420px;
+  width: 489px;
   height: auto;
   top: 50%;
   left: 50%;
@@ -309,6 +309,7 @@ a {
   border-radius: 4px;
   box-shadow: 4px 4px 12px 0px #35343a;
   z-index: 11;
+  overflow: auto;
 }
 
 .modal-header {
@@ -327,6 +328,7 @@ a {
   padding: 20px 20px 20px 20px;
   font-size: 14px;
   line-height: 18px;
+  max-height: 800px;
 }
 .modal-content h1 {
   text-align: center;
@@ -334,8 +336,10 @@ a {
   line-height: 28px;
 }
 .modal-content .custom-button {
-  display: inline-block;
-  margin: 20px 5px 20px 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .name-value {
@@ -742,20 +746,24 @@ a {
     margin: 8px 0px 8px 0px;
   }
 
+  .error {
+    width: 280px;
+  }
+
   .modal {
     position: static;
   }
 
   .modal-body {
-    width: 100%;
+    width: 80%;
+    height: 80%;
     position: absolute;
     transform: none;
-    top: 0;
-    left: 0;
+    top: 10%;
+    left: 10%;
   }
-
-  .error {
-    width: 280px;
+  .modal-body .custom-button {
+    width: 100%;
   }
 }
 @media only screen and (min-width: 601px) and (max-width: 1000px) {
@@ -849,11 +857,12 @@ a {
   }
 
   .modal-body {
-    width: 100%;
+    width: 80%;
+    height: 80%;
     position: absolute;
     transform: none;
-    top: 0;
-    left: 0;
+    left: 10%;
+    top: 10%;
   }
 }
 body {
