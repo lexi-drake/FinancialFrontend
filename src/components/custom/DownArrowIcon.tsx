@@ -13,9 +13,7 @@ const DownArrowIcon = (props: DownArrowIconProps) => {
 
     return (
         <div className="icon" onClick={() => onClick()}>
-            <svg>
-                {/* TODO (alexa): needs icon. */}
-            </svg>
+            <img src="./down-arrow.png" />
         </div>
     );
 }

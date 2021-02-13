@@ -387,12 +387,15 @@ a {
   margin: 8px 0px 8px 0px;
 }
 .custom-dropdown .icon {
+  width: 16px;
+  height: 16px;
   position: absolute;
-  margin: 20px 20px 20px 376px;
+  margin: 24px 24px 24px 372px;
+  cursor: pointer;
 }
-.custom-dropdown svg {
-  width: 24px;
-  height: 24px;
+.custom-dropdown .icon img {
+  width: 16px;
+  height: 16px;
 }
 .custom-dropdown input {
   background-color: #fbf7f6;
@@ -418,6 +421,9 @@ a {
   border: 2px solid;
   border-color: #7d957b;
   border-radius: 4px;
+}
+.custom-dropdown.focused img {
+  transform: rotate(180deg);
 }
 
 .custom-dropdown-menu {

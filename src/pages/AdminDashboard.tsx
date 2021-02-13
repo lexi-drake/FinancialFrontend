@@ -49,8 +49,6 @@ const AdminDashboard = (props: AdminDashboardProps) => {
         });
     }
 
-    // TODO (alexa): hide this stuff in a modal or something
-    // and repurpose the admin-dashboard for message-handling.
     return (
         <Container>
             <Header>
