@@ -1,0 +1,50 @@
+.selector
+    margin: auto
+
+    .selector-button
+        display: inline-block
+        background-color: $gris-light-grey
+        height: 60px
+        padding: 20px 0px 20px 20px
+        border-radius: 4px
+        box-shadow: $shadow-standard
+        cursor: pointer
+
+        &.vertical
+            margin: 8px 0px 8px 0px
+
+        &.horizontal
+            margin: 20px 8px 20px 8px
+
+            &.first
+                margin-left: 0px
+
+            &.last
+                margin-right: 0px
+
+        &.selected
+            color: $gris-white
+            background-color: $gris-dark-gold
+
+        .description
+            display: inline-block
+            vertical-align: middle
+
+input[type="radio"]
+    --webkit-appearance: none
+    --moz-appearance: none
+    appearance: none
+    vertical-align: middle
+    display: inline-block
+    margin: 0px 12px 0px 0px
+    width: 14px
+    height: 14px
+    background-clip: content-box
+    border: 2px solid $gris-grey
+    background-color: $gris-white
+    border-radius: 50%
+    cursor: pointer
+
+input[type="radio"]:checked
+    border: 2px solid $gris-white
+    background-color: $gris-dark-gold

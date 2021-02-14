@@ -10,6 +10,7 @@ import { calculateIncome, getTotalIncomeGenerators } from "../../utilities/incom
 import Content from "../custom/Content"
 import CustomButton from "../custom/CustomButton"
 import CustomLink from "../custom/CustomLink"
+import Selector, { SelectorOption } from "../custom/Selector"
 import IncomeGeneratorSummary from "../transactions/IncomeGeneratorSummary"
 import IncomeGeneratorModal from "./modals/IncomeGeneratorModal"
 
@@ -21,10 +22,10 @@ interface IncomeGeneratorComponentProps {
 }
 
 const IncomeGeneratorComponent = (props: IncomeGeneratorComponentProps) => {
-    const [monthly, setMonthly] = useState(true);
+    const [monthly, setMonthly] = useState('monthly');
     const [id, setId] = useState('');
 
-    const total: number = getTotalIncomeGenerators(props.incomeGenerators, props.frequencies, monthly);
+    const total: number = getTotalIncomeGenerators(props.incomeGenerators, props.frequencies, monthly === 'monthly');
 
     const calculateTotalClasses = (): string => {
         const classes: string[] = ['total'];
@@ -32,22 +33,26 @@ const IncomeGeneratorComponent = (props: IncomeGeneratorComponentProps) => {
         return classes.join(' ');
     }
 
+    const options: SelectorOption[] = [
+        { value: 'monthly', description: MONTHS[new Date().getMonth()] },
+        { value: 'yearly', description: new Date().getFullYear().toString() }
+    ];
+
     return (
         <div className="income-generator-list">
             <h1>Sources of income</h1>
             <Content>
                 {props.incomeGenerators.map(x =>
-                    <IncomeGeneratorSummary key={x.id} id={x.id} description={x.description} income={calculateIncome(x, props.frequencies, monthly)} onClick={(value) => setId(value)} />)
+                    <IncomeGeneratorSummary key={x.id} id={x.id} description={x.description} income={calculateIncome(x, props.frequencies, monthly === 'true')} onClick={(value) => setId(value)} />)
                 }
                 <div className={calculateTotalClasses()}>${total.toFixed(2)}</div>
-                <CustomLink first onClick={() => setMonthly(true)}>{MONTHS[new Date().getMonth()]}</CustomLink>
-                <CustomLink onClick={() => setMonthly(false)}>{new Date().getFullYear()}</CustomLink>
+                <Selector value={monthly} options={options} onChange={(value) => setMonthly(value)} />
             </Content>
             <Content>
                 <CustomButton onClick={() => props.push('/income/add')}>Add source of income</CustomButton>
             </Content>
             <IncomeGeneratorModal id={id} generators={props.incomeGenerators} deleteIncomeGenerator={props.deleteIncomeGenerator} frequencies={props.frequencies} close={() => setId('')} />
-        </div>
+        </div >
     )
 }
 

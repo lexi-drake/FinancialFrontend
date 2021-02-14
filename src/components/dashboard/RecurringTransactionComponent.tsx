@@ -10,7 +10,7 @@ import { getTotalRecurringTransactions } from "../../utilities/recurring_transac
 import { getAmountAndTimes } from "../../utilities/utilities";
 import Content from "../custom/Content";
 import CustomButton from "../custom/CustomButton";
-import CustomLink from "../custom/CustomLink";
+import Selector, { SelectorOption } from "../custom/Selector";
 import RecurringTransactionSummary from "../transactions/RecurringTransactionSummary";
 import RecurringTransactionModal from "./modals/RecurringTransactionModal";
 
@@ -22,10 +22,10 @@ interface RecurringTransactionComponentProps {
 }
 
 const RecurringTransactionComponent = (props: RecurringTransactionComponentProps) => {
-    const [monthly, setMonthly] = useState(true);
+    const [monthly, setMonthly] = useState('monthly');
     const [id, setId] = useState('');
 
-    const total: number = getTotalRecurringTransactions(props.recurringTransactions, props.frequencies, monthly);
+    const total: number = getTotalRecurringTransactions(props.recurringTransactions, props.frequencies, monthly === 'monthly');
 
     const calculateTotalClasses = (): string => {
         const classes: string[] = ['total'];
@@ -33,12 +33,19 @@ const RecurringTransactionComponent = (props: RecurringTransactionComponentProps
         return classes.join(' ');
     }
 
+    const options: SelectorOption[] = [
+        { value: 'monthly', description: MONTHS[new Date().getMonth()] },
+        { value: 'yearly', description: new Date().getFullYear().toString() }
+    ]
+
     return (
         <div className="recurring-transaction-list">
+
+
             <h1>Recurring transactions</h1>
             <Content>
                 {props.recurringTransactions.map(x => {
-                    const [total, times] = getAmountAndTimes(x, props.frequencies, monthly);
+                    const [total, times] = getAmountAndTimes(x, props.frequencies, monthly === 'monthly');
                     return <RecurringTransactionSummary
                         key={x.id}
                         amount={x.amount}
@@ -50,8 +57,7 @@ const RecurringTransactionComponent = (props: RecurringTransactionComponentProps
                 })
                 }
                 <div className={calculateTotalClasses()}>{total.toFixed(2)}</div>
-                <CustomLink first onClick={() => setMonthly(true)}>{MONTHS[new Date().getMonth()]}</CustomLink>
-                <CustomLink onClick={() => setMonthly(false)}>{new Date().getFullYear()}</CustomLink>
+                <Selector value={monthly} options={options} onChange={(value) => setMonthly(value)} />
             </Content>
             <Content>
                 <CustomButton onClick={() => props.push('transaction/add')}>Add transaction</CustomButton>

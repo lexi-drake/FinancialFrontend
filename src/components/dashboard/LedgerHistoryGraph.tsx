@@ -3,8 +3,8 @@ import { ChartOptions } from 'chart.js'
 import { LedgerEntry } from "../../models/LedgerEntry";
 import { useState } from 'react';
 import Content from '../custom/Content';
-import CustomLink from '../custom/CustomLink';
 import { CHART_COLORS } from '../../utilities/constants';
+import Selector, { SelectorOption } from '../custom/Selector';
 
 interface LedgerHistoryGraphProps {
     ledgerEntries: LedgerEntry[]
@@ -37,7 +37,6 @@ const LedgerHistoryGraph = (props: LedgerHistoryGraphProps) => {
                 labels.push(key);
                 values.push(data[key]);
                 colors.push(CHART_COLORS[colorIndex]);
-                console.log(key, CHART_COLORS[colorIndex]);
                 colorIndex = (colorIndex + 7) % CHART_COLORS.length;
             }
             return [labels, values, colors];
@@ -54,8 +53,8 @@ const LedgerHistoryGraph = (props: LedgerHistoryGraphProps) => {
         }
     }
 
-    const options = (title: string): ChartOptions => {
-        const options = {
+    const graphOptions = (title: string): ChartOptions => (
+        {
             title: {
                 display: true,
                 text: title,
@@ -88,23 +87,25 @@ const LedgerHistoryGraph = (props: LedgerHistoryGraphProps) => {
             },
             responsive: true,
             maintainAspectRatio: true
-        }
-        return options;
-    };
+        });
 
     const getGraph = (): any => {
         if (graph === 'Income') {
-            return <Pie width={300} height={300} data={getData('Income')} options={options('Income')} />
+            return <Pie width={300} height={300} data={getData('Income')} options={graphOptions('Income')} />
         }
-        return <Pie width={300} height={300} data={getData('Expenditure')} options={options('Expenditures')} />
+        return <Pie width={300} height={300} data={getData('Expenditure')} options={graphOptions('Expenditures')} />
     }
+
+    const options: SelectorOption[] = [
+        { value: 'Income', description: 'Income' },
+        { value: 'Expenditures', description: 'Expenditures' }
+    ];
 
     return (
         <div className="ledger-history-graph">
             {getGraph()}
             <Content>
-                <CustomLink onClick={() => setGraph('Income')}>Income</CustomLink>
-                <CustomLink onClick={() => setGraph('Expenditures')}>Expenditures</CustomLink>
+                <Selector value={graph} options={options} onChange={(value) => setGraph(value)} />
             </Content>
         </div>
     );

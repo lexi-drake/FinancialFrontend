@@ -533,6 +533,60 @@ a {
   color: #fbf7f6 !important;
 }
 
+.selector {
+  margin: auto;
+}
+.selector .selector-button {
+  display: inline-block;
+  background-color: #e0e0e0;
+  height: 60px;
+  padding: 20px 0px 20px 20px;
+  border-radius: 4px;
+  box-shadow: 4px 4px 12px 0px #bdbec2;
+  cursor: pointer;
+}
+.selector .selector-button.vertical {
+  margin: 8px 0px 8px 0px;
+}
+.selector .selector-button.horizontal {
+  margin: 20px 8px 20px 8px;
+}
+.selector .selector-button.horizontal.first {
+  margin-left: 0px;
+}
+.selector .selector-button.horizontal.last {
+  margin-right: 0px;
+}
+.selector .selector-button.selected {
+  color: #fbf7f6;
+  background-color: #d27236;
+}
+.selector .selector-button .description {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+input[type=radio] {
+  --webkit-appearance: none;
+  --moz-appearance: none;
+  appearance: none;
+  vertical-align: middle;
+  display: inline-block;
+  margin: 0px 12px 0px 0px;
+  width: 14px;
+  height: 14px;
+  background-clip: content-box;
+  border: 2px solid #bdbec2;
+  background-color: #fbf7f6;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+input[type=radio]:checked {
+  border: 2px solid #fbf7f6;
+  background-color: #d27236;
+}
+
 .recurring-transaction-summary {
   max-width: 420px;
   margin: 6px 0px 6px 0px;
