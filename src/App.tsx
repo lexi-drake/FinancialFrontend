@@ -17,6 +17,7 @@ import AddRecurringTransaction from './pages/AddRecurringTransaction';
 import About from './pages/About';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import Support from './pages/Support.';
 
 interface AppProps {
   isLoggedIn: boolean;
@@ -38,6 +39,7 @@ const App = (props: AppProps) => {
         <PrivateRoute path="/ledger/add" component={AddLedgerEntry} {...props} />
         <PrivateRoute path="/transaction/add" component={AddRecurringTransaction} {...props} />
         <Route path="/about" component={About} />
+        <PrivateRoute path="/support" component={Support} {...props} />
         <Route path="/" component={Landing} />
       </Switch>
       <Footer />

@@ -39,3 +39,27 @@
 // block to work correctly.
 .custom-text.has-pre-token input
     padding-left: 30px
+
+.custom-long-text
+    height: 210px
+    width: 420px
+    position: relative
+    margin: 8px 0px 8px 0px
+
+    textarea
+        // Without !important these don't restrict to 420x210.
+        width: 100% !important
+        height: 100% !important
+        font-size: 16px
+        line-height: 24px
+        background-color: $gris-white
+        border: none
+        border-radius: 4px
+        padding: 12px 20px 12px 20px
+        resize: none
+
+    textarea:focus
+        outline: none
+
+    ::placeholder
+        color: $gris-mid-blue

@@ -486,6 +486,30 @@ a {
   padding-left: 30px;
 }
 
+.custom-long-text {
+  height: 210px;
+  width: 420px;
+  position: relative;
+  margin: 8px 0px 8px 0px;
+}
+.custom-long-text textarea {
+  width: 100% !important;
+  height: 100% !important;
+  font-size: 16px;
+  line-height: 24px;
+  background-color: #fbf7f6;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 20px 12px 20px;
+  resize: none;
+}
+.custom-long-text textarea:focus {
+  outline: none;
+}
+.custom-long-text ::placeholder {
+  color: #2787be;
+}
+
 .custom-date-picker {
   height: 60px;
   width: 420px;
