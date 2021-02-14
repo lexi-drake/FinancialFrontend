@@ -64,3 +64,9 @@ export function ClearsUserError(clearUserError: () => void) {
         clearUserError();
     }, [clearUserError]);
 }
+
+export function UsesTickets(getTickets: () => void) {
+    useEffect(() => {
+        getTickets();
+    }, [getTickets]);
+}

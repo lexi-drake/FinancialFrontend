@@ -9,10 +9,10 @@ export const transactionsWithoutGenerators = (recurringTransactions: RecurringTr
         .map(x => x.id);
     return recurringTransactions.filter(x => !generatorTransactionIds.includes(x.id))
         .sort((a, b) => {
-            if (a.category < b.category) {
-                return -1;
-            } else if (a.category > b.category) {
+            if (a.category > b.category) {
                 return 1;
+            } else if (b.category > a.category) {
+                return -1;
             }
             return 0;
         });
