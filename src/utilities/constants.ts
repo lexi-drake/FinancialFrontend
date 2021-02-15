@@ -1,4 +1,4 @@
-import { LedgerAction } from "../store/actions";
+import { NullAction } from "../store/actions";
 
 export const MAXIMUM_SELECTOR_WIDTH_PX = 333;
 export const MINIMUM_SELECTOR_WIDTH_PX = 120;
@@ -71,4 +71,4 @@ export const CHART_COLORS: string[] = [
     '#2baed3', '#207bad', '#2787be', '#113691'      // Blues
 ];
 
-export const NULL_ACTION = (input: any) => ({ type: LedgerAction.NULL_ACTION, payload: {} });
+export const NULL_ACTION = (input: any) => ({ type: NullAction.NULL_ACTION, payload: {} });

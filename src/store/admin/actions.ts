@@ -1,8 +1,12 @@
 import { AnyAction } from "redux";
-import { ThunkAction } from "redux-thunk";
+import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { AdminRequest, FrequencyRequest } from "../../models/AdminRequest";
-import { post } from "../../utilities/backend_client";
-import { StoreAction, UserAction } from "../actions";
+import { MessageRequest } from "../../models/Message";
+import { SupportTicket } from "../../models/SupportTicket";
+import { get, post } from "../../utilities/backend_client";
+import { NULL_ACTION } from "../../utilities/constants";
+import { sortMessages } from "../../utilities/utilities";
+import { AdminAction, StoreAction, UserAction } from "../actions";
 
 const logResponse = (response: any): StoreAction => {
     console.log(response);
@@ -26,6 +30,56 @@ export const submitFrequency = (request: FrequencyRequest): ThunkAction<Promise<
         return new Promise<void>(async (resolve) => {
             const path: string = 'admin/frequency';
             await post(request, path, logResponse, logResponse);
+            resolve();
+        });
+    }
+}
+
+const setTickets = (tickets: SupportTicket[]): StoreAction => {
+    return {
+        type: AdminAction.SET_TICKETS,
+        payload: {
+            tickets: tickets.map(x => ({
+                ...x,
+                messages: sortMessages(x.messages.map(m => ({
+                    ...m,
+                    createdDate: new Date(m.createdDate)
+                }))),
+                createdDate: new Date(x.createdDate)
+            }
+            ))
+        }
+    }
+}
+
+export const getTickets = (): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
+    return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+        return new Promise<void>(async (resolve) => {
+            const path: string = 'admin/tickets';
+            const response: StoreAction = await get(path, setTickets, logResponse);
+            dispatch(response);
+            resolve();
+        });
+    }
+}
+
+export const submitAdminMessage = (request: MessageRequest): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
+    return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+        return new Promise<void>(async (resolve) => {
+            const path: string = 'admin/message';
+            const response: StoreAction = await post(request, path, NULL_ACTION, logResponse);
+            dispatch(response);
+            resolve();
+        });
+    }
+}
+
+export const resolveTicket = (id: string): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
+    return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+        return new Promise<void>(async (resolve) => {
+            const path: string = `admin/ticket/${id}/resolve`;
+            const response: StoreAction = await post({}, path, NULL_ACTION, logResponse);
+            dispatch(response);
             resolve();
         });
     }

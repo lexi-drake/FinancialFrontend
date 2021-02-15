@@ -4,6 +4,8 @@ import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { StoreAction, UserAction } from '../actions';
 import { get, post } from '../../utilities/backend_client';
 import { AxiosError } from 'axios';
+import { SubmitTicketRequest } from '../../models/SupportTicket';
+import { NULL_ACTION } from '../../utilities/constants';
 
 const setUserError = (error: AxiosError): StoreAction => {
     if (!error.response) {
@@ -127,6 +129,16 @@ export const checkAdmin = (): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
             const path: string = 'admin';
             const response: StoreAction = await get(path, isAdmin, isNotAdmin);
             dispatch(response);
+            resolve();
+        });
+    }
+}
+
+export const submitTicket = (request: SubmitTicketRequest): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
+    return async (): Promise<void> => {
+        return new Promise<void>(async (resolve) => {
+            const path: string = 'user/ticket';
+            await post(request, path, NULL_ACTION, setUserError);
             resolve();
         });
     }

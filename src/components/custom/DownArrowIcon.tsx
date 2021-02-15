@@ -1,4 +1,3 @@
-
 interface DownArrowIconProps {
     onClick?: () => void;
 }
@@ -11,9 +10,11 @@ const DownArrowIcon = (props: DownArrowIconProps) => {
         }
     }
 
+    const path: string = `${process.env.PUBLIC_URL}/down-arrow.png`;
+
     return (
         <div className="icon" onClick={() => onClick()}>
-            <img src="./down-arrow.png" alt="" />
+            <img src={path} alt="" />
         </div>
     );
 }

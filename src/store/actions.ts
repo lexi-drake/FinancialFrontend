@@ -1,6 +1,6 @@
 import { AppDataPayload } from "./appdata";
 
-export type ActionType = UserAction | LedgerAction | AdminAction;
+export type ActionType = UserAction | LedgerAction | AdminAction | NullAction;
 
 export enum UserAction {
     SET_USER_ERROR = 'SET_USER_ERROR',
@@ -11,7 +11,6 @@ export enum UserAction {
 }
 
 export enum LedgerAction {
-    NULL_ACTION = 'NULL_ACTION',
     SET_LEDGER_ERROR = 'SET_LEDGER_ERROR',
     SET_CATEGORIES = 'SET_CATEGORIES',
     SET_FREQUENCIES = 'SET_FREQUENCIES',
@@ -23,7 +22,11 @@ export enum LedgerAction {
 }
 
 export enum AdminAction {
+    SET_TICKETS = 'SET_TICKETS'
+}
 
+export enum NullAction {
+    NULL_ACTION = 'NULL_ACTION'
 }
 
 export type StoreAction = { type: ActionType, payload: Partial<AppDataPayload> };
