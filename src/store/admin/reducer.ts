@@ -17,7 +17,7 @@ export const AdminReducer = (state: AdminState = defaultState, action: { type: A
             const tickets = sortTickets(action.payload.tickets);
             state = {
                 ...state,
-                tickets: action.payload.tickets
+                tickets: tickets
             };
             break;
     }

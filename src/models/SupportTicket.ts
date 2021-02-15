@@ -1,9 +1,8 @@
+import { Message } from "./Message";
+
 export interface SupportTicket {
     id: string;
-    submittingUserId: string;
-    submittingUserName: string;
-    subject: string;
-    content: string;
+    messages: Message[];
     resolved: boolean;
     createdDate: Date;
 }

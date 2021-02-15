@@ -1,4 +1,5 @@
 import Frequency from "../models/Frequency";
+import { Message } from "../models/Message";
 import { RecurringTransaction } from "../models/RecurringTransaction";
 import { SupportTicket } from "../models/SupportTicket";
 import { getTimesPerMonth, getTimesPerMonthFromLastTriggeredAndFrequency, getTimesPerYear, getTimesPerYearFromLastTriggeredAndFrequency } from './dates';
@@ -41,13 +42,29 @@ export const getNumberOfTransactions = (lastTriggered: Date, frequencyId: string
     monthly ? getTimesPerMonthFromLastTriggeredAndFrequency(lastTriggered, frequencyId, frequencies)
         : getTimesPerYearFromLastTriggeredAndFrequency(lastTriggered, frequencyId, frequencies)
 
-// Tickets are sorted so that newest tickets are at the top.
-export const sortTickets = (tickets: SupportTicket[]) =>
+const getMostRecentDate = (messages: Message[]): Date =>
+    new Date(Math.max(...messages.map(x => x.createdDate.getTime())));
+
+// Tickets are sorted by the most recent message sent, such that the 
+// most recent appears first.
+export const sortTickets = (tickets: SupportTicket[]): SupportTicket[] =>
     tickets.sort((a, b) => {
+        const aDate = getMostRecentDate(a.messages);
+        const bDate = getMostRecentDate(b.messages);
+        if (aDate > bDate) {
+            return -1;
+        } else if (bDate > aDate) {
+            return 1;
+        }
+        return 0;
+    });
+
+export const sortMessages = (messages: Message[]): Message[] =>
+    messages.sort((a, b) => {
         if (a.createdDate > b.createdDate) {
             return -1;
         } else if (b.createdDate > a.createdDate) {
             return 1;
         }
         return 0;
-    });
+    })

@@ -1,3 +1,4 @@
+import { push } from "connected-react-router";
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { SupportTicket } from "../../models/SupportTicket";
@@ -12,8 +13,10 @@ import Section from "../custom/Section";
 import Selector, { SelectorOption } from "../custom/Selector";
 
 interface TicketsOverviewProps {
+    username: string;
     tickets: SupportTicket[];
     getTickets: typeof getTickets;
+    push: typeof push;
 }
 
 const TicketsOverview = (props: TicketsOverviewProps) => {
@@ -30,7 +33,12 @@ const TicketsOverview = (props: TicketsOverviewProps) => {
     const getTicketsToRender = (): SupportTicket[] =>
         props.tickets.filter(x => (resolved === 'resolved') ? x.resolved : !x.resolved);
 
-    const { subject, content } = !!ticketId ? props.tickets.find(x => x.id === ticketId)! : { subject: '', content: '' }
+    const getMostRecentMessage = (ticketId: string): { subject: string, content: string } => {
+        var ticket = props.tickets.find(x => x.id === ticketId)!;
+        return ticket.messages.find(x => x.sentBy.username !== props.username) || ticket.messages[0];
+    }
+
+    const { subject, content } = !!ticketId ? getMostRecentMessage(ticketId) : { subject: '', content: '' }
 
     return (
         <div className="tickets-overview">
@@ -44,7 +52,7 @@ const TicketsOverview = (props: TicketsOverviewProps) => {
                             {getReadableDate(x.createdDate)}
                         </div>
                         <div className="subject">
-                            {x.subject}
+                            {x.messages[0].subject}
                         </div>
                         <hr />
                     </div>
@@ -59,7 +67,7 @@ const TicketsOverview = (props: TicketsOverviewProps) => {
                         {content}
                     </Content>
                     <CustomButton error onClick={() => { }}>Resolve</CustomButton>
-                    <CustomButton onClick={() => { }}>Respond</CustomButton>
+                    <CustomButton onClick={() => { props.push(`/ticket/${ticketId}`) }}>Respond</CustomButton>
                     <CustomButton onClick={() => setTicketId('')}>Close</CustomButton>
                 </ModalContent>
             </Modal>
@@ -69,8 +77,9 @@ const TicketsOverview = (props: TicketsOverviewProps) => {
 
 const mapStateToProps = (state: AppDataState): Partial<TicketsOverviewProps> => {
     return {
+        username: state.user.username,
         tickets: state.admin.tickets
     };
 }
 
-export default connect(mapStateToProps, { getTickets })(TicketsOverview as any);
+export default connect(mapStateToProps, { getTickets, push })(TicketsOverview as any);

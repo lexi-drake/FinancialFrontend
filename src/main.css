@@ -330,6 +330,17 @@ a {
   box-shadow: 4px 4px 12px 0px #bdbec2;
 }
 
+.message {
+  background-color: #fbf7f6;
+  width: 100%;
+  margin: 8px 0px 8px 0px;
+  padding: 20px;
+  box-shadow: 4px 4px 12px 0px #bdbec2;
+}
+.message .author {
+  font-weight: bold;
+}
+
 .modal {
   position: fixed;
   top: 0;
