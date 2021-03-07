@@ -42,9 +42,11 @@ const IncomeGeneratorComponent = (props: IncomeGeneratorComponentProps) => {
             <h1>Sources of income</h1>
             <Content>
                 {props.incomeGenerators.map(x =>
-                    <IncomeGeneratorSummary key={x.id} id={x.id} description={x.description} income={calculateIncome(x, props.frequencies, monthly === 'true')} onClick={(value) => setId(value)} />)
+                    <IncomeGeneratorSummary key={x.id} id={x.id} description={x.description} income={calculateIncome(x, props.frequencies, monthly === 'monthly')} onClick={(value) => setId(value)} />)
                 }
                 <div className={calculateTotalClasses()}>${total.toFixed(2)}</div>
+            </Content>
+            <Content>
                 <Selector value={monthly} options={options} onChange={(value) => setMonthly(value)} />
             </Content>
             <Content>

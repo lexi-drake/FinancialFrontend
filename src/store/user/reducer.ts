@@ -1,3 +1,5 @@
+import { Message } from "../../models/Message";
+import { sortMessages } from "../../utilities/utilities";
 import { ActionType, UserAction } from "../actions"
 import { AppDataPayload } from "../appdata"
 
@@ -7,6 +9,7 @@ export interface UserState {
     username: string;
     isLoggedIn: boolean;
     isAdmin: boolean;
+    messages: Message[];
 }
 
 const defaultState: UserState = {
@@ -15,6 +18,7 @@ const defaultState: UserState = {
     username: '',
     isLoggedIn: false,
     isAdmin: false,
+    messages: []
 }
 
 export const UserReducer = (state: UserState = defaultState, action: { type: ActionType, payload: AppDataPayload }) => {
@@ -52,6 +56,13 @@ export const UserReducer = (state: UserState = defaultState, action: { type: Act
                 username: '',
                 isLoggedIn: false,
                 isAdmin: false
+            };
+            break;
+        case UserAction.SET_MESSAGES:
+            const messages = sortMessages(action.payload.messages);
+            state = {
+                ...state,
+                messages: messages
             };
             break;
     }

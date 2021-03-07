@@ -1,11 +1,12 @@
 import { push } from "connected-react-router";
+import { stringify } from "querystring";
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router";
 import { SupportTicket } from "../../models/SupportTicket";
 import { resolveTicket, submitAdminMessage } from "../../store/admin/actions";
 import { AppDataState } from "../../store/appdata";
-import { getReadableDate } from "../../utilities/dates";
+import { isNew } from "../../utilities/utilities";
 import Container from "../custom/Container"
 import Content from "../custom/Content";
 import CustomButton from "../custom/CustomButton";
@@ -13,8 +14,10 @@ import CustomLongText from "../custom/CustomLongText";
 import CustomText from "../custom/CustomText";
 import Header from "../custom/Header";
 import Section from "../custom/Section";
+import MessageComponent from "../MessageComponent";
 
 interface TicketManagementProps {
+    username: string;
     tickets: SupportTicket[];
     submitAdminMessage: typeof submitAdminMessage;
     resolveTicket: typeof resolveTicket;
@@ -48,24 +51,10 @@ const TicketManagment = (props: TicketManagementProps) => {
                 <h1>Manage ticket</h1>
             </Header>
             <Section>
-                {ticket.messages.map((x, i) =>
-                    <div className="message">
-                        <Content>
-                        </Content>
-                        <Content>
-                            <h1>{x.subject}</h1>
-                            <div className="author">{`Sent by: ${x.sentBy.username}`}</div>
-                            <div>{getReadableDate(x.createdDate)}</div>
-                            <hr />
-                            <p>{x.content}</p>
-                        </Content>
-                        {i === 0 &&
-                            <Content>
-                                <CustomButton disabled={resolved || ticket.resolved} error onClick={() => onResolveClick()}>{ticket.resolved ? 'Resolved' : 'Resolve'}</CustomButton>
-                            </Content>
-                        }
-                    </div>
-                )}
+                <Content>
+                    <CustomButton disabled={resolved || ticket.resolved} error onClick={() => onResolveClick()}>{ticket.resolved ? 'Resolved' : 'Resolve'}</CustomButton>
+                </Content>
+                {ticket.messages.map(x => <MessageComponent subject={x.subject} content={x.content} sentBy={x.sentBy} date={x.createdDate} new={isNew(x, props.username)} />)}
             </Section>
             <Section>
                 <h1>Respond</h1>
@@ -83,6 +72,7 @@ const TicketManagment = (props: TicketManagementProps) => {
 
 const mapStateToProps = (state: AppDataState): Partial<TicketManagementProps> => {
     return {
+        username: state.user.username,
         tickets: state.admin.tickets
     };
 }

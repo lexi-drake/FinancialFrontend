@@ -35,7 +35,7 @@ const TicketsOverview = (props: TicketsOverviewProps) => {
 
     const getMostRecentMessage = (ticketId: string): { subject: string, content: string } => {
         var ticket = props.tickets.find(x => x.id === ticketId)!;
-        return ticket.messages.find(x => x.sentBy.username !== props.username) || ticket.messages[0];
+        return ticket.messages.find(x => x.sentBy !== props.username) || ticket.messages[0];
     }
 
     const { subject, content } = !!ticketId ? getMostRecentMessage(ticketId) : { subject: '', content: '' }

@@ -1,7 +1,7 @@
 import { NullAction } from "../store/actions";
 
-export const MAXIMUM_SELECTOR_WIDTH_PX = 333;
-export const MINIMUM_SELECTOR_WIDTH_PX = 120;
+export const MAXIMUM_SELECTOR_WIDTH_PX = 325;
+export const MINIMUM_SELECTOR_BUTTON_WIDTH_PX = 103;
 export const MAXIMUM_SELECTOR_STRING_LENGTH = 20;
 
 export const MINIMUM_PASSWORD_LENGTH = 8;

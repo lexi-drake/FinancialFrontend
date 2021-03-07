@@ -514,7 +514,7 @@ a {
 .custom-text > span {
   position: absolute;
   display: block;
-  padding: 18px 0px 18px 20px;
+  padding: 20px 0px 16px 20px;
   font-size: 16px;
   line-height: 24px;
 }
@@ -611,10 +611,9 @@ a {
 }
 
 .selector {
-  margin: auto;
+  margin: 32px 0px 20px 0px;
 }
 .selector .selector-button {
-  display: inline-block;
   background-color: #e0e0e0;
   height: 60px;
   padding: 20px 0px 20px 20px;
@@ -626,6 +625,7 @@ a {
   margin: 8px 0px 8px 0px;
 }
 .selector .selector-button.horizontal {
+  display: inline-block;
   margin: 20px 8px 20px 8px;
 }
 .selector .selector-button.horizontal.first {
@@ -1012,6 +1012,7 @@ input[type=radio]:checked {
 }
 body {
   display: flex;
+  flex-basis: 66%;
   display: -webkit-flex;
   color: #35343a;
   margin: 0;
