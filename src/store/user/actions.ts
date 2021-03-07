@@ -6,6 +6,7 @@ import { get, post } from '../../utilities/backend_client';
 import { AxiosError } from 'axios';
 import { SubmitTicketRequest } from '../../models/SupportTicket';
 import { NULL_ACTION } from '../../utilities/constants';
+import { Message, MessageRequest } from '../../models/Message';
 
 const setUserError = (error: AxiosError): StoreAction => {
     if (!error.response) {
@@ -139,6 +140,40 @@ export const submitTicket = (request: SubmitTicketRequest): ThunkAction<Promise<
         return new Promise<void>(async (resolve) => {
             const path: string = 'user/ticket';
             await post(request, path, NULL_ACTION, setUserError);
+            resolve();
+        });
+    }
+}
+
+const setMessages = (messages: Message[]): StoreAction => {
+    return {
+        type: UserAction.SET_MESSAGES,
+        payload: {
+            messages: messages.map(x => ({
+                ...x,
+                createdDate: new Date(x.createdDate)
+            }))
+        }
+    };
+}
+
+export const getMessages = (): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
+    return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+        return new Promise<void>(async (resolve) => {
+            const path: string = 'user/messages';
+            const response: StoreAction = await get(path, setMessages, setUserError);
+            dispatch(response);
+            resolve();
+        });
+    }
+}
+
+export const submitMessage = (request: MessageRequest): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
+    return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
+        return new Promise<void>(async (resolve) => {
+            const path: string = 'user/message';
+            const response: StoreAction = await post(request, path, setMessages, setUserError);
+            dispatch(response);
             resolve();
         });
     }

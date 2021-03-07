@@ -7,7 +7,8 @@ export enum UserAction {
     SET_USER_COUNT = 'SET_USER_COUNT',
     SET_LOGIN_STATUS = 'SET_LOGIN_STATUS',
     SET_ADMIN_STATUS = 'SET_ADMIN_STATUS',
-    SET_LOGOUT = 'SET_LOGOUT'
+    SET_LOGOUT = 'SET_LOGOUT',
+    SET_MESSAGES = 'SET_MESSAGES'
 }
 
 export enum LedgerAction {

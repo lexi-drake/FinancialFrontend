@@ -19,6 +19,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Support from './pages/Support.';
 import TicketManagement from './components/admin/TicketManagement';
+import Inbox from './pages/Inbox';
 
 interface AppProps {
   isLoggedIn: boolean;
@@ -41,6 +42,7 @@ const App = (props: AppProps) => {
         <PrivateRoute path="/transaction/add" component={AddRecurringTransaction} {...props} />
         <Route path="/about" component={About} />
         <PrivateRoute path="/support" component={Support} {...props} />
+        <PrivateRoute path="/inbox" component={Inbox} {...props} />
         <PrivateRoute path="/ticket/:id" component={TicketManagement} {...props} admin />
         <Route path="/" component={Landing} />
       </Switch>

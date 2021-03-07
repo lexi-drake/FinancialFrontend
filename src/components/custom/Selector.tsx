@@ -1,4 +1,4 @@
-import { MAXIMUM_SELECTOR_STRING_LENGTH, MAXIMUM_SELECTOR_WIDTH_PX, MINIMUM_SELECTOR_WIDTH_PX } from "../../utilities/constants";
+import { MAXIMUM_SELECTOR_STRING_LENGTH, MAXIMUM_SELECTOR_WIDTH_PX, MINIMUM_SELECTOR_BUTTON_WIDTH_PX } from "../../utilities/constants";
 
 export interface SelectorOption {
     value: string;
@@ -22,7 +22,8 @@ const Selector = (props: SelectorProps) => {
         const totalMarginPx: number = (props.options.length - 1) * 16;
         const remainingPx: number = MAXIMUM_SELECTOR_WIDTH_PX - totalMarginPx;
         const buttonWidthPx: number = remainingPx / props.options.length;
-        const vertical: boolean = buttonWidthPx < MINIMUM_SELECTOR_WIDTH_PX || maxLabelLength() > MAXIMUM_SELECTOR_STRING_LENGTH;
+        const vertical: boolean = buttonWidthPx < MINIMUM_SELECTOR_BUTTON_WIDTH_PX || maxLabelLength() > MAXIMUM_SELECTOR_STRING_LENGTH;
+
         return { width: vertical ? MAXIMUM_SELECTOR_WIDTH_PX : buttonWidthPx, vertical }
     }
 

@@ -134,16 +134,8 @@ const setLedgerEntries = (entries: LedgerEntry[]): StoreAction => {
 export const getLedgerEntries = (request: DateSpanRequest): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
     return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
         return new Promise<void>(async (resolve) => {
-            const createPath = (): string => {
-                const toMMDDYYYY = (date: Date): string => {
-                    var month: string = (date.getMonth() + 1).toString().padStart(2, '0');
-                    var day: string = date.getDate().toString().padStart(2, '0');
-                    var year: string = date.getFullYear().toString();
-                    return month + day + year;
-                }
-                return `ledger/${toMMDDYYYY(request.start)}/${toMMDDYYYY(request.end)}`
-            }
-            const response: StoreAction = await get(createPath(), setLedgerEntries, setLedgerError);
+            const path: string = `ledger/${request.start.getTime()}/${request.end.getTime()}`
+            const response: StoreAction = await get(path, setLedgerEntries, setLedgerError);
             dispatch(response);
             resolve();
         });

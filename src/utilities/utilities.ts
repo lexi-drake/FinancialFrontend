@@ -67,4 +67,8 @@ export const sortMessages = (messages: Message[]): Message[] =>
             return 1;
         }
         return 0;
-    })
+    });
+
+export const isNew = (message: Message, username: string): boolean => {
+    return !message.opened && message.sentBy !== username;
+}

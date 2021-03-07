@@ -2,6 +2,7 @@ import { Category } from "../models/Category";
 import Frequency from "../models/Frequency";
 import { IncomeGenerator } from "../models/IncomeGenerator";
 import { LedgerEntry } from "../models/LedgerEntry";
+import { Message } from "../models/Message";
 import { RecurringTransaction } from "../models/RecurringTransaction";
 import SalaryType from "../models/SalaryType";
 import { SupportTicket } from "../models/SupportTicket";
@@ -31,4 +32,5 @@ export interface AppDataPayload {
     entries: LedgerEntry[];
     recurringTransactions: RecurringTransaction[];
     tickets: SupportTicket[];
+    messages: Message[];
 }
