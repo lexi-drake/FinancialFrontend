@@ -1,5 +1,4 @@
 import React from "react";
-import { Message } from "../models/Message";
 import { getReadableDate } from "../utilities/dates";
 import Content from "./custom/Content";
 
