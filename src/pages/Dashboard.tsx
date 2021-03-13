@@ -49,28 +49,29 @@ const Dashboard = (props: DashboardProps) => {
         const calculateTotalEntries = (): number => {
 
             const isRecurringTransaction = (entry: LedgerEntry): boolean => {
-                console.log(entry);
                 if (!entry.recurringTransactionId) {
                     return false;
                 }
-                return props.recurringTransactions.map(x => x.id).includes(entry.recurringTransactionId);
+                const recurringTransactions: string[] = [
+                    ...props.incomeGenerators.map(x => x.recurringTransactions.map(y => y.id)).flat(),
+                    ...props.recurringTransactions.map(x => x.id)
+                ]
+                return recurringTransactions.includes(entry.recurringTransactionId);
             }
 
             if (props.ledgerEntries.length === 0) {
                 return 0;
             }
             return props.ledgerEntries.filter(x => !isRecurringTransaction(x))
-                .map(x => x.transactionType === 'Income' ? x.amount : -x.amount)
+                .map(x => {
+                    return x.transactionType === 'Income' ? x.amount : -x.amount
+                })
                 .reduce((sum, x) => sum + x);
         }
 
         const income: number = getTotalIncomeGenerators(props.incomeGenerators, props.frequencies, true);
         const recurringTransactions: number = getTotalRecurringTransactions(props.recurringTransactions, props.frequencies, true);
         const transactions: number = calculateTotalEntries();
-        console.log(income);
-        console.log(recurringTransactions);
-        console.log(transactions);
-
         const total = Math.max(income + recurringTransactions + transactions, 0);
 
         return `Remaining budget for ${MONTHS[new Date().getMonth()]}: $${total.toFixed(2)}`
