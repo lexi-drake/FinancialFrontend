@@ -66,7 +66,7 @@ const Dashboard = (props: DashboardProps) => {
                 .map(x => {
                     return x.transactionType === 'Income' ? x.amount : -x.amount
                 })
-                .reduce((sum, x) => sum + x);
+                .reduce((sum, x) => sum + x, 0);
         }
 
         const income: number = getTotalIncomeGenerators(props.incomeGenerators, props.frequencies, true);
