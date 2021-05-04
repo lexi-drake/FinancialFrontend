@@ -1,11 +1,16 @@
 import { push } from "connected-react-router";
 import { useState } from "react";
 import { connect } from "react-redux";
+import Frequency from "../../models/Frequency";
+import { IncomeGenerator } from "../../models/IncomeGenerator";
 import { LedgerEntry } from "../../models/LedgerEntry";
+import { RecurringTransaction } from "../../models/RecurringTransaction";
 import { AppDataState } from "../../store/appdata";
 import { deleteLedgerEntry, getLedgerEntries } from "../../store/ledger/actions";
 import { MONTHS } from "../../utilities/constants";
 import { getFirstDayOfMonth, getLastDayOfMonth } from "../../utilities/dates";
+import { getTotalIncomeGenerators } from "../../utilities/income_generators";
+import { getTotalRecurringTransactions } from "../../utilities/recurring_transactions";
 import Content from "../custom/Content";
 import CustomButton from "../custom/CustomButton";
 import CustomDropdown, { DropdownOption } from "../custom/CustomDropdown";
@@ -15,6 +20,9 @@ import LedgerEntryModal from "./modals/LedgerEntryModal";
 
 interface LedgerHistoryComponentProps {
     ledgerEntries: LedgerEntry[];
+    incomeGenerators: IncomeGenerator[];
+    recurringTransactions: RecurringTransaction[];
+    frequencies: Frequency[];
     getLedgerEntries: typeof getLedgerEntries;
     deleteLedgerEntry: typeof deleteLedgerEntry;
     push: typeof push;
@@ -24,6 +32,41 @@ const LedgerHistoryComponent = (props: LedgerHistoryComponentProps) => {
     const [month, setMonth] = useState(0);
     const [id, setId] = useState('');
 
+    const budgetText = (): string => {
+
+        const calculateTotalEntries = (): number => {
+
+            const isRecurringTransaction = (entry: LedgerEntry): boolean => {
+                if (!entry.recurringTransactionId) {
+                    return false;
+                }
+                const recurringTransactions: string[] = [
+                    ...props.incomeGenerators.map(x => x.recurringTransactions.map(y => y.id)).flat(),
+                    ...props.recurringTransactions.map(x => x.id)
+                ]
+                return recurringTransactions.includes(entry.recurringTransactionId);
+            }
+
+            if (props.ledgerEntries.length === 0) {
+                return 0;
+            }
+            return props.ledgerEntries.filter(x => !isRecurringTransaction(x))
+                .map(x => {
+                    return x.transactionType === 'Income' ? x.amount : -x.amount
+                })
+                .reduce((sum, x) => sum + x, 0);
+        }
+
+        if (month === 0) {
+            const income: number = getTotalIncomeGenerators(props.incomeGenerators, props.frequencies, true);
+            const recurringTransactions: number = getTotalRecurringTransactions(props.recurringTransactions, props.frequencies, true);
+            const transactions: number = calculateTotalEntries();
+            const total = Math.max(income + recurringTransactions + transactions, 0);
+
+            return month === 0 ? `Remaining budget for ${MONTHS[new Date().getMonth()]}: $${total.toFixed(2)}` : 'No budget data available for this month.';
+        }
+        return 'No budget information available for this month.';
+    }
 
     const onAddTransactionClick = () => {
         props.push('ledger/add');
@@ -75,6 +118,7 @@ const LedgerHistoryComponent = (props: LedgerHistoryComponentProps) => {
     return (
         <div className="ledger-history">
             <h1>Transaction history</h1>
+            <p>{budgetText()}</p>
             {props.ledgerEntries.length > 0 &&
                 <Content>
                     <LedgerHistoryGraph ledgerEntries={props.ledgerEntries} />
@@ -99,6 +143,9 @@ const LedgerHistoryComponent = (props: LedgerHistoryComponentProps) => {
 const mapStateToProps = (state: AppDataState): Partial<LedgerHistoryComponentProps> => {
     return {
         ledgerEntries: state.ledger.ledgerEntries,
+        incomeGenerators: state.ledger.incomeGenerators,
+        recurringTransactions: state.ledger.recurringTransactions,
+        frequencies: state.ledger.frequencies
     };
 }
 

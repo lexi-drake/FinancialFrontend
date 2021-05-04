@@ -14,10 +14,7 @@ import { RecurringTransaction } from "../models/RecurringTransaction";
 import { AppDataState } from "../store/appdata";
 import { getFrequencies, getIncomeGenerators, getLedgerEntries, getRecurringTransactions } from "../store/ledger/actions";
 import { getMessages } from "../store/user/actions";
-import { MONTHS } from "../utilities/constants";
 import { UsesFrequencies, UsesIncomeGenerators, UsesLedgerEntries, UsesMessages, UsesRecurringTransactions } from "../utilities/hooks";
-import { getTotalIncomeGenerators } from "../utilities/income_generators";
-import { getTotalRecurringTransactions } from "../utilities/recurring_transactions";
 
 interface DashboardProps {
     username: string;
@@ -44,39 +41,6 @@ const Dashboard = (props: DashboardProps) => {
 
     const headline: string = `Welcome, ${props.username}`
 
-    const budgetText = (): string => {
-
-        const calculateTotalEntries = (): number => {
-
-            const isRecurringTransaction = (entry: LedgerEntry): boolean => {
-                if (!entry.recurringTransactionId) {
-                    return false;
-                }
-                const recurringTransactions: string[] = [
-                    ...props.incomeGenerators.map(x => x.recurringTransactions.map(y => y.id)).flat(),
-                    ...props.recurringTransactions.map(x => x.id)
-                ]
-                return recurringTransactions.includes(entry.recurringTransactionId);
-            }
-
-            if (props.ledgerEntries.length === 0) {
-                return 0;
-            }
-            return props.ledgerEntries.filter(x => !isRecurringTransaction(x))
-                .map(x => {
-                    return x.transactionType === 'Income' ? x.amount : -x.amount
-                })
-                .reduce((sum, x) => sum + x, 0);
-        }
-
-        const income: number = getTotalIncomeGenerators(props.incomeGenerators, props.frequencies, true);
-        const recurringTransactions: number = getTotalRecurringTransactions(props.recurringTransactions, props.frequencies, true);
-        const transactions: number = calculateTotalEntries();
-        const total = Math.max(income + recurringTransactions + transactions, 0);
-
-        return `Remaining budget for ${MONTHS[new Date().getMonth()]}: $${total.toFixed(2)}`
-    }
-
     const messagesText = (): string => {
         if (props.messages.length === 0) {
             return 'Inbox';
@@ -90,7 +54,6 @@ const Dashboard = (props: DashboardProps) => {
         <DashboardContainer>
             <Header>
                 <h1>{headline}</h1>
-                <p>{budgetText()}</p>
                 <CustomLink onClick={() => props.push('/inbox')}>{messagesText()}</CustomLink>
             </Header>
             <LedgerHistoryComponent />

@@ -32,13 +32,6 @@ input:focus {
   cursor: not-allowed;
 }
 
-.error {
-  height: 32px;
-  width: 420px;
-  text-align: right;
-  color: #8f0e22;
-}
-
 button {
   background-color: #7d957b;
   color: #fbf7f6;
@@ -229,7 +222,7 @@ a {
   width: 69%;
   border: 1px solid #2baed3;
 }
-.ledger-history .custom-button {
+.ledger-history button {
   float: left;
 }
 .ledger-history .custom-dropdown {
@@ -388,7 +381,7 @@ a {
   font-size: 24px;
   line-height: 28px;
 }
-.modal-content .custom-button {
+.modal-content button {
   margin-top: 20px;
   margin-bottom: 20px;
   margin-left: auto;
@@ -880,7 +873,7 @@ input[type=radio]:checked {
     width: 280px;
   }
 
-  .custom-button {
+  button {
     margin: 8px 0px 8px 0px;
   }
 
@@ -896,7 +889,7 @@ input[type=radio]:checked {
     top: 10%;
     left: 10%;
   }
-  .modal-body .custom-button {
+  .modal-body button {
     width: 100%;
   }
 }
@@ -990,7 +983,7 @@ input[type=radio]:checked {
     margin: 8px 0px 8px 0px;
   }
 
-  .custom-button {
+  button {
     margin: 8px 0px 8px 0px;
   }
 
@@ -1002,12 +995,11 @@ input[type=radio]:checked {
     left: 10%;
     top: 10%;
   }
-  .modal-body .custom-button {
-    float: none;
+  .modal-body button {
     margin-top: 20px;
     margin-bottom: 20px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 31px;
+    margin-right: 31px;
   }
 }
 body {
