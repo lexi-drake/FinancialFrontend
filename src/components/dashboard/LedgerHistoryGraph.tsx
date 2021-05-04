@@ -14,6 +14,7 @@ const LedgerHistoryGraph = (props: LedgerHistoryGraphProps) => {
     const [graph, setGraph] = useState('Expenditures');
 
     const getData = (type: string): { labels: any, datasets: any } => {
+
         const getLabelsAndValues = (): [string[], number[], string[]] => {
             const data: Record<string, number> = {};
             for (const entry of props.ledgerEntries) {
@@ -29,18 +30,28 @@ const LedgerHistoryGraph = (props: LedgerHistoryGraphProps) => {
                     }
                 }
             }
-            const labels: string[] = [];
-            const values: number[] = [];
-            const colors: string[] = [];
+            const dataList: { label: string, value: number, color: string }[] = [];
             let colorIndex = 0;
             for (const key in data) {
-                labels.push(key);
-                values.push(data[key]);
-                colors.push(CHART_COLORS[colorIndex]);
+                dataList.push({
+                    label: key,
+                    value: data[key],
+                    color: CHART_COLORS[colorIndex]
+                });
                 colorIndex = (colorIndex + 7) % CHART_COLORS.length;
             }
-            return [labels, values, colors];
+            dataList.sort((a, b) => {
+                if (a.value > b.value) {
+                    return -1;
+                }
+                if (b.value > a.value) {
+                    return 1;
+                }
+                return 0;
+            });
+            return [dataList.map(x => x.label), dataList.map(x => x.value), dataList.map(x => x.color)];
         }
+
         const [labels, values, colors] = getLabelsAndValues();
         return {
             labels: labels,
