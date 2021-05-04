@@ -8,7 +8,8 @@ interface CustomButtonProps {
 
 const CustomButton: FunctionComponent<CustomButtonProps> = (props) => {
 
-    const onClick = () => {
+    const onClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.preventDefault();
         if (!props.disabled) {
             props.onClick();
         }
@@ -22,7 +23,7 @@ const CustomButton: FunctionComponent<CustomButtonProps> = (props) => {
     }
 
     return (
-        <button className={calculateClasses()} onClick={() => onClick()}>
+        <button className={calculateClasses()} onClick={(event) => onClick(event)}>
             {props.children}
         </button>
     )

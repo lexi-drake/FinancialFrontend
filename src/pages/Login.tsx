@@ -76,7 +76,6 @@ const Login = (props: LoginProps) => {
                         <CustomButton disabled={loginDisabled()} onClick={() => onLoginClick()}>{processing ? 'Logging in' : 'Log in'}</CustomButton>
                     </form>
                 </div>
-
             </Section>
         </Container>
     );
