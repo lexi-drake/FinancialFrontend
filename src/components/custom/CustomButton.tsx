@@ -15,16 +15,16 @@ const CustomButton: FunctionComponent<CustomButtonProps> = (props) => {
     }
 
     const calculateClasses = (): string => {
-        const classes: string[] = ['custom-button'];
+        const classes: string[] = [];
         if (props.disabled) { classes.push('disabled'); }
         if (props.error) { classes.push('error'); }
         return classes.join(' ');
     }
 
     return (
-        <div className={calculateClasses()} onClick={() => onClick()}>
+        <button className={calculateClasses()} onClick={() => onClick()}>
             {props.children}
-        </div>
+        </button>
     )
 }
 

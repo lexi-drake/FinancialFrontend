@@ -39,7 +39,7 @@ input:focus {
   color: #8f0e22;
 }
 
-.custom-button {
+button {
   background-color: #7d957b;
   color: #fbf7f6;
   text-align: center;
@@ -53,13 +53,13 @@ input:focus {
   border-radius: 16px;
   cursor: pointer;
 }
-.custom-button.error {
+button.error {
   background-color: #ba5056;
 }
-.custom-button.error:hover {
+button.error:hover {
   background-color: #8f0e22;
 }
-.custom-button:hover {
+button:hover {
   background-color: #1d6476;
 }
 

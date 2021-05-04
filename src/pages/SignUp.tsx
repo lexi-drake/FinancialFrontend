@@ -47,8 +47,10 @@ const SignUp = (props: SignUpProps) => {
                 <div className="error">
                     {props.error}
                 </div>
-                <UserInfo error={!!props.error} username={username} password={password} handleUsernameChanged={(value) => setUsername(value)} handlePasswordChanged={(value) => setPassword(value)} />
-                <CustomButton disabled={signUpDisabled()} onClick={() => onSignUpClick()}>{processing ? 'Signing up' : 'Sign up'}</CustomButton>
+                <form>
+                    <UserInfo error={!!props.error} username={username} password={password} handleUsernameChanged={(value) => setUsername(value)} handlePasswordChanged={(value) => setPassword(value)} />
+                    <CustomButton disabled={signUpDisabled()} onClick={() => onSignUpClick()}>{processing ? 'Signing up' : 'Sign up'}</CustomButton>
+                </form>
             </Section>
         </Container>
     );

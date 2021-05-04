@@ -71,9 +71,12 @@ const Login = (props: LoginProps) => {
             <Section>
                 <div className="error">
                     {props.error}
+                    <form>
+                        <UserInfo error={!!props.error} username={username} password={password} handleUsernameChanged={(value) => setUsername(value)} handlePasswordChanged={(value) => setPassword(value)} />
+                        <CustomButton disabled={loginDisabled()} onClick={() => onLoginClick()}>{processing ? 'Logging in' : 'Log in'}</CustomButton>
+                    </form>
                 </div>
-                <UserInfo error={!!props.error} username={username} password={password} handleUsernameChanged={(value) => setUsername(value)} handlePasswordChanged={(value) => setPassword(value)} />
-                <CustomButton disabled={loginDisabled()} onClick={() => onLoginClick()}>{processing ? 'Logging in' : 'Log in'}</CustomButton>
+
             </Section>
         </Container>
     );
