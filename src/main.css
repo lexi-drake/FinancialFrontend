@@ -33,7 +33,7 @@ input:focus {
 }
 
 button {
-  background-color: #624387;
+  background-color: #7d957b;
   color: #dbdbdb;
   text-align: center;
   padding: 20px 0px 20px 0px;
@@ -52,7 +52,7 @@ button.error:hover {
   background-color: #ba5056;
 }
 button:hover {
-  background-color: #94658f;
+  background-color: #a5d6c6;
 }
 
 .custom-link {
@@ -128,7 +128,7 @@ a {
 }
 
 .footer {
-  background-color: #624387;
+  background-color: #7d957b;
   bottom: 0;
   width: 100%;
   height: 169px;
@@ -207,7 +207,7 @@ a {
   padding: 20px 20px 20px 20px;
   margin: 0px 69px 69px 0px;
   border-style: solid;
-  border-color: #94658f;
+  border-color: #624387;
   border-width: 2px;
 }
 .ledger-history h1 {
@@ -236,7 +236,7 @@ a {
 
 .income-generator-list {
   border-style: solid;
-  border-color: #94658f;
+  border-color: #624387;
   border-width: 2px;
   float: left;
   width: 365px;
@@ -261,7 +261,7 @@ a {
 
 .recurring-transaction-list {
   border-style: solid;
-  border-color: #94658f;
+  border-color: #624387;
   border-width: 2px;
   float: left;
   width: 365px;
