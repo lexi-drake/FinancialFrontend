@@ -61,7 +61,7 @@ const AddTypeComponent = (props: AddTypeComponentProps) => {
                     <CustomDropdown value={type} label="Select" options={options} onSelect={value => showModalFor(value)} />
                 </Content>
             </Section>
-            <Modal show={show}>
+            <Modal show={show} close={onCloseClick}>
                 <ModalHeader>
                     <h1>
                         {`Add ${options.find(x => x.value === type)?.text}`}
@@ -73,7 +73,6 @@ const AddTypeComponent = (props: AddTypeComponentProps) => {
                         <CustomText value={timesPerYear} label="Approx. times per year" onChange={value => setTimesPerYear(value)} />
                     }
                     <CustomButton onClick={onSubmitClick} disabled={submitDisabled()}>Submit</CustomButton>
-                    <CustomButton onClick={onCloseClick}>Close</CustomButton>
                 </ModalContent>
             </Modal>
         </div>

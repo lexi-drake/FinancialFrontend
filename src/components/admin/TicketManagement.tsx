@@ -53,10 +53,6 @@ const TicketManagment = (props: TicketManagementProps) => {
                 <Content>
                     <CustomButton disabled={resolved || ticket.resolved} error onClick={() => onResolveClick()}>{ticket.resolved ? 'Resolved' : 'Resolve'}</CustomButton>
                 </Content>
-                {ticket.messages.map(x => <MessageComponent subject={x.subject} content={x.content} sentBy={x.sentBy} date={x.createdDate} new={isNew(x, props.username)} />)}
-            </Section>
-            <Section>
-                <h1>Respond</h1>
                 <Content>
                     <CustomText value={subject} label="Subject" onChange={value => setSubject(value)} />
                     <CustomLongText value={content} placeholder="How would you like to respond?" onChange={value => setContent(value)} />
@@ -64,6 +60,9 @@ const TicketManagment = (props: TicketManagementProps) => {
                 <Content>
                     <CustomButton disabled={submitDisabled} onClick={() => onSubmitClick()} >Submit</CustomButton>
                 </Content>
+            </Section>
+            <Section>
+                {ticket.messages.map(x => <MessageComponent subject={x.subject} content={x.content} sentBy={x.sentBy} date={x.createdDate} new={isNew(x, props.username)} />)}
             </Section>
         </Container>
     );

@@ -16,17 +16,17 @@
             height: 16px
 
     input
-        background-color: $gris-white
+        color: $gris-light-grey
+        background-color: $gris-dark-grey
         height: 100%
         width: 100%
         font-size: 16px
         line-height: 24px
-        border: none
-        border-radius: 4px
+        border-color: $gris-green
+        border-radius: 2px
         padding: 20px 80px 16px 20px
         overflow: hidden
         text-overflow: ellipsis
-        box-shadow: $shadow-standard
         cursor: pointer
 
     label
@@ -39,8 +39,6 @@
             cursor: pointer
 
     &.focused
-        border: 2px solid
-        border-color: $gris-green
         border-radius: 4px
 
         img
@@ -49,8 +47,7 @@
 .custom-dropdown-menu
     position: absolute
     width: 420px
-    background-color: $gris-white
-    margin: -4px 0px 0px -2px
+    background-color: $gris-dark-grey
     z-index: 11
     overflow-x: hidden
     overflow-y: auto
@@ -68,4 +65,4 @@
 
     &:hover
         color: $gris-white
-        background-color: $gris-dark-green
+        background-color: $gris-green

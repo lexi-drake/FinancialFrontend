@@ -32,7 +32,7 @@ const LedgerEntryModal = (props: LedgerEntryModalProps) => {
     }
 
     return (
-        <Modal show={!!props.id}>
+        <Modal show={!!props.id} close={props.close}>
             <ModalHeader>
                 <h1>Transaction</h1>
             </ModalHeader>
@@ -45,7 +45,6 @@ const LedgerEntryModal = (props: LedgerEntryModalProps) => {
                     <NameValue name="Transaction Date" value={entry ? getReadableDate(entry.transactionDate) : ''} />
                 </Section>
                 <Section>
-                    <CustomButton onClick={() => props.close()}>Close</CustomButton>
                     <CustomButton onClick={() => onDeleteClick()} error>Delete</CustomButton>
                 </Section>
             </ModalContent>

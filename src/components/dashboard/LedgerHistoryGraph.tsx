@@ -38,7 +38,7 @@ const LedgerHistoryGraph = (props: LedgerHistoryGraphProps) => {
                     value: data[key],
                     color: CHART_COLORS[colorIndex]
                 });
-                colorIndex = (colorIndex + 7) % CHART_COLORS.length;
+                colorIndex = (colorIndex + 11) % CHART_COLORS.length;
             }
             dataList.sort((a, b) => {
                 if (a.value > b.value) {
@@ -58,7 +58,8 @@ const LedgerHistoryGraph = (props: LedgerHistoryGraphProps) => {
             datasets: [
                 {
                     data: values,
-                    backgroundColor: colors
+                    backgroundColor: colors,
+                    borderWidth: 0
                 }
             ]
         }
@@ -70,6 +71,7 @@ const LedgerHistoryGraph = (props: LedgerHistoryGraphProps) => {
                 display: true,
                 text: title,
                 fontSize: 16,
+                fontColor: '#e0e0e0'
             },
             scales: {
                 xAxes: [
@@ -94,7 +96,10 @@ const LedgerHistoryGraph = (props: LedgerHistoryGraphProps) => {
                 ]
             },
             legend: {
-                display: true
+                display: true,
+                labels: {
+                    fontColor: '#e0e0e0',
+                }
             },
             responsive: true,
             maintainAspectRatio: true

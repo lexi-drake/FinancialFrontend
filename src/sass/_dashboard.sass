@@ -8,18 +8,19 @@
         display: block
         float: right
         font-weight: bold
-        color: $gris-green
+        color: $gris-light-green
 
         &.negative
-            color: $gris-red
+            color: $gris-mid-red
 
 .ledger-history
-    background-color: $gris-white
     float: left
     width: 800px
     padding: 20px 20px 20px 20px
     margin: 0px 69px 69px 0px
-    box-shadow: $shadow-standard
+    border-style: solid
+    border-color: $gris-light-purple
+    border-width: 2px
 
     h1
         font-size: 24px
@@ -32,7 +33,7 @@
     hr
         margin-left: 31%
         width: 69%
-        border: 1px solid $gris-light-blue
+        border: 1px solid $gris-light-green
 
     button
         float: left
@@ -45,35 +46,13 @@
         clear: both
 
 .income-generator-list
-    background-color: $gris-white
+    border-style: solid
+    border-color: $gris-light-purple
+    border-width: 2px
     float: left
     width: 365px
     margin: 0px 69px 69px 0px
     padding: 20px 20px 20px 20px
-    box-shadow: $shadow-standard
-
-    h1
-        font-size: 24px
-        line-height: 28px
-        margin: 0px
-
-    p
-        font-size: 14px
-        line-height: 18px
-        margin: 6px 0px 6px 0px
-
-    hr
-        margin-left: 31%
-        width: 69%
-        border: 1px solid $gris-light-green
-
-.recurring-transaction-list
-    background-color: $gris-white
-    float: left
-    width: 365px
-    margin: 0px 0px 0px 0px
-    padding: 20px 20px 20px 20px
-    box-shadow: $shadow-standard
 
     h1
         font-size: 24px
@@ -89,3 +68,27 @@
         margin-left: 31%
         width: 69%
         border: 1px solid $gris-light-red
+
+.recurring-transaction-list
+    border-style: solid
+    border-color: $gris-light-purple
+    border-width: 2px
+    float: left
+    width: 365px
+    margin: 0px 0px 0px 0px
+    padding: 20px 20px 20px 20px
+
+    h1
+        font-size: 24px
+        line-height: 28px
+        margin: 0px
+
+    p
+        font-size: 14px
+        line-height: 18px
+        margin: 6px 0px 6px 0px
+
+    hr
+        margin-left: 31%
+        width: 69%
+        border: 1px solid $gris-light-gold

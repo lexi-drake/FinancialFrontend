@@ -43,7 +43,7 @@ const IncomeGeneratorModal = (props: IncomeGeneratorModalProps) => {
     }
 
     return (
-        <Modal show={!!props.id}>
+        <Modal show={!!props.id} close={props.close}>
             <ModalHeader>
                 <h1>Source of income</h1>
             </ModalHeader>
@@ -69,7 +69,6 @@ const IncomeGeneratorModal = (props: IncomeGeneratorModalProps) => {
                     }
                 </Section>
                 <Section>
-                    <CustomButton onClick={() => props.close()}>Close</CustomButton>
                     <CustomButton onClick={() => onDeleteClick()} error>Delete</CustomButton>
                 </Section>
             </ModalContent>

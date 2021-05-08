@@ -110,7 +110,7 @@ const AddLedgerEntry = (props: AddLedgerEntryProps) => {
                     <CustomButton disabled={addTransactionDisabled()} onClick={() => onAddTransactionClick()}>Add transaction</CustomButton>
                 </Content>
             </Section>
-            <Modal show={showHelp}>
+            <Modal show={showHelp} close={() => setShowHelp(false)}>
                 <ModalHeader>
                     <h1>Help</h1>
                 </ModalHeader>
@@ -151,9 +151,6 @@ const AddLedgerEntry = (props: AddLedgerEntryProps) => {
                             this transaction occured. Right now, you can't add
                             transactions that occured more than one month ago.
                         </p>
-                    </Section>
-                    <Section>
-                        <CustomButton onClick={() => setShowHelp(false)}>Close</CustomButton>
                     </Section>
                 </ModalContent>
             </Modal>

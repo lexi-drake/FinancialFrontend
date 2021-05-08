@@ -41,7 +41,7 @@ const RecurringTransactionModal = (props: RecurringTransactionModalProps) => {
     }
 
     return (
-        <Modal show={!!props.id}>
+        <Modal show={!!props.id} close={props.close}>
             <ModalHeader>
                 <h1>Recurring transaction</h1>
             </ModalHeader>
@@ -54,7 +54,6 @@ const RecurringTransactionModal = (props: RecurringTransactionModalProps) => {
                     <NameValue name="Type" value={transaction ? transaction.transactionType : ''} />
                 </Section>
                 <Section>
-                    <CustomButton onClick={() => props.close()}>Close</CustomButton>
                     <CustomButton onClick={() => onDeleteClick()} error>Delete</CustomButton>
                 </Section>
             </ModalContent>

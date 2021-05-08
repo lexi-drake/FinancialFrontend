@@ -188,7 +188,7 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
             <Section>
                 <CustomButton disabled={addSourceOfIncomeDisabled()} onClick={() => onAddSourceOfIncomeClick()}>Add source of income</CustomButton>
             </Section>
-            <Modal show={showHelp}>
+            <Modal show={showHelp} close={() => setShowHelp(false)}>
                 <ModalHeader>
                     <h1>Help</h1>
                 </ModalHeader>
@@ -239,9 +239,6 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
                             shared across users, so DO NOT include personal information
                             in the category field.</strong>
                         </p>
-                    </Section>
-                    <Section>
-                        <CustomButton onClick={() => setShowHelp(false)}>Close</CustomButton>
                     </Section>
                 </ModalContent>
             </Modal>

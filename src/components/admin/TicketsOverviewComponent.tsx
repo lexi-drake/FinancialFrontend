@@ -58,7 +58,7 @@ const TicketsOverview = (props: TicketsOverviewProps) => {
                     </div>
                 )}
             </Section>
-            <Modal show={!!ticketId}>
+            <Modal show={!!ticketId} close={() => setTicketId('')}>
                 < ModalHeader >
                     <h1>{subject}</h1>
                 </ModalHeader>
@@ -68,7 +68,7 @@ const TicketsOverview = (props: TicketsOverviewProps) => {
                     </Content>
                     <CustomButton error onClick={() => { }}>Resolve</CustomButton>
                     <CustomButton onClick={() => { props.push(`/ticket/${ticketId}`) }}>Respond</CustomButton>
-                    <CustomButton onClick={() => setTicketId('')}>Close</CustomButton>
+
                 </ModalContent>
             </Modal>
         </div >

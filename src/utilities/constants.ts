@@ -68,7 +68,7 @@ export const CHART_COLORS: string[] = [
     '#f5b8b7', '#ba5056', '#e05654', '#8f0e22',     // Reds
     '#f9f7d0', '#e5ad56', '#eea570', '#d27236',     // Golds
     '#a5d6c6', '#7d957b', '#91cac3', '#1d6476',     // Greens
-    '#2baed3', '#207bad', '#2787be', '#113691'      // Blues
+    '#94658f', '#624387', '#662938', '#35343a'      // Purples
 ];
 
 export const NULL_ACTION = (input: any) => ({ type: NullAction.NULL_ACTION, payload: {} });

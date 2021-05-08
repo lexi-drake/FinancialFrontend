@@ -2,11 +2,11 @@
     margin: 32px 0px 20px 0px
 
     .selector-button
-        background-color: $gris-light-grey
+        color: $gris-dark-grey
+        background-color: $gris-grey
         height: 60px
         padding: 20px 0px 20px 20px
         border-radius: 4px
-        box-shadow: $shadow-standard
         cursor: pointer
 
         &.vertical
@@ -23,8 +23,8 @@
                 margin-right: 0px
 
         &.selected
-            color: $gris-white
-            background-color: $gris-dark-gold
+            color: $gris-light-grey
+            background-color: $gris-green
 
         .description
             display: inline-block
@@ -40,11 +40,11 @@ input[type="radio"]
     width: 14px
     height: 14px
     background-clip: content-box
-    border: 2px solid $gris-grey
+    border: 2px solid $gris-white
     background-color: $gris-white
     border-radius: 50%
     cursor: pointer
 
 input[type="radio"]:checked
     border: 2px solid $gris-white
-    background-color: $gris-dark-gold
+    background-color: $gris-green

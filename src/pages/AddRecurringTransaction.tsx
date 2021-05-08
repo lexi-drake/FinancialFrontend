@@ -113,7 +113,7 @@ const AddRecurringTransaction = (props: AddRecurringTransactionProps) => {
                     <CustomButton disabled={addTransactionDisabled()} onClick={() => onAddTransactionClick()}>Add transaction</CustomButton>
                 </Content>
             </Section>
-            <Modal show={showHelp}>
+            <Modal show={showHelp} close={() => setShowHelp(false)}>
                 <ModalHeader>
                     <h1>Help</h1>
                 </ModalHeader>
@@ -165,9 +165,6 @@ const AddRecurringTransaction = (props: AddRecurringTransactionProps) => {
                             with <em>frequency</em> to determine when to trigger
                             this transaction in the future.
                         </p>
-                    </Section>
-                    <Section>
-                        <CustomButton onClick={() => setShowHelp(false)}>Close</CustomButton>
                     </Section>
                 </ModalContent>
             </Modal>
