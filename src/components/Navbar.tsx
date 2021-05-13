@@ -1,9 +1,7 @@
 import { push } from "connected-react-router";
-import { Fragment } from "react";
 import { connect } from "react-redux";
 import { AppDataState } from "../store/appdata";
 import { logout } from "../store/user/actions";
-import Container from "./custom/Container";
 import CustomLink from "./custom/CustomLink"
 
 interface NavbarProps {
@@ -23,10 +21,6 @@ const Navbar = (props: NavbarProps) => {
         props.push('/dashboard/admin');
     }
 
-    const onDashboardClick = () => {
-        props.push('/dashboard');
-    }
-
     const onLogoutClick = () => {
         props.logout();
         props.push('/');
@@ -34,21 +28,23 @@ const Navbar = (props: NavbarProps) => {
 
     return (
         <div className="navbar">
-            <Container>
-                <h1 onClick={() => props.push('')}>letskeepit.cheap</h1>
-                {props.isLoggedIn &&
-                    <Fragment>
-                        <CustomLink last onClick={() => onLogoutClick()}>Logout</CustomLink>
-                        <CustomLink onClick={() => onDashboardClick()}>Dashboard</CustomLink>
-                    </Fragment>
-                }
-                {!props.isLoggedIn &&
+            <div className="title" onClick={() => props.push('')}>
+                letskeepit.cheap
+            </div>
+
+            <div className="navbar-login">
+                {props.isLoggedIn ?
+                    <CustomLink last onClick={() => onLogoutClick()}>Logout</CustomLink>
+                    :
                     <CustomLink onClick={() => onLoginClick()}>Login</CustomLink>
                 }
-                {props.isAdmin &&
+            </div>
+
+            {props.isAdmin &&
+                <div className="navbar-admin">
                     <CustomLink onClick={() => onAdminClick()}>Admin</CustomLink>
-                }
-            </Container>
+                </div>
+            }
         </div>
     );
 }

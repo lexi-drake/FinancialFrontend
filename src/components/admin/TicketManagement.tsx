@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router";
 import { SupportTicket } from "../../models/SupportTicket";
-import { resolveTicket, submitAdminMessage } from "../../store/admin/actions";
+import { resolveTicket, } from "../../store/admin/actions";
 import { AppDataState } from "../../store/appdata";
+import { submitMessage } from "../../store/user/actions";
 import { isNew } from "../../utilities/utilities";
 import Container from "../custom/Container"
 import Content from "../custom/Content";
@@ -18,7 +19,7 @@ import MessageComponent from "../MessageComponent";
 interface TicketManagementProps {
     username: string;
     tickets: SupportTicket[];
-    submitAdminMessage: typeof submitAdminMessage;
+    submitMessage: typeof submitMessage;
     resolveTicket: typeof resolveTicket;
     push: typeof push;
 }
@@ -40,7 +41,7 @@ const TicketManagment = (props: TicketManagementProps) => {
     const submitDisabled: boolean = !subject || !content;
 
     const onSubmitClick = async () => {
-        await props.submitAdminMessage({ ticketId: id, subject, content });
+        await props.submitMessage({ ticketId: id, subject, content });
         props.push('/dashboard/admin')
     }
 
@@ -75,4 +76,4 @@ const mapStateToProps = (state: AppDataState): Partial<TicketManagementProps> =>
     };
 }
 
-export default connect(mapStateToProps, { submitAdminMessage, resolveTicket, push })(TicketManagment as any);
+export default connect(mapStateToProps, { submitMessage, resolveTicket, push })(TicketManagment as any);

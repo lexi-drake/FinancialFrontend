@@ -79,30 +79,43 @@ a {
 }
 
 .navbar {
-  width: 100%;
-  height: 80px;
-  left: 0;
-  right: 0;
-  top: 0;
-  background-color: #35343a;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(2, 50px);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  margin: 6px;
 }
-.navbar h1 {
-  color: #7d957b;
+.navbar .title {
+  grid-column: 1/8;
+  grid-row: 2/3;
   font-size: 36px;
   line-height: 48px;
-  margin: 32px 0px 0px -169px;
-  display: inline-block;
-  float: left;
   cursor: pointer;
 }
-.navbar .custom-link {
-  margin: 56px 24px 0px 24px;
-  display: inline-block;
-  float: right;
-  color: #dbdbdb;
+.navbar .navbar-login {
+  border: 1px #35343a solid;
+  border-radius: 4px;
+  grid-column: 8/11;
+  grid-row: 1/2;
+  padding: 12px 0px 0px 0px;
+  text-align: center;
 }
-.navbar .custom-link.last {
-  margin-right: 0px;
+.navbar .navbar-login .custom-link {
+  margin: 0px;
+  color: #35343a;
+}
+.navbar .navbar-admin {
+  border: 1px #35343a solid;
+  border-radius: 4px;
+  grid-column: 8/11;
+  grid-row: 2/3;
+  padding: 12px 0px 0px 0px;
+  text-align: center;
+}
+.navbar .navbar-admin .custom-link {
+  margin: 0px;
+  color: #35343a;
 }
 
 .header {
@@ -1012,10 +1025,10 @@ body {
   display: flex;
   flex-basis: 66%;
   display: -webkit-flex;
-  color: #e0e0e0;
+  color: #35343a;
   margin: 0;
   min-height: 100%;
-  background-color: #000000;
+  background-color: #fbf7f6;
 }
 
 /*# sourceMappingURL=main.css.map */

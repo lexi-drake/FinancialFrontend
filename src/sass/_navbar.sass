@@ -1,25 +1,38 @@
 .navbar
-    width: 100%
-    height: 80px
-    left: 0
-    right: 0
-    top: 0
-    background-color: $gris-dark-grey
+    display: grid
+    grid-template-columns: repeat(10, 1fr)
+    grid-template-rows: repeat(2, 50px)
+    grid-column-gap: 10px
+    grid-row-gap: 10px
+    margin: 6px
 
-    h1
-        color: $gris-green
+    .title
+        grid-column: 1 / 8
+        grid-row: 2 / 3
         font-size: 36px
         line-height: 48px
-        margin: 32px 0px 0px -169px
-        display: inline-block
-        float: left
         cursor: pointer
 
-    .custom-link
-        margin: 56px 24px 0px 24px
-        display: inline-block
-        float: right
-        color: $gris-mid-grey
+    .navbar-login
+        border: 1px $gris-dark-grey solid
+        border-radius: 4px
+        grid-column: 8 / 11
+        grid-row: 1 / 2
+        padding: 12px 0px 0px 0px
+        text-align: center
 
-        &.last
-            margin-right: 0px
+        .custom-link
+            margin: 0px
+            color: $gris-dark-grey
+
+    .navbar-admin
+        border: 1px $gris-dark-grey solid
+        border-radius: 4px
+        grid-column: 8 / 11
+        grid-row: 2 / 3
+        padding: 12px 0px 0px 0px
+        text-align: center
+
+        .custom-link
+            margin: 0px
+            color: $gris-dark-grey

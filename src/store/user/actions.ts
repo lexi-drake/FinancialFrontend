@@ -2,7 +2,7 @@ import UserRequest, { LoginResponse } from '../../models/UserRequest';
 import { AnyAction } from 'redux';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { StoreAction, UserAction } from '../actions';
-import { get, post } from '../../utilities/backend_client';
+import { del, get, patch, post, put } from '../../utilities/backend_client';
 import { AxiosError } from 'axios';
 import { SubmitTicketRequest } from '../../models/SupportTicket';
 import { NULL_ACTION } from '../../utilities/constants';
@@ -34,13 +34,10 @@ const setUserError = (error: AxiosError): StoreAction => {
     };
 }
 
-export const clearUserError = (): ThunkAction<void, {}, {}, AnyAction> => dispatch => {
+export const clearUserError = (): ThunkAction<void, {}, {}, AnyAction> => dispatch =>
     dispatch({ type: UserAction.SET_USER_ERROR, payload: { errorMessage: '' } });
-}
 
-const setUserCount = (count: number): StoreAction => {
-    return { type: UserAction.SET_USER_COUNT, payload: { userCount: count } };
-}
+const setUserCount = (count: number): StoreAction => ({ type: UserAction.SET_USER_COUNT, payload: { userCount: count } });
 
 export const getUserCount = (): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
     return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
@@ -53,20 +50,16 @@ export const getUserCount = (): ThunkAction<Promise<void>, {}, {}, AnyAction> =>
     }
 }
 
-const isLoggedIn = (response: LoginResponse): StoreAction => {
-    return {
-        type: UserAction.SET_LOGIN_STATUS,
-        payload: {
-            isLoggedIn: true,
-            isAdmin: response.role === 'Admin',
-            username: response.username
-        }
+const isLoggedIn = (response: LoginResponse): StoreAction => ({
+    type: UserAction.SET_LOGIN_STATUS,
+    payload: {
+        isLoggedIn: true,
+        isAdmin: response.role === 'Admin',
+        username: response.username
     }
-}
+});
 
-const isNotLoggedIn = (): StoreAction => {
-    return { type: UserAction.SET_LOGIN_STATUS, payload: { username: '', isLoggedIn: false, isAdmin: false } };
-}
+const isNotLoggedIn = (): StoreAction => ({ type: UserAction.SET_LOGIN_STATUS, payload: { username: '', isLoggedIn: false, isAdmin: false } });
 
 export const createUser = (request: UserRequest): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
     return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
@@ -83,7 +76,7 @@ export const login = (request: UserRequest): ThunkAction<Promise<void>, {}, {}, 
     return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
         return new Promise<void>(async (resolve) => {
             const path: string = 'user/login';
-            const response: StoreAction = await post(request, path, isLoggedIn, setUserError);
+            const response: StoreAction = await put(request, path, isLoggedIn, setUserError);
             dispatch(response);
             resolve();
         });
@@ -101,28 +94,21 @@ export const checkLoggedIn = (): ThunkAction<Promise<void>, {}, {}, AnyAction> =
     }
 }
 
-const setLogout = (): StoreAction => {
-    return { type: UserAction.SET_LOGOUT, payload: {} };
-}
+const setLogout = (): StoreAction => ({ type: UserAction.SET_LOGOUT, payload: {} });
 
 export const logout = (): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
     return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
         return new Promise<void>(async (resolve) => {
             const path: string = 'user/logout';
-            const response: StoreAction = await get(path, setLogout, setLogout);
-            dispatch(response);
+            await del(path);
+            dispatch(setLogout());
             resolve();
         });
     }
 }
 
-const isAdmin = (): StoreAction => {
-    return { type: UserAction.SET_ADMIN_STATUS, payload: { isAdmin: true, isLoggedIn: true } };
-}
-
-const isNotAdmin = (): StoreAction => {
-    return { type: UserAction.SET_ADMIN_STATUS, payload: { isAdmin: false, isLoggedIn: false } };
-}
+const isAdmin = (): StoreAction => ({ type: UserAction.SET_ADMIN_STATUS, payload: { isAdmin: true, isLoggedIn: true } });
+const isNotAdmin = (): StoreAction => ({ type: UserAction.SET_ADMIN_STATUS, payload: { isAdmin: false, isLoggedIn: false } });
 
 export const checkAdmin = (): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
     return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
@@ -145,22 +131,20 @@ export const submitTicket = (request: SubmitTicketRequest): ThunkAction<Promise<
     }
 }
 
-const setMessages = (messages: Message[]): StoreAction => {
-    return {
-        type: UserAction.SET_MESSAGES,
-        payload: {
-            messages: messages.map(x => ({
-                ...x,
-                createdDate: new Date(x.createdDate)
-            }))
-        }
-    };
-}
+const setMessages = (messages: Message[]): StoreAction => ({
+    type: UserAction.SET_MESSAGES,
+    payload: {
+        messages: messages.map(x => ({
+            ...x,
+            createdDate: new Date(x.createdDate)
+        }))
+    }
+});
 
-export const getMessages = (): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
+export const getTickets = (): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
     return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
         return new Promise<void>(async (resolve) => {
-            const path: string = 'user/messages';
+            const path: string = 'user/tickets';
             const response: StoreAction = await get(path, setMessages, setUserError);
             dispatch(response);
             resolve();
@@ -172,7 +156,7 @@ export const submitMessage = (request: MessageRequest): ThunkAction<Promise<void
     return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
         return new Promise<void>(async (resolve) => {
             const path: string = 'user/message';
-            const response: StoreAction = await post(request, path, setMessages, setUserError);
+            const response: StoreAction = await patch(request, path, setMessages, setUserError);
             dispatch(response);
             resolve();
         });

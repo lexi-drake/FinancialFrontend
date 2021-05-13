@@ -13,8 +13,8 @@ import { Message } from "../models/Message";
 import { RecurringTransaction } from "../models/RecurringTransaction";
 import { AppDataState } from "../store/appdata";
 import { getFrequencies, getIncomeGenerators, getLedgerEntries, getRecurringTransactions } from "../store/ledger/actions";
-import { getMessages } from "../store/user/actions";
-import { UsesFrequencies, UsesIncomeGenerators, UsesLedgerEntries, UsesMessages, UsesRecurringTransactions } from "../utilities/hooks";
+import { getTickets } from "../store/user/actions";
+import { UsesFrequencies, UsesIncomeGenerators, UsesLedgerEntries, UsesRecurringTransactions, UsesTickets } from "../utilities/hooks";
 
 interface DashboardProps {
     username: string;
@@ -27,7 +27,7 @@ interface DashboardProps {
     getIncomeGenerators: typeof getIncomeGenerators;
     getRecurringTransactions: typeof getRecurringTransactions;
     getFrequencies: typeof getFrequencies;
-    getMessages: typeof getMessages;
+    getTickets: typeof getTickets;
     push: typeof push;
 }
 
@@ -37,7 +37,7 @@ const Dashboard = (props: DashboardProps) => {
     UsesLedgerEntries(props.getLedgerEntries);
     UsesIncomeGenerators(props.getIncomeGenerators);
     UsesRecurringTransactions(props.getRecurringTransactions);
-    UsesMessages(props.getMessages);
+    UsesTickets(props.getTickets);
 
     const headline: string = `Welcome, ${props.username}`
 
@@ -74,4 +74,4 @@ const mapStateToProps = (state: AppDataState): Partial<DashboardProps> => {
     };
 }
 
-export default connect(mapStateToProps, { getLedgerEntries, getIncomeGenerators, getRecurringTransactions, getFrequencies, getMessages, push })(Dashboard as any);
+export default connect(mapStateToProps, { getLedgerEntries, getIncomeGenerators, getRecurringTransactions, getFrequencies, getTickets, push })(Dashboard as any);

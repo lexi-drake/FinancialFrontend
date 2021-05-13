@@ -1,9 +1,9 @@
 import { push } from "connected-react-router";
-import React, { useState } from "react";
+import { useState } from "react";
 import { connect } from "react-redux";
 import { SupportTicket } from "../../models/SupportTicket";
-import { getTickets } from "../../store/admin/actions";
 import { AppDataState } from "../../store/appdata";
+import { getTickets } from "../../store/user/actions";
 import { getReadableDate } from "../../utilities/dates";
 import { UsesTickets } from "../../utilities/hooks";
 import Content from "../custom/Content";

@@ -70,9 +70,3 @@ export function UsesTickets(getTickets: () => void) {
         getTickets();
     }, [getTickets]);
 }
-
-export function UsesMessages(getMessages: () => void) {
-    useEffect(() => {
-        getMessages();
-    }, [getMessages]);
-}
