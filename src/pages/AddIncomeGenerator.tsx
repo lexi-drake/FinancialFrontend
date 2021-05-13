@@ -2,7 +2,6 @@ import { push } from "connected-react-router";
 import { useState } from "react"
 import { connect } from "react-redux";
 import AutocompleteField from "../components/custom/AutocompleteField";
-import Container from "../components/custom/Container";
 import Content from "../components/custom/Content";
 import CustomButton from "../components/custom/CustomButton";
 import CustomDatepicker from "../components/custom/CustomDatepicker";
@@ -138,7 +137,7 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
     const transactionTypes: DropdownOption[] = props.transactionTypes.map(x => { return { key: x.id, text: x.description, value: x.id } });
 
     return (
-        <Container>
+        <div className="add-income-generator">
             <Header>
                 <h1>Add a source of income</h1>
                 <CustomLink onClick={() => setShowHelp(true)}>What is this?</CustomLink>
@@ -242,7 +241,7 @@ const AddSourceOfIncome = (props: AddIncomeGeneratorProps) => {
                     </Section>
                 </ModalContent>
             </Modal>
-        </Container>
+        </div>
     );
 }
 

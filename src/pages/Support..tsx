@@ -1,7 +1,6 @@
 import { push } from "connected-react-router";
 import { useState } from "react";
 import { connect } from "react-redux";
-import Container from "../components/custom/Container"
 import Content from "../components/custom/Content";
 import CustomButton from "../components/custom/CustomButton";
 import CustomLongText from "../components/custom/CustomLongText";
@@ -30,7 +29,7 @@ const Support = (props: SupportProps) => {
     }
 
     return (
-        <Container>
+        <div className="support">
             <Header>
                 <h1>Support</h1>
                 <p>
@@ -47,7 +46,7 @@ const Support = (props: SupportProps) => {
                     <CustomButton disabled={submitDisabled()} onClick={() => onSubmitClick()}>{processing ? 'Submitting' : 'Submit'}</CustomButton>
                 </Content>
             </Section>
-        </Container>
+        </div>
     );
 }
 

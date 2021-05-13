@@ -1,7 +1,6 @@
 import { push } from "connected-react-router";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import Container from "../components/custom/Container";
 import CustomButton from "../components/custom/CustomButton";
 import Header from "../components/custom/Header";
 import Section from "../components/custom/Section";
@@ -64,7 +63,7 @@ const Login = (props: LoginProps) => {
     const loginDisabled = (): boolean => processing || !username || password.length < MINIMUM_PASSWORD_LENGTH;
 
     return (
-        <Container>
+        <div className="login">
             <Header>
                 <h1>Login</h1>
             </Header>
@@ -77,7 +76,7 @@ const Login = (props: LoginProps) => {
                     </form>
                 </div>
             </Section>
-        </Container>
+        </div>
     );
 }
 

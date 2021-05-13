@@ -1,8 +1,7 @@
 import { push } from "connected-react-router";
-import React, { useState } from "react";
+import { useState } from "react";
 import { connect } from "react-redux";
 import AutocompleteField from "../components/custom/AutocompleteField";
-import Container from "../components/custom/Container";
 import Content from "../components/custom/Content";
 import CustomButton from "../components/custom/CustomButton";
 import CustomDatepicker from "../components/custom/CustomDatepicker";
@@ -93,7 +92,7 @@ const AddLedgerEntry = (props: AddLedgerEntryProps) => {
     const transactionTypes: DropdownOption[] = props.transactionTypes.map(x => { return { key: x.id, text: x.description, value: x.id } });
 
     return (
-        <Container>
+        <div className="add-ledger-entry">
             <Header>
                 <h1>Add a transaction</h1>
                 <CustomLink onClick={() => setShowHelp(true)}>What is this?</CustomLink>
@@ -154,7 +153,7 @@ const AddLedgerEntry = (props: AddLedgerEntryProps) => {
                     </Section>
                 </ModalContent>
             </Modal>
-        </Container>
+        </div>
     );
 }
 

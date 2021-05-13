@@ -1,5 +1,5 @@
 import { push } from "connected-react-router";
-import React, { useState } from "react";
+import { useState } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router";
 import { SupportTicket } from "../../models/SupportTicket";
@@ -7,7 +7,6 @@ import { resolveTicket, } from "../../store/admin/actions";
 import { AppDataState } from "../../store/appdata";
 import { submitMessage } from "../../store/user/actions";
 import { isNew } from "../../utilities/utilities";
-import Container from "../custom/Container"
 import Content from "../custom/Content";
 import CustomButton from "../custom/CustomButton";
 import CustomLongText from "../custom/CustomLongText";
@@ -46,7 +45,7 @@ const TicketManagment = (props: TicketManagementProps) => {
     }
 
     return (
-        <Container>
+        <div className="ticket-managment">
             <Header>
                 <h1>Manage ticket</h1>
             </Header>
@@ -65,7 +64,7 @@ const TicketManagment = (props: TicketManagementProps) => {
             <Section>
                 {ticket.messages.map(x => <MessageComponent subject={x.subject} content={x.content} sentBy={x.sentBy} date={x.createdDate} new={isNew(x, props.username)} />)}
             </Section>
-        </Container>
+        </div>
     );
 }
 

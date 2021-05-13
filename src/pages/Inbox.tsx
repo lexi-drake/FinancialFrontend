@@ -1,5 +1,4 @@
 import { connect } from "react-redux";
-import Container from "../components/custom/Container"
 import Header from "../components/custom/Header"
 import Section from "../components/custom/Section"
 import { SupportTicket } from "../models/SupportTicket";
@@ -14,7 +13,7 @@ const Inbox = (props: InboxProps) => {
 
     // TODO (alexa): implement inbox.
     return (
-        <Container>
+        <div className="inbox">
             <Header>
                 <h1>Inbox</h1>
             </Header>
@@ -23,7 +22,7 @@ const Inbox = (props: InboxProps) => {
                     <MessageComponent subject={x.subject} content={x.content} sentBy={x.sentBy} date={x.createdDate} new={isNew(x, props.username)} />
                 )} */}
             </Section>
-        </Container>
+        </div>
     );
 }
 

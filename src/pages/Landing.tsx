@@ -2,7 +2,6 @@ import React from "react"
 import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { AppDataState } from '../store/appdata';
-import Container from "../components/custom/Container";
 import Header from "../components/custom/Header";
 import Section from "../components/custom/Section";
 import CustomButton from "../components/custom/CustomButton";
@@ -29,7 +28,7 @@ const Landing = (props: LandingProps) => {
     }
 
     return (
-        <Container>
+        <div className="landing-page">
             <Header>
                 <h1>What is letskeepit.cheap?</h1>
                 <p>
@@ -75,7 +74,7 @@ const Landing = (props: LandingProps) => {
                     anything of that sort (I don't even ask for your email to sign up!).
                 </p>
             </Section>
-        </Container>
+        </div>
     );
 }
 

@@ -1,7 +1,6 @@
 import { push } from "connected-react-router";
 import { useState } from "react"
 import { connect } from "react-redux"
-import Container from "../components/custom/Container";
 import CustomButton from "../components/custom/CustomButton";
 import Header from "../components/custom/Header";
 import Section from "../components/custom/Section";
@@ -39,7 +38,7 @@ const SignUp = (props: SignUpProps) => {
     }
 
     return (
-        <Container>
+        <div className="sign-up">
             <Header>
                 <h1>Sign up</h1>
             </Header>
@@ -52,7 +51,7 @@ const SignUp = (props: SignUpProps) => {
                     <CustomButton disabled={signUpDisabled()} onClick={() => onSignUpClick()}>{processing ? 'Signing up' : 'Sign up'}</CustomButton>
                 </form>
             </Section>
-        </Container>
+        </div>
     );
 }
 
