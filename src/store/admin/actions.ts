@@ -1,12 +1,9 @@
 import { AnyAction } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { AdminRequest, FrequencyRequest } from "../../models/AdminRequest";
-import { MessageRequest } from "../../models/Message";
-import { SupportTicket } from "../../models/SupportTicket";
-import { get, patch, post } from "../../utilities/backend_client";
+import { patch, post } from "../../utilities/backend_client";
 import { NULL_ACTION } from "../../utilities/constants";
-import { sortMessages } from "../../utilities/utilities";
-import { AdminAction, StoreAction, UserAction } from "../actions";
+import { StoreAction, UserAction } from "../actions";
 
 const logResponse = (response: any): StoreAction => {
     console.log(response);
@@ -32,23 +29,6 @@ export const submitFrequency = (request: FrequencyRequest): ThunkAction<Promise<
             await post(request, path, logResponse, logResponse);
             resolve();
         });
-    }
-}
-
-const setTickets = (tickets: SupportTicket[]): StoreAction => {
-    return {
-        type: AdminAction.SET_TICKETS,
-        payload: {
-            tickets: tickets.map(x => ({
-                ...x,
-                messages: sortMessages(x.messages.map(m => ({
-                    ...m,
-                    createdDate: new Date(m.createdDate)
-                }))),
-                createdDate: new Date(x.createdDate)
-            }
-            ))
-        }
     }
 }
 

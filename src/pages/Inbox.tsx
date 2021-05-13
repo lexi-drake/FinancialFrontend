@@ -2,27 +2,26 @@ import { connect } from "react-redux";
 import Container from "../components/custom/Container"
 import Header from "../components/custom/Header"
 import Section from "../components/custom/Section"
-import MessageComponent from "../components/MessageComponent";
-import { Message } from "../models/Message";
+import { SupportTicket } from "../models/SupportTicket";
 import { AppDataState } from "../store/appdata";
-import { isNew } from "../utilities/utilities";
 
 interface InboxProps {
     username: string;
-    messages: Message[];
+    tickets: SupportTicket[];
 }
 
 const Inbox = (props: InboxProps) => {
 
+    // TODO (alexa): implement inbox.
     return (
         <Container>
             <Header>
                 <h1>Inbox</h1>
             </Header>
             <Section>
-                {props.messages.map(x =>
+                {/* {props.tickets.map(x =>
                     <MessageComponent subject={x.subject} content={x.content} sentBy={x.sentBy} date={x.createdDate} new={isNew(x, props.username)} />
-                )}
+                )} */}
             </Section>
         </Container>
     );
@@ -31,7 +30,7 @@ const Inbox = (props: InboxProps) => {
 const mapStateToProps = (state: AppDataState): Partial<InboxProps> => {
     return {
         username: state.user.username,
-        messages: state.user.messages
+        tickets: state.user.tickets
     };
 }
 

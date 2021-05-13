@@ -78,7 +78,7 @@ const TicketsOverview = (props: TicketsOverviewProps) => {
 const mapStateToProps = (state: AppDataState): Partial<TicketsOverviewProps> => {
     return {
         username: state.user.username,
-        tickets: state.admin.tickets
+        tickets: state.user.tickets
     };
 }
 

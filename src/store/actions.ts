@@ -1,6 +1,6 @@
 import { AppDataPayload } from "./appdata";
 
-export type ActionType = UserAction | LedgerAction | AdminAction | NullAction;
+export type ActionType = UserAction | LedgerAction | NullAction;
 
 export enum UserAction {
     SET_USER_ERROR = 'SET_USER_ERROR',
@@ -8,7 +8,7 @@ export enum UserAction {
     SET_LOGIN_STATUS = 'SET_LOGIN_STATUS',
     SET_ADMIN_STATUS = 'SET_ADMIN_STATUS',
     SET_LOGOUT = 'SET_LOGOUT',
-    SET_MESSAGES = 'SET_MESSAGES'
+    SET_TICKETS = 'SET_TICKETS'
 }
 
 export enum LedgerAction {
@@ -22,9 +22,6 @@ export enum LedgerAction {
     SET_RECURRING_TRANSACTIONS = 'SET_RECURRING_TRANSACTIONS'
 }
 
-export enum AdminAction {
-    SET_TICKETS = 'SET_TICKETS'
-}
 
 export enum NullAction {
     NULL_ACTION = 'NULL_ACTION'

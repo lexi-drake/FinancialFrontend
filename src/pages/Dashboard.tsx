@@ -9,8 +9,8 @@ import RecurringTransactionComponent from "../components/dashboard/RecurringTran
 import Frequency from "../models/Frequency";
 import { IncomeGenerator } from "../models/IncomeGenerator";
 import { LedgerEntry } from "../models/LedgerEntry";
-import { Message } from "../models/Message";
 import { RecurringTransaction } from "../models/RecurringTransaction";
+import { SupportTicket } from "../models/SupportTicket";
 import { AppDataState } from "../store/appdata";
 import { getFrequencies, getIncomeGenerators, getLedgerEntries, getRecurringTransactions } from "../store/ledger/actions";
 import { getTickets } from "../store/user/actions";
@@ -22,7 +22,7 @@ interface DashboardProps {
     ledgerEntries: LedgerEntry[];
     incomeGenerators: IncomeGenerator[];
     recurringTransactions: RecurringTransaction[];
-    messages: Message[];
+    tickets: SupportTicket[];
     getLedgerEntries: typeof getLedgerEntries;
     getIncomeGenerators: typeof getIncomeGenerators;
     getRecurringTransactions: typeof getRecurringTransactions;
@@ -42,11 +42,14 @@ const Dashboard = (props: DashboardProps) => {
     const headline: string = `Welcome, ${props.username}`
 
     const messagesText = (): string => {
-        if (props.messages.length === 0) {
+        if (props.tickets.length === 0) {
             return 'Inbox';
         }
 
-        const unopenedCount: number = props.messages.filter(x => !x.opened).length;
+        // TODO (alexa): this currently gives the number of tickets with unopened 
+        // messages. This should, in the future, be updated to give the exact count
+        // of messages.
+        const unopenedCount: number = props.tickets.filter(x => x.messages.filter(y => !y.opened).length > 0).length;
         return `You have ${unopenedCount} new messages.`
     }
 
@@ -70,7 +73,7 @@ const mapStateToProps = (state: AppDataState): Partial<DashboardProps> => {
         ledgerEntries: state.ledger.ledgerEntries,
         incomeGenerators: state.ledger.incomeGenerators,
         recurringTransactions: state.ledger.recurringTransactions,
-        messages: state.user.messages
+        tickets: state.user.tickets
     };
 }
 

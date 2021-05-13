@@ -2,7 +2,7 @@ import { AnyAction } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { del, get, post } from "../../utilities/backend_client";
 import { LedgerAction, StoreAction } from "../actions";
-import { Category, CategoryRequest } from '../../models/Category';
+import { CategoryRequest } from '../../models/Category';
 import Frequency from "../../models/Frequency";
 import SalaryType from "../../models/SalaryType";
 import TransactionType from "../../models/TransactionType";
@@ -16,7 +16,7 @@ const setLedgerError = (message: string): StoreAction => {
     return { type: LedgerAction.SET_LEDGER_ERROR, payload: { errorMessage: message } };
 }
 
-const setCategories = (categories: Category[]): StoreAction => {
+const setCategories = (categories: string[]): StoreAction => {
     return { type: LedgerAction.SET_CATEGORIES, payload: { categories: categories } };
 }
 

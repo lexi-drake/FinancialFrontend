@@ -4,9 +4,9 @@ import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { StoreAction, UserAction } from '../actions';
 import { del, get, patch, post, put } from '../../utilities/backend_client';
 import { AxiosError } from 'axios';
-import { SubmitTicketRequest } from '../../models/SupportTicket';
+import { SubmitTicketRequest, SupportTicket } from '../../models/SupportTicket';
 import { NULL_ACTION } from '../../utilities/constants';
-import { Message, MessageRequest } from '../../models/Message';
+import { MessageRequest } from '../../models/Message';
 
 const setUserError = (error: AxiosError): StoreAction => {
     if (!error.response) {
@@ -131,10 +131,10 @@ export const submitTicket = (request: SubmitTicketRequest): ThunkAction<Promise<
     }
 }
 
-const setMessages = (messages: Message[]): StoreAction => ({
-    type: UserAction.SET_MESSAGES,
+const setTickets = (tickets: SupportTicket[]): StoreAction => ({
+    type: UserAction.SET_TICKETS,
     payload: {
-        messages: messages.map(x => ({
+        tickets: tickets.map(x => ({
             ...x,
             createdDate: new Date(x.createdDate)
         }))
@@ -145,7 +145,7 @@ export const getTickets = (): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
     return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
         return new Promise<void>(async (resolve) => {
             const path: string = 'user/tickets';
-            const response: StoreAction = await get(path, setMessages, setUserError);
+            const response: StoreAction = await get(path, setTickets, setUserError);
             dispatch(response);
             resolve();
         });
@@ -156,7 +156,7 @@ export const submitMessage = (request: MessageRequest): ThunkAction<Promise<void
     return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
         return new Promise<void>(async (resolve) => {
             const path: string = 'user/message';
-            const response: StoreAction = await patch(request, path, setMessages, setUserError);
+            const response: StoreAction = await patch(request, path, NULL_ACTION, setUserError);
             dispatch(response);
             resolve();
         });

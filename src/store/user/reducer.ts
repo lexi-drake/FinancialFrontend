@@ -1,5 +1,5 @@
-import { Message } from "../../models/Message";
-import { sortMessages } from "../../utilities/utilities";
+import { SupportTicket } from "../../models/SupportTicket";
+import { sortTickets } from "../../utilities/utilities";
 import { ActionType, UserAction } from "../actions"
 import { AppDataPayload } from "../appdata"
 
@@ -9,7 +9,7 @@ export interface UserState {
     username: string;
     isLoggedIn: boolean;
     isAdmin: boolean;
-    messages: Message[];
+    tickets: SupportTicket[];
 }
 
 const defaultState: UserState = {
@@ -18,7 +18,7 @@ const defaultState: UserState = {
     username: '',
     isLoggedIn: false,
     isAdmin: false,
-    messages: []
+    tickets: []
 }
 
 export const UserReducer = (state: UserState = defaultState, action: { type: ActionType, payload: AppDataPayload }) => {
@@ -58,11 +58,11 @@ export const UserReducer = (state: UserState = defaultState, action: { type: Act
                 isAdmin: false
             };
             break;
-        case UserAction.SET_MESSAGES:
-            const messages = sortMessages(action.payload.messages);
+        case UserAction.SET_TICKETS:
+            const tickets = sortTickets(action.payload.tickets);
             state = {
                 ...state,
-                messages: messages
+                tickets: tickets
             };
             break;
     }

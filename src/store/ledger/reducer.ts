@@ -41,11 +41,9 @@ export const LedgerReducer = (state: LedgerState = defaultState, action: { type:
             };
             break;
         case LedgerAction.SET_CATEGORIES:
-            const categories: string[] = action.payload.categories.map(x => x.category);
-            categories.sort();
             state = {
                 ...state,
-                categories: categories
+                categories: action.payload.categories.sort()
             };
             break;
         case LedgerAction.SET_FREQUENCIES:
