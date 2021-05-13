@@ -215,7 +215,7 @@ a {
 }
 
 .ledger-history {
-  background-color: #35343a;
+  background-color: #fbf7f6;
   float: left;
   width: 800px;
   padding: 20px 20px 20px 20px;
@@ -247,7 +247,7 @@ a {
 }
 
 .income-generator-list {
-  background-color: #35343a;
+  background-color: #fbf7f6;
   border: 2px #624387 solid;
   float: left;
   width: 365px;
@@ -271,7 +271,7 @@ a {
 }
 
 .recurring-transaction-list {
-  background-color: #35343a;
+  background-color: #fbf7f6;
   border: 2px #624387 solids-purple;
   border-width: 2px;
   float: left;
