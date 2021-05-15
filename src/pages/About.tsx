@@ -7,6 +7,8 @@ interface AboutProps {
 
 }
 
+// TODO (alexa): make the About page a modal that's implemented in App.tsx
+// This will require that the link to the about page toggle the modal's appearance.
 const About = (props: AboutProps) => {
 
     return (

@@ -1,26 +1,26 @@
 import { push } from "connected-react-router"
 import { useState } from "react"
 import { connect } from "react-redux"
-import Frequency from "../../models/Frequency"
-import { IncomeGenerator } from "../../models/IncomeGenerator"
-import { AppDataState } from "../../store/appdata"
-import { deleteIncomeGenerator } from "../../store/ledger/actions"
-import { MONTHS } from "../../utilities/constants"
-import { calculateIncome, getTotalIncomeGenerators } from "../../utilities/income_generators"
-import Content from "../custom/Content"
-import CustomButton from "../custom/CustomButton"
-import Selector, { SelectorOption } from "../custom/Selector"
-import IncomeGeneratorSummary from "../transactions/IncomeGeneratorSummary"
-import IncomeGeneratorModal from "./modals/IncomeGeneratorModal"
+import Frequency from "../models/Frequency"
+import { IncomeGenerator } from "../models/IncomeGenerator"
+import { AppDataState } from "../store/appdata"
+import { deleteIncomeGenerator } from "../store/ledger/actions"
+import { MONTHS } from "../utilities/constants"
+import { calculateIncome, getTotalIncomeGenerators } from "../utilities/income_generators"
+import Content from "./custom/Content"
+import CustomButton from "./custom/CustomButton"
+import Selector, { SelectorOption } from "./custom/Selector"
+import IncomeGeneratorSummary from "./transactions/IncomeGeneratorSummary"
+import IncomeGeneratorModal from "./dashboard/modals/IncomeGeneratorModal"
 
-interface IncomeGeneratorComponentProps {
+interface IncomeGeneratorListProps {
     incomeGenerators: IncomeGenerator[];
     frequencies: Frequency[];
     deleteIncomeGenerator: typeof deleteIncomeGenerator;
     push: typeof push;
 }
 
-const IncomeGeneratorComponent = (props: IncomeGeneratorComponentProps) => {
+const IncomeGeneratorList = (props: IncomeGeneratorListProps) => {
     const [monthly, setMonthly] = useState('monthly');
     const [id, setId] = useState('');
 
@@ -57,11 +57,11 @@ const IncomeGeneratorComponent = (props: IncomeGeneratorComponentProps) => {
     )
 }
 
-const mapStateToProps = (state: AppDataState): Partial<IncomeGeneratorComponentProps> => {
+const mapStateToProps = (state: AppDataState): Partial<IncomeGeneratorListProps> => {
     return {
         incomeGenerators: state.ledger.incomeGenerators,
         frequencies: state.ledger.frequencies,
     };
 }
 
-export default connect(mapStateToProps, { deleteIncomeGenerator, push })(IncomeGeneratorComponent as any);
+export default connect(mapStateToProps, { deleteIncomeGenerator, push })(IncomeGeneratorList as any);

@@ -1,29 +1,26 @@
 import { push } from "connected-react-router";
 import { useState } from "react";
 import { connect } from "react-redux";
-import { SupportTicket } from "../../models/SupportTicket";
-import { AppDataState } from "../../store/appdata";
-import { getTickets } from "../../store/user/actions";
-import { getReadableDate } from "../../utilities/dates";
-import { UsesTickets } from "../../utilities/hooks";
-import Content from "../custom/Content";
-import CustomButton from "../custom/CustomButton";
-import Modal, { ModalContent, ModalHeader } from "../custom/Modal";
-import Section from "../custom/Section";
-import Selector, { SelectorOption } from "../custom/Selector";
+import { SupportTicket } from "../models/SupportTicket";
+import { AppDataState } from "../store/appdata";
+import { getTickets } from "../store/user/actions";
+import { getReadableDate } from "../utilities/dates";
+import Content from "./custom/Content";
+import CustomButton from "./custom/CustomButton";
+import Modal, { ModalContent, ModalHeader } from "./custom/Modal";
+import Section from "./custom/Section";
+import Selector, { SelectorOption } from "./custom/Selector";
 
-interface TicketsOverviewProps {
+interface TicketsListProps {
     username: string;
     tickets: SupportTicket[];
     getTickets: typeof getTickets;
     push: typeof push;
 }
 
-const TicketsOverview = (props: TicketsOverviewProps) => {
+const TicketsList = (props: TicketsListProps) => {
     const [resolved, setResolved] = useState('open');
     const [ticketId, setTicketId] = useState('');
-
-    UsesTickets(props.getTickets)
 
     const selectorOptions: SelectorOption[] = [
         { value: 'open', description: 'Open' },
@@ -41,7 +38,7 @@ const TicketsOverview = (props: TicketsOverviewProps) => {
     const { subject, content } = !!ticketId ? getMostRecentMessage(ticketId) : { subject: '', content: '' }
 
     return (
-        <div className="tickets-overview">
+        <div className="support-ticket-list">
             <Section>
                 <h1>Support tickets</h1>
                 <Selector value={resolved} options={selectorOptions} onChange={value => setResolved(value)} />
@@ -75,11 +72,11 @@ const TicketsOverview = (props: TicketsOverviewProps) => {
     );
 }
 
-const mapStateToProps = (state: AppDataState): Partial<TicketsOverviewProps> => {
+const mapStateToProps = (state: AppDataState): Partial<TicketsListProps> => {
     return {
         username: state.user.username,
         tickets: state.user.tickets
     };
 }
 
-export default connect(mapStateToProps, { getTickets, push })(TicketsOverview as any);
+export default connect(mapStateToProps, { getTickets, push })(TicketsList as any);

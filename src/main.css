@@ -56,35 +56,29 @@ button:hover {
 }
 
 .custom-link {
-  color: #dbdbdb;
   font-size: 16px;
   line-height: 24px;
-  margin: 0px 24px 6px 24px;
   cursor: pointer;
-}
-.custom-link.first {
-  margin-left: 0px;
-}
-.custom-link.last {
-  margin-right: 0px;
 }
 
 a {
-  color: #dbdbdb;
+  color: #35343a;
   text-decoration: none;
   font-size: 16px;
   line-height: 24px;
-  margin: 0px 24px 6px 24px;
   cursor: pointer;
 }
 
 .navbar {
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(2, 50px);
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
-  margin: 6px;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  grid-template-columns: repeat(10, 10%);
+  grid-template-rows: repeat(2, 50%);
+  height: 10vh;
+  padding: 0px 8px 0px 8px;
+  position: absolute;
+  width: 100%;
 }
 .navbar .title {
   grid-column: 1/8;
@@ -93,21 +87,17 @@ a {
   line-height: 48px;
   cursor: pointer;
 }
-.navbar .navbar-login {
-  border: 1px #35343a solid;
-  border-radius: 4px;
+.navbar .navbar-auth {
   grid-column: 8/11;
   grid-row: 1/2;
   padding: 12px 0px 0px 0px;
   text-align: center;
 }
-.navbar .navbar-login .custom-link {
+.navbar .navbar-auth .custom-link {
   margin: 0px;
   color: #35343a;
 }
 .navbar .navbar-admin {
-  border: 1px #35343a solid;
-  border-radius: 4px;
   grid-column: 8/11;
   grid-row: 2/3;
   padding: 12px 0px 0px 0px;
@@ -141,22 +131,40 @@ a {
 }
 
 .footer {
-  background-color: #624387;
-  bottom: 0;
+  bottom: 0px;
+  display: grid;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 30%);
+  height: 10vh;
+  padding: 0px 8px 24px 8px;
+  position: absolute;
   width: 100%;
-  height: 169px;
-  padding-top: 18px;
-  max-width: 100%;
-  overflow-x: hidden;
 }
 .footer .custom-link {
-  font-size: 12px;
-  line-height: 16px;
-  margin: 6px 0px 6px 0px;
   cursor: pointer;
 }
-.footer .custom-link.first {
-  margin-left: 0px;
+.footer .title {
+  grid-column: 1/5;
+  grid-row: 1/2;
+  text-align: center;
+}
+.footer .frontend {
+  grid-column: 2/3;
+  grid-row: 2/3;
+}
+.footer .backend {
+  grid-column: 3/4;
+  grid-row: 2/3;
+}
+.footer .worker {
+  grid-column: 4/5;
+  grid-row: 2/3;
+}
+.footer .about {
+  grid-column: 4/5;
+  grid-row: 3/4;
 }
 
 .section {
@@ -183,116 +191,70 @@ a {
   float: none;
 }
 
-.column {
-  float: left;
-  width: 33%;
-}
-.column h1 {
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 18px;
-}
-.column a {
-  font-size: 12px;
-  line-height: 16px;
-  margin: 6px 0px 6px 0px;
-}
-
-.dashboard-container {
-  margin: 0px 100px 0px 100px;
-  min-height: 100%;
-  font-size: 14px;
-  line-height: 18px;
-}
-.dashboard-container .total {
-  display: block;
-  float: right;
-  font-weight: bold;
-  color: #a5d6c6;
-}
-.dashboard-container .total.negative {
-  color: #e05654;
-}
-
-.ledger-history {
-  background-color: #fbf7f6;
-  float: left;
-  width: 800px;
-  padding: 20px 20px 20px 20px;
-  margin: 0px 69px 69px 0px;
-  border: 2px #624387 solid;
-}
-.ledger-history h1 {
-  font-size: 24px;
-  line-height: 28px;
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(6, 100%);
+  grid-column-gap: 16px;
+  height: 100%;
   margin: 0px;
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
-.ledger-history p {
-  margin: 6px 0px 6px 0px;
+.dashboard .page {
+  display: grid;
+  grid-template-rows: repeat(9, 10vh);
+  grid-row-gap: 0px;
+  height: 100vh;
+  padding: 0px 8px 0px 8px;
+  width: 100%;
 }
-.ledger-history hr {
-  margin-left: 31%;
-  width: 69%;
-  border: 1px solid #a5d6c6;
+.dashboard .page .budget-summary {
+  grid-row: 2/3;
 }
-.ledger-history button {
-  float: left;
+.dashboard .page .transaction-history-visualization {
+  background-color: #35343a;
+  grid-row: 3/10;
+  width: 100%;
 }
-.ledger-history .custom-dropdown {
-  float: right;
-  margin: 0px;
+.dashboard .page .add-transaction {
+  grid-row: 3/5;
 }
-.ledger-history .after {
-  clear: both;
+.dashboard .page .ledger-history-list {
+  grid-row: 5/10;
+  overflow-y: scroll;
+  width: 100%;
 }
-
-.income-generator-list {
-  background-color: #fbf7f6;
-  border: 2px #624387 solid;
-  float: left;
-  width: 365px;
-  margin: 0px 69px 69px 0px;
-  padding: 20px 20px 20px 20px;
+.dashboard .page .add-recurring-transaction {
+  grid-row: 3/5;
 }
-.income-generator-list h1 {
-  font-size: 24px;
-  line-height: 28px;
-  margin: 0px;
+.dashboard .page .recurring-transaction-list {
+  grid-row: 5/10;
+  overflow-y: scroll;
+  width: 100%;
 }
-.income-generator-list p {
-  font-size: 14px;
-  line-height: 18px;
-  margin: 6px 0px 6px 0px;
+.dashboard .page .add-savings-bucket {
+  grid-row: 3/5;
 }
-.income-generator-list hr {
-  margin-left: 31%;
-  width: 69%;
-  border: 1px solid #f5b8b7;
+.dashboard .page .savings-bucket-list {
+  grid-row: 5/10;
+  overflow-y: scroll;
+  width: 100%;
 }
-
-.recurring-transaction-list {
-  background-color: #fbf7f6;
-  border: 2px #624387 solids-purple;
-  border-width: 2px;
-  float: left;
-  width: 365px;
-  margin: 0px 0px 0px 0px;
-  padding: 20px 20px 20px 20px;
+.dashboard .page .add-income-generator {
+  grid-row: 3/5;
 }
-.recurring-transaction-list h1 {
-  font-size: 24px;
-  line-height: 28px;
-  margin: 0px;
+.dashboard .page .income-generator-list {
+  grid-row: 5/10;
+  overflow-y: scroll;
+  width: 100%;
 }
-.recurring-transaction-list p {
-  font-size: 14px;
-  line-height: 18px;
-  margin: 6px 0px 6px 0px;
+.dashboard .page .add-support-ticket {
+  grid-row: 3/5;
 }
-.recurring-transaction-list hr {
-  margin-left: 31%;
-  width: 69%;
-  border: 1px solid #f9f7d0;
+.dashboard .page .support-ticket-list {
+  grid-row: 5/10;
+  overflow-y: scroll;
+  width: 100%;
 }
 
 .tickets-overview {
@@ -803,224 +765,6 @@ input[type=radio]:checked {
   color: #ba5056;
 }
 
-@media only screen and (max-width: 600px) {
-  html, body {
-    max-width: 100%;
-    height: 100%;
-    overflow-x: hidden;
-    padding-bottom: 0px !important;
-    display: block !important;
-  }
-
-  #root {
-    height: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  .container {
-    width: 100%;
-    margin: 0px;
-    padding: 0px 20px 0px 20px;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  .navbar {
-    height: 130px;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-  .navbar h1 {
-    margin: 0px;
-  }
-  .navbar .custom-link {
-    width: 20%;
-    float: none;
-    margin: 0px 20px 0px 20px;
-  }
-
-  .footer {
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  .dashboard-container {
-    max-width: 100%;
-    overflow-x: hidden;
-    margin: 0px 0px 0px 0px;
-    padding: 0px 20px 0px 20px;
-  }
-
-  .ledger-history {
-    margin: 20px 0px 20px 0px;
-    width: 100%;
-  }
-  .ledger-history .custom-dropdown {
-    margin: 8px 0px 8px 0px;
-  }
-
-  .income-generator-list {
-    max-width: 100%;
-    overflow-x: hidden;
-    margin: 20px 0px 20px 0px;
-    width: 100%;
-  }
-
-  .recurring-transaction-list {
-    max-width: 100%;
-    overflow-x: hidden;
-    margin: 20px 0px 20px 0px;
-    width: 100%;
-  }
-
-  .custom-dropdown {
-    margin: 8px 0px 8px 0px;
-    width: 280px;
-  }
-  .custom-dropdown .custom-dropdown-menu {
-    width: 280px;
-  }
-
-  .custom-text {
-    margin: 8px 0px 8px 0px;
-    width: 280px;
-  }
-
-  .custom-date-picker {
-    margin: 8px 0px 8px 0px;
-    width: 280px;
-  }
-
-  button {
-    margin: 8px 0px 8px 0px;
-  }
-
-  .error {
-    width: 280px;
-  }
-
-  .modal-body {
-    width: 80%;
-    height: 80%;
-    position: absolute;
-    transform: none;
-    top: 10%;
-    left: 10%;
-  }
-  .modal-body button {
-    width: 100%;
-  }
-}
-@media only screen and (min-width: 601px) and (max-width: 1000px) {
-  html, body {
-    max-width: 100%;
-    height: 100%;
-    overflow-x: hidden;
-    padding-bottom: 0px !important;
-    display: block !important;
-  }
-
-  #root {
-    height: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  .container {
-    width: 100%;
-    margin: 0px;
-    padding: 0px 20px 0px 20px;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  .navbar {
-    height: 130px;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-  .navbar h1 {
-    margin: 0px;
-  }
-  .navbar .custom-link {
-    float: none;
-    margin: 0px 8px 0px 8px;
-  }
-
-  .footer {
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  .dashboard-container {
-    max-width: 100%;
-    overflow-x: hidden;
-    margin: 0px 0px 0px 0px;
-    padding: 0px 20px 0px 20px;
-  }
-
-  .ledger-history {
-    margin: 20px 0px 20px 0px;
-    width: 100%;
-  }
-  .ledger-history .custom-dropdown {
-    margin: 8px 0px 8px 0px;
-  }
-
-  .income-generator-list {
-    width: 100%;
-    overflow-x: hidden;
-    margin: 20px 0px 20px 0px;
-    width: 100%;
-  }
-
-  .recurring-transaction-list {
-    width: 100%;
-    overflow-x: hidden;
-    margin: 20px 0px 20px 0px;
-    width: 100%;
-  }
-
-  .tickets-overview {
-    width: 100%;
-  }
-
-  .add-type {
-    width: 100%;
-  }
-
-  .custom-dropdown {
-    margin: 8px 0px 8px 0px;
-  }
-
-  .custom-text {
-    margin: 8px 0px 8px 0px;
-  }
-
-  .custom-date-picker {
-    margin: 8px 0px 8px 0px;
-  }
-
-  button {
-    margin: 8px 0px 8px 0px;
-  }
-
-  .modal-body {
-    width: 80%;
-    max-height: 80%;
-    position: absolute;
-    transform: none;
-    left: 10%;
-    top: 10%;
-  }
-  .modal-body button {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 31px;
-    margin-right: 31px;
-  }
-}
 body {
   display: flex;
   flex-basis: 66%;

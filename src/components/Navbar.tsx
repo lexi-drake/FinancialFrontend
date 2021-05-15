@@ -32,11 +32,10 @@ const Navbar = (props: NavbarProps) => {
                 letskeepit.cheap
             </div>
 
-            <div className="navbar-login">
+            <div className="navbar-auth">
                 {props.isLoggedIn ?
                     <CustomLink last onClick={() => onLogoutClick()}>Logout</CustomLink>
-                    :
-                    <CustomLink onClick={() => onLoginClick()}>Login</CustomLink>
+                    : <CustomLink onClick={() => onLoginClick()}>Login</CustomLink>
                 }
             </div>
 

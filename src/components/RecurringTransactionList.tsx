@@ -1,27 +1,27 @@
 import { push } from "connected-react-router";
 import { useState } from "react";
 import { connect } from "react-redux";
-import Frequency from "../../models/Frequency";
-import { RecurringTransaction } from "../../models/RecurringTransaction";
-import { AppDataState } from "../../store/appdata";
-import { deleteRecurringTransaction, getRecurringTransactions } from "../../store/ledger/actions";
-import { MONTHS } from "../../utilities/constants";
-import { getTotalRecurringTransactions } from "../../utilities/recurring_transactions";
-import { getAmountAndTimes } from "../../utilities/utilities";
-import Content from "../custom/Content";
-import CustomButton from "../custom/CustomButton";
-import Selector, { SelectorOption } from "../custom/Selector";
-import RecurringTransactionSummary from "../transactions/RecurringTransactionSummary";
-import RecurringTransactionModal from "./modals/RecurringTransactionModal";
+import Frequency from "../models/Frequency";
+import { RecurringTransaction } from "../models/RecurringTransaction";
+import { AppDataState } from "../store/appdata";
+import { deleteRecurringTransaction, getRecurringTransactions } from "../store/ledger/actions";
+import { MONTHS } from "../utilities/constants";
+import { getTotalRecurringTransactions } from "../utilities/recurring_transactions";
+import { getAmountAndTimes } from "../utilities/utilities";
+import Content from "./custom/Content";
+import CustomButton from "./custom/CustomButton";
+import Selector, { SelectorOption } from "./custom/Selector";
+import RecurringTransactionSummary from "./transactions/RecurringTransactionSummary";
+import RecurringTransactionModal from "./dashboard/modals/RecurringTransactionModal";
 
-interface RecurringTransactionComponentProps {
+interface RecurringTransactionListProps {
     recurringTransactions: RecurringTransaction[];
     frequencies: Frequency[];
     deleteRecurringTransaction: typeof deleteRecurringTransaction;
     push: typeof push;
 }
 
-const RecurringTransactionComponent = (props: RecurringTransactionComponentProps) => {
+const RecurringTransactionList = (props: RecurringTransactionListProps) => {
     const [monthly, setMonthly] = useState('monthly');
     const [id, setId] = useState('');
 
@@ -40,8 +40,6 @@ const RecurringTransactionComponent = (props: RecurringTransactionComponentProps
 
     return (
         <div className="recurring-transaction-list">
-
-
             <h1>Recurring transactions</h1>
             <Content>
                 {props.recurringTransactions.map(x => {
@@ -67,11 +65,11 @@ const RecurringTransactionComponent = (props: RecurringTransactionComponentProps
     );
 }
 
-const mapStateToProps = (state: AppDataState): Partial<RecurringTransactionComponentProps> => {
+const mapStateToProps = (state: AppDataState): Partial<RecurringTransactionListProps> => {
     return {
         recurringTransactions: state.ledger.recurringTransactions,
         frequencies: state.ledger.frequencies
     };
 }
 
-export default connect(mapStateToProps, { getRecurringTransactions, deleteRecurringTransaction, push })(RecurringTransactionComponent as any);
+export default connect(mapStateToProps, { getRecurringTransactions, deleteRecurringTransaction, push })(RecurringTransactionList as any);

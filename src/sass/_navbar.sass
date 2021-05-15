@@ -1,10 +1,13 @@
 .navbar
     display: grid
-    grid-template-columns: repeat(10, 1fr)
-    grid-template-rows: repeat(2, 50px)
-    grid-column-gap: 10px
-    grid-row-gap: 10px
-    margin: 6px
+    grid-column-gap: 0px
+    grid-row-gap: 0px
+    grid-template-columns: repeat(10, 10%)
+    grid-template-rows: repeat(2, 50%)
+    height: 10vh
+    padding: 0px 8px 0px 8px
+    position: absolute
+    width: 100%
 
     .title
         grid-column: 1 / 8
@@ -13,9 +16,7 @@
         line-height: 48px
         cursor: pointer
 
-    .navbar-login
-        border: 1px $gris-dark-grey solid
-        border-radius: 4px
+    .navbar-auth
         grid-column: 8 / 11
         grid-row: 1 / 2
         padding: 12px 0px 0px 0px
@@ -26,8 +27,6 @@
             color: $gris-dark-grey
 
     .navbar-admin
-        border: 1px $gris-dark-grey solid
-        border-radius: 4px
         grid-column: 8 / 11
         grid-row: 2 / 3
         padding: 12px 0px 0px 0px

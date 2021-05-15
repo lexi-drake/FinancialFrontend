@@ -16,6 +16,7 @@ export interface AppDataState {
 
 export interface AppDataPayload {
     errorMessage: string;
+    month: number;
     userCount: number;
     username: string;
     isLoggedIn: boolean;

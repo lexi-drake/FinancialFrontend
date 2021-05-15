@@ -1,11 +1,11 @@
 import { push } from "connected-react-router";
 import { connect } from "react-redux";
-import CustomLink from "../components/custom/CustomLink";
-import Header from "../components/custom/Header";
-import DashboardContainer from "../components/dashboard/DashboardContainer";
-import IncomeGeneratorComponent from "../components/dashboard/IncomeGeneratorComponent";
-import LedgerHistoryComponent from "../components/dashboard/LedgerHistoryComponent";
-import RecurringTransactionComponent from "../components/dashboard/RecurringTransactionComponent";
+import BudgetSummary from "../components/BudgetSummary";
+import Footer from "../components/Footer";
+import LedgerHistoryList from "../components/LedgerHistoryList";
+import RecurringTransactionList from '../components/RecurringTransactionList';
+import Navbar from "../components/Navbar";
+import TransactionHistoryVisualization from "../components/TransactionHistoryVisualization";
 import Frequency from "../models/Frequency";
 import { IncomeGenerator } from "../models/IncomeGenerator";
 import { LedgerEntry } from "../models/LedgerEntry";
@@ -15,6 +15,8 @@ import { AppDataState } from "../store/appdata";
 import { getFrequencies, getIncomeGenerators, getLedgerEntries, getRecurringTransactions } from "../store/ledger/actions";
 import { getTickets } from "../store/user/actions";
 import { UsesFrequencies, UsesIncomeGenerators, UsesLedgerEntries, UsesRecurringTransactions, UsesTickets } from "../utilities/hooks";
+import IncomeGeneratorList from "../components/IncomeGeneratorList";
+import TicketsList from "../components/TicketsList";
 
 interface DashboardProps {
     username: string;
@@ -54,15 +56,29 @@ const Dashboard = (props: DashboardProps) => {
     }
 
     return (
-        <DashboardContainer>
-            <Header>
-                <h1>{headline}</h1>
-                <CustomLink onClick={() => props.push('/inbox')}>{messagesText()}</CustomLink>
-            </Header>
-            <LedgerHistoryComponent />
-            <IncomeGeneratorComponent />
-            <RecurringTransactionComponent />
-        </DashboardContainer>
+        <div className="dashboard">
+            <Navbar />
+            <div className="page">
+                <BudgetSummary />
+                <TransactionHistoryVisualization />
+            </div>
+            <div className="page">
+                {/* TODO (alexa): AddLedgerEntryComponent */}
+                <LedgerHistoryList />
+            </div>
+            <div className="page">
+                <RecurringTransactionList />
+            </div>
+            <div className="page">
+                <IncomeGeneratorList />
+            </div>
+            <div className="page">
+            </div>
+            <div className="page">
+                <TicketsList />
+            </div>
+            <Footer />
+        </div>
     );
 }
 

@@ -11,6 +11,7 @@ import { ActionType, LedgerAction } from "../actions"
 import { AppDataPayload } from "../appdata"
 
 export interface LedgerState {
+    month: number;
     error: string;
     categories: string[];
     frequencies: Frequency[];
@@ -22,6 +23,7 @@ export interface LedgerState {
 }
 
 const defaultState: LedgerState = {
+    month: 0,
     error: '',
     categories: [],
     frequencies: [],
@@ -83,6 +85,12 @@ export const LedgerReducer = (state: LedgerState = defaultState, action: { type:
             state = {
                 ...state,
                 recurringTransactions: transactionsWithoutGenerators(action.payload.recurringTransactions, state.incomeGenerators)
+            };
+            break;
+        case LedgerAction.SET_MONTH:
+            state = {
+                ...state,
+                month: action.payload.month
             };
             break;
     }

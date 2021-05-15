@@ -15,7 +15,6 @@ import AddIncomeGenerator from './pages/AddIncomeGenerator';
 import AddLedgerEntry from './pages/AddLedgerEntry';
 import AddRecurringTransaction from './pages/AddRecurringTransaction';
 import About from './pages/About';
-import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Support from './pages/Support.';
 import TicketManagement from './components/admin/TicketManagement';
@@ -31,7 +30,6 @@ interface AppProps {
 const App = (props: AppProps) => {
   return (
     <Router history={history}>
-      <Navbar />
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
@@ -46,7 +44,6 @@ const App = (props: AppProps) => {
         <PrivateRoute path="/ticket/:id" component={TicketManagement} {...props} admin />
         <Route path="/" component={Landing} />
       </Switch>
-      <Footer />
     </Router>
   );
 }
