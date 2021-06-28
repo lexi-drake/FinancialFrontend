@@ -8,7 +8,7 @@
         width: 16px
         height: 16px
         position: absolute
-        margin: 24px 24px 24px 372px
+        margin: 16px 24px 24px 372px
         cursor: pointer
 
         img
@@ -16,15 +16,15 @@
             height: 16px
 
     input
-        color: $gris-light-grey
-        background-color: $gris-dark-grey
+        color: $gris-dark-grey
+        background-color: $gris-white
         height: 100%
         width: 100%
         font-size: 16px
         line-height: 24px
         border-color: $gris-green
         border-radius: 2px
-        padding: 20px 80px 16px 20px
+        padding: 20px 0px 16px 20px
         overflow: hidden
         text-overflow: ellipsis
         cursor: pointer
@@ -47,7 +47,7 @@
 .custom-dropdown-menu
     position: absolute
     width: 420px
-    background-color: $gris-dark-grey
+    background-color: $gris-white
     z-index: 11
     overflow-x: hidden
     overflow-y: auto
@@ -56,13 +56,24 @@
     border-color: $gris-green
     cursor: pointer
 
-.custom-dropdown-item
-    height: 48px
-    width: 420px
-    padding: 12px 0px 12px 20px
-    font-size: 14px
-    line-height: 18px
+    .custom-dropdown-item
+        height: 48px
+        padding: 12px 0px 12px 20px
+        font-size: 14px
+        line-height: 18px
 
-    &:hover
-        color: $gris-white
-        background-color: $gris-green
+        &:hover
+            color: $gris-white
+            background-color: $gris-green
+
+@media only screen and (max-width: 600px)
+    .custom-dropdown
+        height: 100%
+        margin: 0px
+        width: 100%
+
+        .icon
+            margin-left: 86%
+
+    .custom-dropdown-menu
+        width: 100%

@@ -72,3 +72,6 @@ export const sortMessages = (messages: Message[]): Message[] =>
 export const isNew = (message: Message, username: string): boolean => {
     return !message.opened && message.sentBy !== username;
 }
+
+export const checkValidAmount = (amount: string): boolean =>
+    !!amount && isNaN(parseFloat(amount));

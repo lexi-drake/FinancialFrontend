@@ -1,4 +1,3 @@
-import { push } from "connected-react-router";
 import { useState } from "react";
 import { connect } from "react-redux";
 import Frequency from "../models/Frequency";
@@ -9,7 +8,6 @@ import { MONTHS } from "../utilities/constants";
 import { getTotalRecurringTransactions } from "../utilities/recurring_transactions";
 import { getAmountAndTimes } from "../utilities/utilities";
 import Content from "./custom/Content";
-import CustomButton from "./custom/CustomButton";
 import Selector, { SelectorOption } from "./custom/Selector";
 import RecurringTransactionSummary from "./transactions/RecurringTransactionSummary";
 import RecurringTransactionModal from "./dashboard/modals/RecurringTransactionModal";
@@ -18,7 +16,6 @@ interface RecurringTransactionListProps {
     recurringTransactions: RecurringTransaction[];
     frequencies: Frequency[];
     deleteRecurringTransaction: typeof deleteRecurringTransaction;
-    push: typeof push;
 }
 
 const RecurringTransactionList = (props: RecurringTransactionListProps) => {
@@ -40,8 +37,14 @@ const RecurringTransactionList = (props: RecurringTransactionListProps) => {
 
     return (
         <div className="recurring-transaction-list">
-            <h1>Recurring transactions</h1>
-            <Content>
+            <div className="title">
+                <h1>Expenses</h1>
+            </div>
+            <div className="time-period">
+                <Selector value={monthly} options={options} onChange={(value) => setMonthly(value)} />
+            </div>
+            <div className={calculateTotalClasses()}>Total: {total.toFixed(2)}</div>
+            <div className="list">
                 {props.recurringTransactions.map(x => {
                     const [total, times] = getAmountAndTimes(x, props.frequencies, monthly === 'monthly');
                     return <RecurringTransactionSummary
@@ -54,12 +57,7 @@ const RecurringTransactionList = (props: RecurringTransactionListProps) => {
                         onClick={() => setId(x.id)} />
                 })
                 }
-                <div className={calculateTotalClasses()}>{total.toFixed(2)}</div>
-                <Selector value={monthly} options={options} onChange={(value) => setMonthly(value)} />
-            </Content>
-            <Content>
-                <CustomButton onClick={() => props.push('transaction/add')}>Add transaction</CustomButton>
-            </Content>
+            </div>
             <RecurringTransactionModal id={id} transactions={props.recurringTransactions} deleteRecurringTransaction={props.deleteRecurringTransaction} frequencies={props.frequencies} close={() => setId('')} />
         </div>
     );
@@ -72,4 +70,4 @@ const mapStateToProps = (state: AppDataState): Partial<RecurringTransactionListP
     };
 }
 
-export default connect(mapStateToProps, { getRecurringTransactions, deleteRecurringTransaction, push })(RecurringTransactionList as any);
+export default connect(mapStateToProps, { getRecurringTransactions, deleteRecurringTransaction })(RecurringTransactionList as any);

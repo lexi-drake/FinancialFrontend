@@ -17,7 +17,7 @@ export const getReadableDate = (date: Date): string => {
     const dayOfMonth: number = date.getDate();
     const year: number = date.getFullYear();
 
-    return `${DAYS[dayOfWeek]} ${MONTHS[month]} ${dayOfMonth}, ${year}`;
+    return `${DAYS[dayOfWeek]} ${MONTHS[month]} ${dayOfMonth}`;
 }
 
 export const getDateFromFrequency = (frequencyId: string, frequencies: Frequency[]): Date => {
@@ -94,7 +94,7 @@ const getDatesInMonthByInteval = (lastTriggered: Date, interval: number): Date[]
             }
             if (tempDate.getMonth() === currentMonth) {
                 dates.push(tempDate);
-                break;
+                continue;
             }
         } else {
             if (date.getMonth() === currentMonth) {
@@ -123,6 +123,7 @@ export const getTimesPerMonthFromLastTriggeredAndFrequency = (lastTriggered: Dat
     if (lastTriggered.getMonth() === new Date().getMonth()) {
         dates.push(lastTriggered);
     }
+    console.log(triggeredFuture);
     return dates.length;
 }
 

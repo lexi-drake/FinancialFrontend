@@ -1,11 +1,11 @@
 @import "variables"
 
 html
-    height: 100%
     box-sizing: border-box
 
 *, *:before, *:after
     box-sizing: inherit
+    margin: 0px
 
 @import "misc"
 @import "button"
@@ -28,13 +28,15 @@ html
 
 @import "transactions/recurring"
 @import "transactions/generator"
-@import "transactions/entry"
+@import "ledger_history_list"
+@import "add_ledger_entry"
+@import "recurring_transaction_list"
+@import "add_recurring_transaction"
 
 body
-    display: flex
     flex-basis: 66%
-    display: -webkit-flex
     color: $gris-dark-grey
     margin: 0
     min-height: 100%
     background-color: $gris-white
+    overflow: hidden

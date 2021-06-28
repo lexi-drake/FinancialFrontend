@@ -1,19 +1,25 @@
 .dashboard
     display: grid
-    grid-template-columns: repeat(6, 100%)
+    grid-template-columns: repeat(6, 90%)
     grid-column-gap: 16px
     height: 100%
+    width: 100%
     margin: 0px
     overflow-x: scroll
     overflow-y: hidden
 
+    // TODO (alexa): scrolling should be moved to the relevant subsections
     .page
         display: grid
-        grid-template-rows: repeat(9, 10vh)
         grid-row-gap: 0px
+        grid-template-rows: repeat(10, 10vh)
         height: 100vh
         padding: 0px 8px 0px 8px
         width: 100%
+
+        .navbar
+            grid-row: 1 / 2
+            grid-column: 10 / 11
 
         .budget-summary
             grid-row: 2 / 3
@@ -23,20 +29,18 @@
             grid-row: 3 / 10
             width: 100%
 
-        .add-transaction
-            grid-row: 3 / 5
+        .add-ledger-entry
+            grid-row: 2 / 5
 
         .ledger-history-list
             grid-row: 5 / 10
-            overflow-y: scroll
             width: 100%
 
         .add-recurring-transaction
-            grid-row: 3 / 5
+            grid-row: 2 / 6
 
         .recurring-transaction-list
-            grid-row: 5 / 10
-            overflow-y: scroll
+            grid-row: 6 / 10
             width: 100%
 
         .add-savings-bucket
@@ -44,7 +48,6 @@
 
         .savings-bucket-list
             grid-row: 5 / 10
-            overflow-y: scroll
             width: 100%
 
         .add-income-generator
@@ -52,7 +55,6 @@
 
         .income-generator-list
             grid-row: 5 / 10
-            overflow-y: scroll
             width: 100%
 
         .add-support-ticket
@@ -60,5 +62,4 @@
 
         .support-ticket-list
             grid-row: 5 / 10
-            overflow-y: scroll
             width: 100%

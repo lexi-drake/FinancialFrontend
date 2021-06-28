@@ -24,7 +24,6 @@ const RecurringTransactionSummary = (props: RecurringTransactionSummaryProps) =>
             {!!props.description &&
                 <div className="description">{props.description}</div>
             }
-            <hr />
         </div>
     );
 }

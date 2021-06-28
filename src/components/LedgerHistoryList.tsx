@@ -1,4 +1,3 @@
-import { push } from "connected-react-router";
 import { useState } from "react";
 import { connect } from "react-redux";
 import Frequency from "../models/Frequency";
@@ -8,12 +7,12 @@ import { RecurringTransaction } from "../models/RecurringTransaction";
 import { AppDataState } from "../store/appdata";
 import { deleteLedgerEntry, getLedgerEntries } from "../store/ledger/actions";
 import { MONTHS } from "../utilities/constants";
-import { getFirstDayOfMonth, getLastDayOfMonth } from "../utilities/dates";
+import { getFirstDayOfMonth, getLastDayOfMonth, getReadableDate } from "../utilities/dates";
 import Content from "./custom/Content";
-import CustomButton from "./custom/CustomButton";
 import CustomDropdown, { DropdownOption } from "./custom/CustomDropdown";
 import LedgerEntryComponent from "./transactions/LedgerEntryComponent";
 import LedgerEntryModal from "./dashboard/modals/LedgerEntryModal";
+import { isBuffer } from "util";
 
 interface LedgerHistoryListProps {
     ledgerEntries: LedgerEntry[];
@@ -22,16 +21,11 @@ interface LedgerHistoryListProps {
     frequencies: Frequency[];
     getLedgerEntries: typeof getLedgerEntries;
     deleteLedgerEntry: typeof deleteLedgerEntry;
-    push: typeof push;
 }
 
 const LedgerHistoryList = (props: LedgerHistoryListProps) => {
     const [month, setMonth] = useState(0);
     const [id, setId] = useState('');
-
-    const onAddTransactionClick = () => {
-        props.push('ledger/add');
-    }
 
     const createMonthOptions = (): DropdownOption[] => {
         const options: DropdownOption[] = [];
@@ -56,6 +50,14 @@ const LedgerHistoryList = (props: LedgerHistoryListProps) => {
         }
     }
 
+    const getDescription = (category: string, description: string): string => {
+        if (!description) {
+            return category;
+        }
+
+        return `${category} (${description})`;
+    }
+
     const getTotal = (): number => {
         if (props.ledgerEntries.length === 0) {
             return 0;
@@ -65,11 +67,16 @@ const LedgerHistoryList = (props: LedgerHistoryListProps) => {
             .reduce((sum, x) => sum + x);
     }
 
-    const calculateTotalClasses = (): string => {
-        const classes: string[] = ['total'];
-        if (getTotal() <= 0) { classes.push('negative'); }
+    const calculateAmountClasses = (amount: number): string => {
+        const classes: string[] = ['amount'];
+        if (amount <= 0) { classes.push('negative'); }
         return classes.join(' ');
     }
+
+    const calculateAmount = (entry: LedgerEntry): number =>
+        entry.transactionType === 'Income' ? entry.amount : -entry.amount;
+
+    const getAmountText = (amount: number): string => Math.abs(amount).toFixed(2);
 
     const onModalClose = () => {
         setId('');
@@ -78,20 +85,31 @@ const LedgerHistoryList = (props: LedgerHistoryListProps) => {
 
     return (
         <div className="ledger-history-list">
-            <h1>Transaction history</h1>
-            <Content>
-                <CustomButton onClick={() => onAddTransactionClick()}>Add transaction</CustomButton>
+            <div className="title">
+                <h1>Transaction history</h1>
+            </div>
+            <div className="month">
                 <CustomDropdown label="Transaction history for the month of" value={month.toString()} options={createMonthOptions()} onSelect={(value) => setMonthString(value)} />
-                <div className="after" />
-            </Content>
-            <Content>
-                {props.ledgerEntries.map(x =>
-                    <LedgerEntryComponent key={x.id} entry={x} onClick={(value) => setId(value)} />)
+            </div>
+            <div className="total">
+                <div className={calculateAmountClasses(getTotal())}>${getAmountText(getTotal())}</div>
+                <div className="title">Total</div>
+            </div>
+
+            <div className="list">
+                {props.ledgerEntries.map(x => {
+                    const amount: number = calculateAmount(x);
+                    return (
+                        <div className="ledger-entry" onClick={() => setId(x.id)}>
+                            <div className={calculateAmountClasses(amount)}>${getAmountText(amount)}</div>
+                            <div className="description">{getDescription(x.category, x.description)}</div>
+                        </div>
+                    );
                 }
-                <div className={calculateTotalClasses()}>${getTotal().toFixed(2)}</div>
-            </Content>
+                )}
+            </div>
             <LedgerEntryModal id={id} entries={props.ledgerEntries} getLedgerEntries={props.getLedgerEntries} deleteLedgerEntry={props.deleteLedgerEntry} close={() => onModalClose()} />
-        </div>
+        </div >
     );
 }
 
@@ -104,4 +122,4 @@ const mapStateToProps = (state: AppDataState): Partial<LedgerHistoryListProps> =
     };
 }
 
-export default connect(mapStateToProps, { getLedgerEntries, deleteLedgerEntry, push })(LedgerHistoryList as any);
+export default connect(mapStateToProps, { getLedgerEntries, deleteLedgerEntry })(LedgerHistoryList as any);

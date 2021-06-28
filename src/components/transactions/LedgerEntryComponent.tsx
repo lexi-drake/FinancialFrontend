@@ -22,7 +22,6 @@ const LedgerEntryComponent = (props: LedgerEntryComponentProps) => {
             {!!props.entry.description &&
                 <div className="description">{props.entry.description}</div>
             }
-            <hr />
         </div>
     );
 }

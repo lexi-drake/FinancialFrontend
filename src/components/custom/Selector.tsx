@@ -1,4 +1,4 @@
-import { MAXIMUM_SELECTOR_STRING_LENGTH, MAXIMUM_SELECTOR_WIDTH_PX, MINIMUM_SELECTOR_BUTTON_WIDTH_PX } from "../../utilities/constants";
+import { MAXIMUM_SELECTOR_WIDTH_PX } from "../../utilities/constants";
 
 export interface SelectorOption {
     value: string;
@@ -13,26 +13,20 @@ interface SelectorProps {
 
 const Selector = (props: SelectorProps) => {
 
-    const getButtonLayout = (): { width: number, vertical: boolean } => {
+    const getButtonWidth = (): number => {
         if (props.options.length === 0) {
-            return { width: 0, vertical: false };
+            return 0;
         }
-        const maxLabelLength = (): number => Math.max(...props.options.map(x => x.description.length));
-
         const totalMarginPx: number = (props.options.length - 1) * 16;
         const remainingPx: number = MAXIMUM_SELECTOR_WIDTH_PX - totalMarginPx;
-        const buttonWidthPx: number = remainingPx / props.options.length;
-        const vertical: boolean = buttonWidthPx < MINIMUM_SELECTOR_BUTTON_WIDTH_PX || maxLabelLength() > MAXIMUM_SELECTOR_STRING_LENGTH;
+        const buttonWidthPx: number = Math.floor(remainingPx / props.options.length);
 
-        return { width: vertical ? MAXIMUM_SELECTOR_WIDTH_PX : buttonWidthPx, vertical }
+        return Math.floor(100 * buttonWidthPx / MAXIMUM_SELECTOR_WIDTH_PX);
     }
-
-    const { width, vertical } = getButtonLayout();
 
     const calculateButtonClasses = (index: number, checked: boolean): string => {
         const classes: string[] = ['selector-button'];
         if (checked) { classes.push('selected'); }
-        classes.push(vertical ? 'vertical' : 'horizontal');
         if (index === 0) { classes.push('first'); }
         else if (index === props.options.length - 1) { classes.push('last'); }
         return classes.join(' ');
@@ -43,9 +37,9 @@ const Selector = (props: SelectorProps) => {
             {props.options.map((x, i) => {
                 const checked: boolean = x.value === props.value;
                 return (
-                    <div key={i} className={calculateButtonClasses(i, checked)} style={{ width: width }} onClick={() => props.onChange(x.value)} >
+                    <div key={i} className={calculateButtonClasses(i, checked)} style={{ width: `${getButtonWidth()}%` }} onClick={() => props.onChange(x.value)} >
                         <input type="radio" checked={checked} readOnly />
-                        <div className="description">{x.description}</div>
+                        {x.description}
                     </div>
                 );
             })}

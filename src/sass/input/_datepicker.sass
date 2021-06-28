@@ -5,16 +5,16 @@
     margin: 0px 0px 0px 0px
 
     input
-        color: $gris-light-grey
-        background-color: $gris-dark-grey
+        color: $gris-dark-grey
+        background-color: $gris-white
         height: 100%
         width: 100%
         font-size: 16px
         line-height: 24px
-        border: 4px $gris-green
+        border: 2px $gris-green solid
+        border-radius: 2px
         padding: 18px 0px 18px 20px
         overflow: hidden
-        box-shadow: $shadow-standard
 
     label
         @extend .input-label
@@ -24,7 +24,7 @@
             @extend .input-label-active
 
 .react-datepicker
-    border: 2px $gris-dark-purple !important
+    background-color: $gris-dark-grey !important
     margin: -8px 0px -8px 0px
 
 .react-datepicker-popper[data-placement^="bottom"]
@@ -37,7 +37,7 @@
     display: none
 
 .react-datepicker__header
-    background-color: $gris-purple !important
+    background-color: $gris-dark-grey !important
 
 .react-datepicker__current-month
     color: $gris-white !important
@@ -50,5 +50,21 @@
         outline: none
 
 .react-datepicker__day--selected
-    background-color: $gris-purple !important
+    background-color: $gris-dark-grey !important
     color: $gris-white !important
+
+@media only screen and (max-width: 600px)
+    .react-datepicker-wrapper
+        height: 100%
+        margin: 0px
+        width: 100%
+
+    .react-datepicker
+        margin: 0px
+
+    .custom-date-picker
+        height: 100%
+        width: 100%
+
+    .react-datepicker__input-container
+        height: 100%

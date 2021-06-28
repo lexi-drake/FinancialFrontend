@@ -2,7 +2,6 @@ import { AnyAction } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { del, get, post } from "../../utilities/backend_client";
 import { LedgerAction, StoreAction } from "../actions";
-import { CategoryRequest } from '../../models/Category';
 import Frequency from "../../models/Frequency";
 import SalaryType from "../../models/SalaryType";
 import TransactionType from "../../models/TransactionType";
@@ -20,16 +19,14 @@ const setCategories = (categories: string[]): StoreAction => {
     return { type: LedgerAction.SET_CATEGORIES, payload: { categories: categories } };
 }
 
-export const clearCategories = (): ThunkAction<void, {}, {}, AnyAction> => dispatch => {
+export const clearCategories = (): ThunkAction<void, {}, {}, AnyAction> => dispatch =>
     dispatch(setCategories([]));
-}
 
 export const getCategories = (partial: string): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
     return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {
         return new Promise<void>(async (resolve) => {
-            const path: string = 'ledger/categories';
-            const request: CategoryRequest = { partial: partial };
-            const response: StoreAction = await post(request, path, setCategories, setLedgerError);
+            const path: string = `ledger/categories/${partial}`;
+            const response: StoreAction = await get(path, setCategories, setLedgerError);
             dispatch(response);
             resolve();
         });
@@ -152,21 +149,25 @@ export const addLedgerEntry = (request: LedgerEntryRequest): ThunkAction<Promise
     }
 }
 
-const setRecurringTransactions = (transactions: RecurringTransaction[]): StoreAction => {
-    return {
-        type: LedgerAction.SET_RECURRING_TRANSACTIONS,
-        payload: {
-            recurringTransactions: transactions.map(x => {
-                return {
-                    ...x,
-                    // Dates are parsed as strings by default.
-                    lastExecuted: new Date(x.lastExecuted),
-                    lastTriggered: new Date(x.lastTriggered)
-                }
-            })
-        }
-    };
-}
+
+export const clearLedgerEntries = (): ThunkAction<void, {}, {}, AnyAction> => dispatch =>
+    dispatch(setLedgerEntries([]));
+
+
+const setRecurringTransactions = (transactions: RecurringTransaction[]): StoreAction =>
+({
+    type: LedgerAction.SET_RECURRING_TRANSACTIONS,
+    payload: {
+        recurringTransactions: transactions.map(x => {
+            return {
+                ...x,
+                // Dates are parsed as strings by default.
+                lastExecuted: new Date(x.lastExecuted),
+                lastTriggered: new Date(x.lastTriggered)
+            }
+        })
+    }
+});
 
 export const getRecurringTransactions = (): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
     return async (dispatch: ThunkDispatch<{}, {}, AnyAction>): Promise<void> => {

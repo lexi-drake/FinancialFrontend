@@ -1,4 +1,3 @@
-import { push } from "connected-react-router"
 import { useState } from "react"
 import { connect } from "react-redux"
 import Frequency from "../models/Frequency"
@@ -8,7 +7,6 @@ import { deleteIncomeGenerator } from "../store/ledger/actions"
 import { MONTHS } from "../utilities/constants"
 import { calculateIncome, getTotalIncomeGenerators } from "../utilities/income_generators"
 import Content from "./custom/Content"
-import CustomButton from "./custom/CustomButton"
 import Selector, { SelectorOption } from "./custom/Selector"
 import IncomeGeneratorSummary from "./transactions/IncomeGeneratorSummary"
 import IncomeGeneratorModal from "./dashboard/modals/IncomeGeneratorModal"
@@ -17,7 +15,6 @@ interface IncomeGeneratorListProps {
     incomeGenerators: IncomeGenerator[];
     frequencies: Frequency[];
     deleteIncomeGenerator: typeof deleteIncomeGenerator;
-    push: typeof push;
 }
 
 const IncomeGeneratorList = (props: IncomeGeneratorListProps) => {
@@ -49,9 +46,6 @@ const IncomeGeneratorList = (props: IncomeGeneratorListProps) => {
             <Content>
                 <Selector value={monthly} options={options} onChange={(value) => setMonthly(value)} />
             </Content>
-            <Content>
-                <CustomButton onClick={() => props.push('/income/add')}>Add source of income</CustomButton>
-            </Content>
             <IncomeGeneratorModal id={id} generators={props.incomeGenerators} deleteIncomeGenerator={props.deleteIncomeGenerator} frequencies={props.frequencies} close={() => setId('')} />
         </div >
     )
@@ -64,4 +58,4 @@ const mapStateToProps = (state: AppDataState): Partial<IncomeGeneratorListProps>
     };
 }
 
-export default connect(mapStateToProps, { deleteIncomeGenerator, push })(IncomeGeneratorList as any);
+export default connect(mapStateToProps, { deleteIncomeGenerator })(IncomeGeneratorList as any);

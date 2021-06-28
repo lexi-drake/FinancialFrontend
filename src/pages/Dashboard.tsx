@@ -12,15 +12,19 @@ import { LedgerEntry } from "../models/LedgerEntry";
 import { RecurringTransaction } from "../models/RecurringTransaction";
 import { SupportTicket } from "../models/SupportTicket";
 import { AppDataState } from "../store/appdata";
-import { getFrequencies, getIncomeGenerators, getLedgerEntries, getRecurringTransactions } from "../store/ledger/actions";
+import { getFrequencies, getIncomeGenerators, getLedgerEntries, getRecurringTransactions, getTransactionTypes } from "../store/ledger/actions";
 import { getTickets } from "../store/user/actions";
-import { UsesFrequencies, UsesIncomeGenerators, UsesLedgerEntries, UsesRecurringTransactions, UsesTickets } from "../utilities/hooks";
+import { UsesFrequencies, UsesIncomeGenerators, UsesLedgerEntries, UsesRecurringTransactions, UsesTickets, UsesTransactionTypes } from "../utilities/hooks";
 import IncomeGeneratorList from "../components/IncomeGeneratorList";
 import TicketsList from "../components/TicketsList";
+import TransactionType from "../models/TransactionType";
+import AddLedgerEntry from "../components/AddLedgerEntry";
+import AddRecurringTransaction from "../components/AddRecurringTransaction";
 
 interface DashboardProps {
     username: string;
     frequencies: Frequency[];
+    transactionTypes: TransactionType[];
     ledgerEntries: LedgerEntry[];
     incomeGenerators: IncomeGenerator[];
     recurringTransactions: RecurringTransaction[];
@@ -29,6 +33,7 @@ interface DashboardProps {
     getIncomeGenerators: typeof getIncomeGenerators;
     getRecurringTransactions: typeof getRecurringTransactions;
     getFrequencies: typeof getFrequencies;
+    getTransactionTypes: typeof getTransactionTypes;
     getTickets: typeof getTickets;
     push: typeof push;
 }
@@ -36,6 +41,8 @@ interface DashboardProps {
 const Dashboard = (props: DashboardProps) => {
 
     UsesFrequencies(props.frequencies, props.getFrequencies);
+    UsesTransactionTypes(props.transactionTypes, props.getTransactionTypes);
+
     UsesLedgerEntries(props.getLedgerEntries);
     UsesIncomeGenerators(props.getIncomeGenerators);
     UsesRecurringTransactions(props.getRecurringTransactions);
@@ -57,27 +64,29 @@ const Dashboard = (props: DashboardProps) => {
 
     return (
         <div className="dashboard">
-            <Navbar />
             <div className="page">
+                <Navbar />
                 <BudgetSummary />
                 <TransactionHistoryVisualization />
+                <Footer />
             </div>
             <div className="page">
-                {/* TODO (alexa): AddLedgerEntryComponent */}
+                <AddLedgerEntry />
                 <LedgerHistoryList />
             </div>
             <div className="page">
+                <AddRecurringTransaction />
                 <RecurringTransactionList />
             </div>
             <div className="page">
                 <IncomeGeneratorList />
             </div>
-            <div className="page">
-            </div>
+            {/* <div className="page">
+                This is where the buckets will go.
+            </div> */}
             <div className="page">
                 <TicketsList />
             </div>
-            <Footer />
         </div>
     );
 }
@@ -86,6 +95,7 @@ const mapStateToProps = (state: AppDataState): Partial<DashboardProps> => {
     return {
         username: state.user.username,
         frequencies: state.ledger.frequencies,
+        transactionTypes: state.ledger.transactionTypes,
         ledgerEntries: state.ledger.ledgerEntries,
         incomeGenerators: state.ledger.incomeGenerators,
         recurringTransactions: state.ledger.recurringTransactions,
@@ -93,4 +103,4 @@ const mapStateToProps = (state: AppDataState): Partial<DashboardProps> => {
     };
 }
 
-export default connect(mapStateToProps, { getLedgerEntries, getIncomeGenerators, getRecurringTransactions, getFrequencies, getTickets, push })(Dashboard as any);
+export default connect(mapStateToProps, { getLedgerEntries, getIncomeGenerators, getRecurringTransactions, getFrequencies, getTickets, getTransactionTypes, push })(Dashboard as any);

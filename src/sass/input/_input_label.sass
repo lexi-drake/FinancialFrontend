@@ -1,15 +1,18 @@
 .input-label
     position: absolute
-    margin: 2px 0px 0px 20px
+    margin: -2px 0px 0px 20px
     color: $gris-green
     transform-origin: top left
     transform: translate(0, 16px)
     transition: all .2s ease-in-out
-    cursor: text
+    cursor: pointer
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
+    width: 75%
 
 .input-label-active
     font-size: 10px
     line-height: 14px
-    color: $gris-light-green
     margin: 0px 0px 0px 20px
     transform: translate(0, 4px)

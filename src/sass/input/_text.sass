@@ -1,4 +1,6 @@
 .custom-text
+    font-size: 16px
+    line-height: 24px
     height: 60px
     max-width: 420px
     position: relative
@@ -7,13 +9,11 @@
     > span
         position: absolute
         display: block
-        padding: 20px 0px 16px 20px
-        font-size: 16px
-        line-height: 24px
+        padding: 16px 0px 16px 20px
 
     input
-        color: $gris-light-grey
-        background-color: $gris-dark-grey
+        color: $gris-dark-grey
+        background-color: $gris-white
         height: 100%
         width: 100%
         font-size: 16px
@@ -64,3 +64,9 @@
 
     ::placeholder
         color: $gris-green
+
+@media only screen and (max-width: 600px)
+    .custom-text
+        height: 100%
+        margin: 0px
+        width: 100%

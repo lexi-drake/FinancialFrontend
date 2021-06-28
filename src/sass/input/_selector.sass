@@ -1,23 +1,18 @@
 .selector
-    margin: 32px 0px 20px 0px
+    margin: auto
 
     .selector-button
         color: $gris-dark-grey
         background-color: $gris-grey
-        height: 60px
+        height: 100%
         padding: 20px 0px 20px 20px
         border-radius: 2px
         cursor: pointer
+        display: inline-block
+        margin: 0px 2px 0px 2px
 
-        &.vertical
-            margin: 8px 0px 8px 0px
-
-        &.horizontal
-            display: inline-block
-            margin: 20px 8px 20px 8px
-
-            &.first
-                margin-left: 0px
+        &.first
+            margin-left: 0px
 
             &.last
                 margin-right: 0px
@@ -48,3 +43,10 @@ input[type="radio"]
 input[type="radio"]:checked
     border: 2px solid $gris-white
     background-color: $gris-green
+
+@media only screen and (max-width: 600px)
+    .selector
+        height: 100%
+
+        .selector-button
+            padding: 16px 0px 0px 20px
