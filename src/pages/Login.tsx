@@ -8,7 +8,6 @@ import UserInfo from "../components/UserInfo";
 import { AppDataState } from "../store/appdata";
 import { checkLoggedIn, clearUserError, login } from "../store/user/actions";
 import { MINIMUM_PASSWORD_LENGTH } from "../utilities/constants";
-import { ClearsUserError } from "../utilities/hooks";
 import { clearRedirectPath, getRedirectPath } from "../utilities/utilities";
 
 interface LoginProps {
@@ -40,7 +39,7 @@ const Login = (props: LoginProps) => {
         }
     }, [props.isLoggedIn, props.checkLoggedIn, props.push]);
 
-    ClearsUserError(props.clearUserError);
+    useEffect(() => { props.clearUserError() }, [props.clearUserError]);
 
     const onLoginClick = async () => {
         props.clearUserError();

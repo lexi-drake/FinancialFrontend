@@ -1,6 +1,63 @@
-.ledger-history-list
-    display: grid
-    grid-template-rows: 14% 14% 14% 1fr
+@media screen and (orientation: landscape)
+    .ledger-history-list
+        display: grid
+        grid-template-rows: 48px 48px 48px 1fr
+        max-height: 100%
+
+        .title
+            grid-row: 1 / 2
+
+            h1
+                margin: 0px
+
+        .month
+            grid-row: 2 / 3
+
+        .total
+            grid-row: 3 / 4
+            // TODO (alexa): this should use a larger font
+            display: grid
+            font-weight: bold
+            grid-template-columns: 40% 60%
+
+            .amount
+                grid-column: 1 / 2
+
+                &.negative
+                    color: $gris-red
+
+            .title
+                grid-column: 2 / 3
+
+        .list
+            grid-row: 4 / 5
+            overflow-x: hidden
+            overflow-y: scroll
+
+            .ledger-entry
+                display: grid
+                grid-column-gap: 4px
+                grid-template-columns: 28% 69%
+                margin: 8px 0px 0px 0px
+                cursor: pointer
+
+                .amount
+                    grid-column: 1 / 2
+                    text-align: right
+
+                    &.negative
+                        color: $gris-red
+
+                .description
+                    overflow: hidden
+                    grid-column: 2 / 3
+                    text-overflow: ellipsis
+                    white-space: nowrap
+
+@media screen and (orientation: portrait)
+    .ledger-history-list
+        display: grid
+        grid-template-rows: 48px 48px 48px 1fr
 
     .title
         grid-row: 1 / 2
@@ -35,8 +92,9 @@
         .ledger-entry
             display: grid
             grid-column-gap: 4px
-            grid-template-columns: 30% 70%
-            margin: 8px 0px 8px 0px
+            grid-template-columns: 28% 69%
+            margin: 8px 0px 0px 0px
+            cursor: pointer
 
             .amount
                 grid-column: 1 / 2
@@ -46,4 +104,7 @@
                     color: $gris-red
 
             .description
+                overflow: hidden
                 grid-column: 2 / 3
+                text-overflow: ellipsis
+                white-space: nowrap

@@ -2,8 +2,8 @@ import { push } from "connected-react-router";
 import { connect } from "react-redux";
 import BudgetSummary from "../components/BudgetSummary";
 import Footer from "../components/Footer";
-import LedgerHistoryList from "../components/LedgerHistoryList";
-import RecurringTransactionList from '../components/RecurringTransactionList';
+import LedgerHistoryList from "../components/dashboard/LedgerHistoryList";
+import RecurringTransactionList from '../components/dashboard/RecurringTransactionList';
 import Navbar from "../components/Navbar";
 import TransactionHistoryVisualization from "../components/TransactionHistoryVisualization";
 import Frequency from "../models/Frequency";
@@ -14,12 +14,13 @@ import { SupportTicket } from "../models/SupportTicket";
 import { AppDataState } from "../store/appdata";
 import { getFrequencies, getIncomeGenerators, getLedgerEntries, getRecurringTransactions, getTransactionTypes } from "../store/ledger/actions";
 import { getTickets } from "../store/user/actions";
-import { UsesFrequencies, UsesIncomeGenerators, UsesLedgerEntries, UsesRecurringTransactions, UsesTickets, UsesTransactionTypes } from "../utilities/hooks";
-import IncomeGeneratorList from "../components/IncomeGeneratorList";
+import { useFrequencies, useIncomeGenerators, useLedgerEntries, useRecurringTransactions, useTickets, useTransactionTypes } from "../utilities/hooks";
+import IncomeGeneratorList from "../components/dashboard/IncomeGeneratorList";
 import TicketsList from "../components/TicketsList";
 import TransactionType from "../models/TransactionType";
-import AddLedgerEntry from "../components/AddLedgerEntry";
-import AddRecurringTransaction from "../components/AddRecurringTransaction";
+import AddIncomeGenerator from "../components/dashboard/AddIncomeGenerator";
+import AddRecurringTransaction from "../components/dashboard/AddRecurringTransaction";
+import AddLedgerEntry from "../components/dashboard/AddLedgerEntry";
 
 interface DashboardProps {
     username: string;
@@ -40,53 +41,30 @@ interface DashboardProps {
 
 const Dashboard = (props: DashboardProps) => {
 
-    UsesFrequencies(props.frequencies, props.getFrequencies);
-    UsesTransactionTypes(props.transactionTypes, props.getTransactionTypes);
+    useFrequencies(props.frequencies, props.getFrequencies);
+    useTransactionTypes(props.transactionTypes, props.getTransactionTypes);
 
-    UsesLedgerEntries(props.getLedgerEntries);
-    UsesIncomeGenerators(props.getIncomeGenerators);
-    UsesRecurringTransactions(props.getRecurringTransactions);
-    UsesTickets(props.getTickets);
-
-    const headline: string = `Welcome, ${props.username}`
-
-    const messagesText = (): string => {
-        if (props.tickets.length === 0) {
-            return 'Inbox';
-        }
-
-        // TODO (alexa): this currently gives the number of tickets with unopened 
-        // messages. This should, in the future, be updated to give the exact count
-        // of messages.
-        const unopenedCount: number = props.tickets.filter(x => x.messages.filter(y => !y.opened).length > 0).length;
-        return `You have ${unopenedCount} new messages.`
-    }
+    useLedgerEntries(props.getLedgerEntries);
+    useIncomeGenerators(props.getIncomeGenerators);
+    useRecurringTransactions(props.getRecurringTransactions);
+    useTickets(props.getTickets);
 
     return (
         <div className="dashboard">
-            <div className="page">
-                <Navbar />
-                <BudgetSummary />
-                <TransactionHistoryVisualization />
-                <Footer />
-            </div>
-            <div className="page">
-                <AddLedgerEntry />
-                <LedgerHistoryList />
-            </div>
-            <div className="page">
-                <AddRecurringTransaction />
-                <RecurringTransactionList />
-            </div>
-            <div className="page">
-                <IncomeGeneratorList />
-            </div>
+            <Navbar />
+            <BudgetSummary />
+            <TransactionHistoryVisualization />
+            <Footer />
+            <AddLedgerEntry />
+            <LedgerHistoryList />
+            <AddRecurringTransaction />
+            <RecurringTransactionList />
+            <AddIncomeGenerator />
+            <IncomeGeneratorList />
             {/* <div className="page">
                 This is where the buckets will go.
             </div> */}
-            <div className="page">
-                <TicketsList />
-            </div>
+            <TicketsList />
         </div>
     );
 }

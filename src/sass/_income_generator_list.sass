@@ -1,17 +1,19 @@
-.recurring-transaction-list
+.income-generator-list
     display: grid
     grid-template-rows: 48px 48px 48px 1fr
-    overflow-x: hidden
 
     .title
         grid-row: 1 / 2
-        white-space: nowrap
+
+        h1
+            margin: 0px
 
     .time-period
         grid-row: 2 / 3
 
     .total
         grid-row: 3 / 4
+        // TODO (alexa): this should use a larger font
         display: grid
         font-weight: bold
         grid-template-columns: 40% 60%
@@ -30,7 +32,7 @@
         overflow-x: hidden
         overflow-y: scroll
 
-        .recurring-transaction
+        .income-generator
             display: grid
             grid-column-gap: 4px
             grid-template-columns: 28% 69%

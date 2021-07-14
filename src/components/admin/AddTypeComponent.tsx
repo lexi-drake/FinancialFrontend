@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { connect } from "react-redux";
 import { makeAdminRequest, submitFrequency } from "../../store/admin/actions";
 import { AppDataState } from "../../store/appdata";
-import Content from "../custom/Content";
 import CustomButton from "../custom/CustomButton";
 import CustomDropdown, { DropdownOption } from "../custom/CustomDropdown";
 import CustomText from "../custom/CustomText";
@@ -22,7 +21,6 @@ const AddTypeComponent = (props: AddTypeComponentProps) => {
 
     const options: DropdownOption[] = [
         { key: '1', text: 'User role', value: 'role' },
-        { key: '2', text: 'Salary type', value: 'salarytype' },
         { key: '3', text: 'Transaction type', value: 'transactiontype' },
         { key: '4', text: 'Frequency', value: 'frequency' }
     ];
@@ -57,9 +55,9 @@ const AddTypeComponent = (props: AddTypeComponentProps) => {
         <div className="add-type">
             <Section>
                 <h1>Add admin type</h1>
-                <Content>
-                    <CustomDropdown value={type} label="Select" options={options} onSelect={value => showModalFor(value)} />
-                </Content>
+
+                <CustomDropdown value={type} label="Select" options={options} onSelect={value => showModalFor(value)} />
+
             </Section>
             <Modal show={show} close={onCloseClick}>
                 <ModalHeader>

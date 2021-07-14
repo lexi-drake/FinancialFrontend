@@ -1,19 +1,10 @@
 import { useEffect } from "react";
 import Frequency from "../models/Frequency";
 import { DateSpanRequest } from "../models/LedgerEntry";
-import SalaryType from "../models/SalaryType";
 import TransactionType from "../models/TransactionType";
 import { getFirstDayOfMonth, getLastDayOfMonth } from "./dates";
 
-export function UsesUserCount(count: number, getUserCount: () => void) {
-    useEffect(() => {
-        if (count < 0) {
-            getUserCount()
-        }
-    }, [count, getUserCount]);
-}
-
-export function UsesTransactionTypes(transactionTypes: TransactionType[], getTransactionTypes: () => void) {
+export const useTransactionTypes = (transactionTypes: TransactionType[], getTransactionTypes: () => void) => {
     useEffect(() => {
         if (transactionTypes.length === 0) {
             getTransactionTypes();
@@ -21,7 +12,7 @@ export function UsesTransactionTypes(transactionTypes: TransactionType[], getTra
     }, [transactionTypes, getTransactionTypes]);
 }
 
-export function UsesFrequencies(frequencies: Frequency[], getFrequencies: () => void) {
+export const useFrequencies = (frequencies: Frequency[], getFrequencies: () => void) => {
     useEffect(() => {
         if (frequencies.length === 0) {
             getFrequencies();
@@ -29,21 +20,13 @@ export function UsesFrequencies(frequencies: Frequency[], getFrequencies: () => 
     }, [frequencies, getFrequencies]);
 }
 
-export function UsesSalaryTypes(salaryTypes: SalaryType[], getSalaryTypes: () => void) {
-    useEffect(() => {
-        if (salaryTypes.length === 0) {
-            getSalaryTypes();
-        }
-    }, [salaryTypes, getSalaryTypes]);
-}
-
-export function UsesIncomeGenerators(getIncomeGenerators: () => void) {
+export const useIncomeGenerators = (getIncomeGenerators: () => void) => {
     useEffect(() => {
         getIncomeGenerators();
     }, [getIncomeGenerators]);
 }
 
-export function UsesLedgerEntries(getLedgerEntries: (request: DateSpanRequest) => void) {
+export const useLedgerEntries = (getLedgerEntries: (request: DateSpanRequest) => void) => {
     useEffect(() => {
         const date: Date = new Date();
         getLedgerEntries({
@@ -53,19 +36,13 @@ export function UsesLedgerEntries(getLedgerEntries: (request: DateSpanRequest) =
     }, [getLedgerEntries]);
 }
 
-export function UsesRecurringTransactions(getRecurringTransactions: () => void) {
+export const useRecurringTransactions = (getRecurringTransactions: () => void) => {
     useEffect(() => {
         getRecurringTransactions();
     }, [getRecurringTransactions]);
 }
 
-export function ClearsUserError(clearUserError: () => void) {
-    useEffect(() => {
-        clearUserError();
-    }, [clearUserError]);
-}
-
-export function UsesTickets(getTickets: () => void) {
+export const useTickets = (getTickets: () => void) => {
     useEffect(() => {
         getTickets();
     }, [getTickets]);

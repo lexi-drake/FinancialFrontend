@@ -1,10 +1,9 @@
 import { Pie } from 'react-chartjs-2';
 import { ChartOptions } from 'chart.js'
-import { LedgerEntry } from "../../models/LedgerEntry";
+import { LedgerEntry } from "../models/LedgerEntry";
 import { useState } from 'react';
-import Content from '../custom/Content';
-import { CHART_COLORS } from '../../utilities/constants';
-import Selector, { SelectorOption } from '../custom/Selector';
+import { CHART_COLORS } from '../utilities/constants';
+import Selector, { SelectorOption } from './custom/Selector';
 
 interface LedgerHistoryGraphProps {
     ledgerEntries: LedgerEntry[]
@@ -120,9 +119,8 @@ const LedgerHistoryGraph = (props: LedgerHistoryGraphProps) => {
     return (
         <div className="ledger-history-graph">
             {getGraph()}
-            <Content>
-                <Selector value={graph} options={options} onChange={(value) => setGraph(value)} />
-            </Content>
+            <Selector value={graph} options={options} onChange={(value) => setGraph(value)} />
+
         </div>
     );
 }

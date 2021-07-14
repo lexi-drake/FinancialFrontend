@@ -1,8 +1,6 @@
 .custom-dropdown
-    height: 60px
-    width: 420px
-    position: relative
-    margin: 8px 0px 8px 0px
+    height: 100%
+    width: 100%
 
     .icon
         width: 16px
@@ -46,7 +44,7 @@
 
 .custom-dropdown-menu
     position: absolute
-    width: 420px
+    width: 100%
     background-color: $gris-white
     z-index: 11
     overflow-x: hidden
@@ -66,14 +64,8 @@
             color: $gris-white
             background-color: $gris-green
 
-@media only screen and (max-width: 600px)
-    .custom-dropdown
-        height: 100%
-        margin: 0px
-        width: 100%
+    .icon
+        margin-left: 86%
 
-        .icon
-            margin-left: 86%
-
-    .custom-dropdown-menu
-        width: 100%
+.custom-dropdown-menu
+    width: 100%

@@ -1,37 +1,64 @@
-.navbar
-    display: grid
-    grid-column-gap: 0px
-    grid-row-gap: 0px
-    grid-template-columns: repeat(10, 10%)
-    grid-template-rows: repeat(2, 50%)
-    height: 10vh
-    padding: 0px 12px 0px 12px
-    position: absolute
-    width: 100%
-
-    .title
-        grid-column: 1 / 8
-        grid-row: 2 / 3
-        font-size: 36px
-        line-height: 48px
-        cursor: pointer
-
-    .navbar-auth
-        grid-column: 8 / 11
-        grid-row: 1 / 2
-        padding: 12px 0px 0px 0px
-        text-align: center
+@media screen and (orientation: landscape)
+    .navbar
+        background-color: $gris-dark-grey
+        color: $gris-white
+        display: grid
+        grid-template-rows: repeat(10, 10%)
+        grid-row: 1 / 9
+        grid-column: 1 / 2
 
         .custom-link
             margin: 0px
-            color: $gris-dark-grey
 
-    .navbar-admin
-        grid-column: 5 / 8
-        grid-row: 1 / 2
-        padding: 12px 0px 0px 0px
-        text-align: center
+        .title
+            cursor: pointer
+            font-size: 36px
+            grid-row: 1 / 2
+            line-height: 48px
+            text-align: right
+
+        .navbar-auth
+            grid-row: 9 / 10
+            padding: 12px 0px 0px 0px
+            text-align: center
+
+        .navbar-admin
+            grid-row: 8 / 9
+            padding: 12px 0px 0px 0px
+            text-align: center
+
+@media screen and (orientation: portrait)
+    .navbar
+        background-color: $gris-dark-grey
+        color: $gris-white
+        display: grid
+        grid-column-gap: 0px
+        grid-row-gap: 0px
+        grid-template-columns: repeat(10, 10%)
+        grid-template-rows: repeat(2, 50%)
+        height: 10vh
+        padding: 0px 12px 0px 12px
+        position: absolute
+        width: 100%
 
         .custom-link
             margin: 0px
-            color: $gris-dark-grey
+
+        .title
+            grid-column: 1 / 8
+            grid-row: 2 / 3
+            font-size: 36px
+            line-height: 48px
+            cursor: pointer
+
+        .navbar-auth
+            grid-column: 8 / 11
+            grid-row: 1 / 2
+            padding: 12px 0px 0px 0px
+            text-align: center
+
+        .navbar-admin
+            grid-column: 5 / 8
+            grid-row: 1 / 2
+            padding: 12px 0px 0px 0px
+            text-align: center

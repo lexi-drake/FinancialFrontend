@@ -13,8 +13,6 @@ html
 @import "navbar"
 @import "header"
 @import "footer"
-@import "section"
-@import "content"
 @import "dashboard"
 @import "admin"
 @import "modal"
@@ -26,12 +24,12 @@ html
 @import "input/datepicker"
 @import "input/selector"
 
-@import "transactions/recurring"
-@import "transactions/generator"
 @import "ledger_history_list"
 @import "add_ledger_entry"
 @import "recurring_transaction_list"
 @import "add_recurring_transaction"
+@import "income_generator_list"
+@import "add_income_generator"
 
 body
     flex-basis: 66%
@@ -39,4 +37,3 @@ body
     margin: 0
     min-height: 100%
     background-color: $gris-white
-    overflow: hidden

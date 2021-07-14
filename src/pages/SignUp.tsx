@@ -1,5 +1,5 @@
 import { push } from "connected-react-router";
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { connect } from "react-redux"
 import CustomButton from "../components/custom/CustomButton";
 import Header from "../components/custom/Header";
@@ -8,7 +8,6 @@ import UserInfo from "../components/UserInfo";
 import { AppDataState } from "../store/appdata"
 import { clearUserError, createUser } from "../store/user/actions";
 import { MINIMUM_PASSWORD_LENGTH } from "../utilities/constants";
-import { ClearsUserError } from "../utilities/hooks";
 
 interface SignUpProps {
     error: string;
@@ -22,7 +21,7 @@ const SignUp = (props: SignUpProps) => {
     const [password, setPassword] = useState('');
     const [processing, setProcessing] = useState(false);
 
-    ClearsUserError(props.clearUserError);
+    useEffect(() => { props.clearUserError() }, [props.clearUserError]);
 
     const signUpDisabled = (): boolean => processing || !username || password.length < MINIMUM_PASSWORD_LENGTH;
 

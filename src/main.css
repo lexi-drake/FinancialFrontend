@@ -16,12 +16,6 @@ html, body {
   min-height: 100%;
 }
 
-.container {
-  margin: 0px 0px 0px 269px;
-  min-height: 100%;
-  width: 540px;
-}
-
 input:focus {
   outline: none;
 }
@@ -34,16 +28,16 @@ input:focus {
 
 button {
   background-color: #7d957b;
-  color: #dbdbdb;
-  text-align: center;
-  padding: 20px 0px 20px 0px;
-  width: 180px;
-  height: 60px;
-  font-size: 16px;
-  line-height: 20px;
   border: none;
   border-radius: 2px;
+  color: #dbdbdb;
   cursor: pointer;
+  font-size: 16px;
+  height: 100%;
+  line-height: 20px;
+  text-align: center;
+  width: 100%;
+  vertical-align: middle;
 }
 button.error {
   background-color: #8f0e22;
@@ -55,15 +49,6 @@ button:hover {
   background-color: #a5d6c6;
 }
 
-@media only screen and (max-width: 600px) {
-  button {
-    height: 100%;
-    padding-bottom: 0px;
-    padding-top: 0px;
-    vertical-align: middle;
-    width: 100%;
-  }
-}
 .custom-link {
   font-size: 16px;
   line-height: 24px;
@@ -78,45 +63,73 @@ a {
   cursor: pointer;
 }
 
-.navbar {
-  display: grid;
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-  grid-template-columns: repeat(10, 10%);
-  grid-template-rows: repeat(2, 50%);
-  height: 10vh;
-  padding: 0px 12px 0px 12px;
-  position: absolute;
-  width: 100%;
+@media screen and (orientation: landscape) {
+  .navbar {
+    background-color: #35343a;
+    color: #fbf7f6;
+    display: grid;
+    grid-template-rows: repeat(10, 10%);
+    grid-row: 1/9;
+    grid-column: 1/2;
+  }
+  .navbar .custom-link {
+    margin: 0px;
+  }
+  .navbar .title {
+    cursor: pointer;
+    font-size: 36px;
+    grid-row: 1/2;
+    line-height: 48px;
+    text-align: right;
+  }
+  .navbar .navbar-auth {
+    grid-row: 9/10;
+    padding: 12px 0px 0px 0px;
+    text-align: center;
+  }
+  .navbar .navbar-admin {
+    grid-row: 8/9;
+    padding: 12px 0px 0px 0px;
+    text-align: center;
+  }
 }
-.navbar .title {
-  grid-column: 1/8;
-  grid-row: 2/3;
-  font-size: 36px;
-  line-height: 48px;
-  cursor: pointer;
+@media screen and (orientation: portrait) {
+  .navbar {
+    background-color: #35343a;
+    color: #fbf7f6;
+    display: grid;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    grid-template-columns: repeat(10, 10%);
+    grid-template-rows: repeat(2, 50%);
+    height: 10vh;
+    padding: 0px 12px 0px 12px;
+    position: absolute;
+    width: 100%;
+  }
+  .navbar .custom-link {
+    margin: 0px;
+  }
+  .navbar .title {
+    grid-column: 1/8;
+    grid-row: 2/3;
+    font-size: 36px;
+    line-height: 48px;
+    cursor: pointer;
+  }
+  .navbar .navbar-auth {
+    grid-column: 8/11;
+    grid-row: 1/2;
+    padding: 12px 0px 0px 0px;
+    text-align: center;
+  }
+  .navbar .navbar-admin {
+    grid-column: 5/8;
+    grid-row: 1/2;
+    padding: 12px 0px 0px 0px;
+    text-align: center;
+  }
 }
-.navbar .navbar-auth {
-  grid-column: 8/11;
-  grid-row: 1/2;
-  padding: 12px 0px 0px 0px;
-  text-align: center;
-}
-.navbar .navbar-auth .custom-link {
-  margin: 0px;
-  color: #35343a;
-}
-.navbar .navbar-admin {
-  grid-column: 5/8;
-  grid-row: 1/2;
-  padding: 12px 0px 0px 0px;
-  text-align: center;
-}
-.navbar .navbar-admin .custom-link {
-  margin: 0px;
-  color: #35343a;
-}
-
 .header {
   margin: 60px 0px 20px 0px;
 }
@@ -139,185 +152,199 @@ a {
   line-height: 24px;
 }
 
-.footer {
-  bottom: 0px;
+@media screen and (orientation: landscape) {
+  .footer {
+    background-color: #35343a;
+    bottom: 0px;
+    color: #fbf7f6;
+    display: grid;
+    grid-column: 1/3;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 33%);
+    grid-row: 41/43;
+  }
+  .footer a {
+    color: #fbf7f6;
+  }
+  .footer .custom-link {
+    cursor: pointer;
+  }
+  .footer .title {
+    font-weight: bold;
+    grid-column: 1/5;
+    grid-row: 1/2;
+    text-align: center;
+  }
+  .footer .frontend {
+    grid-column: 2/3;
+    grid-row: 2/3;
+  }
+  .footer .backend {
+    grid-column: 3/4;
+    grid-row: 2/3;
+  }
+  .footer .worker {
+    grid-column: 4/5;
+    grid-row: 2/3;
+  }
+  .footer .about {
+    grid-column: 4/5;
+    grid-row: 3/4;
+  }
+}
+@media screen and (orientation: portrait) {
+  .footer {
+    background-color: #35343a;
+    bottom: 0px;
+    color: #fbf7f6;
+    display: grid;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 33%);
+    height: 10vh;
+    position: absolute;
+    width: 100%;
+  }
+  .footer a {
+    color: #fbf7f6;
+  }
+  .footer .custom-link {
+    cursor: pointer;
+  }
+  .footer .title {
+    font-weight: bold;
+    grid-column: 1/5;
+    grid-row: 1/2;
+    text-align: center;
+  }
+  .footer .frontend {
+    grid-column: 2/3;
+    grid-row: 2/3;
+  }
+  .footer .backend {
+    grid-column: 3/4;
+    grid-row: 2/3;
+  }
+  .footer .worker {
+    grid-column: 4/5;
+    grid-row: 2/3;
+  }
+  .footer .about {
+    grid-column: 4/5;
+    grid-row: 3/4;
+  }
+}
+.dashboard {
   display: grid;
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 30%);
-  height: 10vh;
-  padding: 0px 12px 24px 12px;
-  position: absolute;
-  width: 100%;
+  grid-column-gap: 4%;
+  grid-row-gap: 8px;
+  grid-template-columns: repeat(2, 48%);
+  grid-template-rows: repeat(42, 10vh);
+  margin: 0px;
 }
-.footer .custom-link {
-  cursor: pointer;
-}
-.footer .title {
-  font-weight: bold;
-  grid-column: 1/5;
-  grid-row: 1/2;
-  text-align: center;
-}
-.footer .frontend {
+.dashboard .budget-summary {
   grid-column: 2/3;
   grid-row: 2/3;
 }
-.footer .backend {
-  grid-column: 3/4;
-  grid-row: 2/3;
-}
-.footer .worker {
-  grid-column: 4/5;
-  grid-row: 2/3;
-}
-.footer .about {
-  grid-column: 4/5;
-  grid-row: 3/4;
-}
-
-.section {
-  font-size: 14px;
-  line-height: 18px;
-  padding: 20px 0px 40px 0px;
-}
-.section h1 {
-  font-size: 24px;
-  line-height: 28px;
-  margin: 0px;
-}
-.section p {
-  margin: 6px 0px 6px 0px;
-}
-.section a {
-  font-size: 14px;
-  line-height: 18px;
-  margin: 6px 0px 6px 0px;
-}
-
-.content {
-  margin: 16px 0px 16px 0px;
-  float: none;
-}
-
-.dashboard {
-  display: grid;
-  grid-template-columns: repeat(6, 90%);
-  grid-column-gap: 16px;
-  height: 100%;
-  width: 100%;
-  margin: 0px;
-  overflow-x: scroll;
-  overflow-y: hidden;
-}
-.dashboard .page {
-  display: grid;
-  grid-row-gap: 0px;
-  grid-template-rows: repeat(10, 10vh);
-  height: 100vh;
-  padding: 0px 8px 0px 8px;
-  width: 100%;
-}
-.dashboard .page .navbar {
-  grid-row: 1/2;
-  grid-column: 10/11;
-}
-.dashboard .page .budget-summary {
-  grid-row: 2/3;
-}
-.dashboard .page .transaction-history-visualization {
+.dashboard .transaction-history-visualization {
   background-color: #35343a;
-  grid-row: 3/10;
-  width: 100%;
+  grid-column: 2/3;
+  grid-row: 3/9;
 }
-.dashboard .page .add-ledger-entry {
-  grid-row: 2/5;
+.dashboard .add-ledger-entry {
+  grid-column: 2/3;
+  grid-row: 9/17;
 }
-.dashboard .page .ledger-history-list {
-  grid-row: 5/10;
-  width: 100%;
+.dashboard .ledger-history-list {
+  grid-column: 1/2;
+  grid-row: 9/17;
 }
-.dashboard .page .add-recurring-transaction {
-  grid-row: 2/6;
+.dashboard .add-recurring-transaction {
+  grid-column: 1/2;
+  grid-row: 17/25;
 }
-.dashboard .page .recurring-transaction-list {
-  grid-row: 6/10;
-  width: 100%;
+.dashboard .recurring-transaction-list {
+  grid-column: 2/3;
+  grid-row: 17/25;
 }
-.dashboard .page .add-savings-bucket {
-  grid-row: 3/5;
+.dashboard .add-income-generator {
+  grid-column: 2/3;
+  grid-row: 25/33;
 }
-.dashboard .page .savings-bucket-list {
-  grid-row: 5/10;
-  width: 100%;
+.dashboard .income-generator-list {
+  grid-column: 1/2;
+  grid-row: 25/33;
 }
-.dashboard .page .add-income-generator {
-  grid-row: 3/5;
+.dashboard .add-support-ticket {
+  grid-column: 1/2;
+  grid-row: 33/41;
 }
-.dashboard .page .income-generator-list {
-  grid-row: 5/10;
-  width: 100%;
-}
-.dashboard .page .add-support-ticket {
-  grid-row: 3/5;
-}
-.dashboard .page .support-ticket-list {
-  grid-row: 5/10;
-  width: 100%;
+.dashboard .support-ticket-list {
+  grid-column: 2/3;
+  grid-row: 33/41;
 }
 
-.tickets-overview {
-  border: 2px #624387 solid;
-  float: left;
-  width: 460px;
-  margin: 0px 69px 69px 0px;
-  padding: 20px 20px 20px 20px;
-  font-size: 14px;
-  line-height: 18px;
-  cursor: pointer;
+@media screen and (orientation: portrait) {
+  .dashboard {
+    display: grid;
+    grid-template-columns: repeat(5, 90%);
+    grid-template-rows: repeat(10, 10vh);
+    grid-column-gap: 16px;
+    grid-row-gap: 0px;
+    width: 100%;
+    margin: 0px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+  .dashboard .navbar {
+    grid-row: 1/2;
+    grid-column: 1/2;
+  }
+  .dashboard .budget-summary {
+    grid-column: 1/2;
+    grid-row: 2/3;
+  }
+  .dashboard .transaction-history-visualization {
+    background-color: #35343a;
+    grid-column: 1/2;
+    grid-row: 3/10;
+    width: 100%;
+  }
+  .dashboard .add-ledger-entry {
+    grid-column: 2/3;
+    grid-row: 2/5;
+  }
+  .dashboard .ledger-history-list {
+    grid-column: 2/3;
+    grid-row: 5/10;
+  }
+  .dashboard .add-recurring-transaction {
+    grid-column: 3/4;
+    grid-row: 2/6;
+  }
+  .dashboard .recurring-transaction-list {
+    grid-column: 3/4;
+    grid-row: 6/10;
+  }
+  .dashboard .add-income-generator {
+    grid-column: 4/5;
+    grid-row: 2/6;
+  }
+  .dashboard .income-generator-list {
+    grid-column: 4/5;
+    grid-row: 6/10;
+  }
+  .dashboard .add-support-ticket {
+    grid-column: 5/6;
+    grid-row: 3/5;
+  }
+  .dashboard .support-ticket-list {
+    grid-column: 5/6;
+    grid-row: 5/10;
+    width: 100%;
+  }
 }
-.tickets-overview .ticket-summary {
-  margin: 6px 0px 6px 0px;
-}
-.tickets-overview .ticket-summary .subject {
-  font-weight: bold;
-  float: right;
-  display: inline-block;
-  max-width: 50%;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-.tickets-overview .ticket-summary .date {
-  margin-left: 16px;
-  display: inline-block;
-}
-.tickets-overview .ticket-summary hr {
-  margin-left: 31%;
-  width: 69%;
-  border: 1px solid #94658f;
-}
-
-.add-type {
-  border: 2px #624387 solid;
-  float: left;
-  width: 460px;
-  margin: 0px 69px 69px 0px;
-  padding: 20px 20px 20px 20px;
-}
-
-.message {
-  border: 2px #e5ad56 solid;
-  border-radius: 2px;
-  width: 100%;
-  margin: 8px 0px 8px 0px;
-  padding: 20px;
-}
-.message .author {
-  font-weight: bold;
-}
-
 .modal {
   position: fixed;
   top: 0;
@@ -329,7 +356,7 @@ a {
 }
 
 .modal-body {
-  background-color: #35343a;
+  background-color: #fbf7f6;
   position: fixed;
   border: 2px #7d957b solid;
   width: 489px;
@@ -355,6 +382,7 @@ a {
 }
 
 .modal-content {
+  color: #35343a;
   padding: 20px 20px 20px 20px;
   font-size: 14px;
   line-height: 18px;
@@ -365,13 +393,16 @@ a {
   font-size: 24px;
   line-height: 28px;
 }
-.modal-content button {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  margin-left: auto;
-  margin-right: auto;
-}
 
+@media screen and (orientation: portrait) {
+  .modal-body {
+    width: 90%;
+  }
+
+  .modal-content {
+    max-height: 90%;
+  }
+}
 .name-value {
   padding: 6px 0px 8px 0px;
 }
@@ -414,10 +445,8 @@ a {
 }
 
 .custom-dropdown {
-  height: 60px;
-  width: 420px;
-  position: relative;
-  margin: 8px 0px 8px 0px;
+  height: 100%;
+  width: 100%;
 }
 .custom-dropdown .icon {
   width: 16px;
@@ -459,7 +488,7 @@ a {
 
 .custom-dropdown-menu {
   position: absolute;
-  width: 420px;
+  width: 100%;
   background-color: #fbf7f6;
   z-index: 11;
   overflow-x: hidden;
@@ -479,28 +508,19 @@ a {
   color: #fbf7f6;
   background-color: #7d957b;
 }
-
-@media only screen and (max-width: 600px) {
-  .custom-dropdown {
-    height: 100%;
-    margin: 0px;
-    width: 100%;
-  }
-  .custom-dropdown .icon {
-    margin-left: 86%;
-  }
-
-  .custom-dropdown-menu {
-    width: 100%;
-  }
+.custom-dropdown-menu .icon {
+  margin-left: 86%;
 }
+
+.custom-dropdown-menu {
+  width: 100%;
+}
+
 .custom-text {
   font-size: 16px;
+  height: 100%;
   line-height: 24px;
-  height: 60px;
-  max-width: 420px;
-  position: relative;
-  margin: 8px 0px 8px 0px;
+  width: 100%;
 }
 .custom-text > span {
   position: absolute;
@@ -552,18 +572,15 @@ a {
 .custom-long-text ::placeholder {
   color: #7d957b;
 }
-
-@media only screen and (max-width: 600px) {
-  .custom-text {
-    height: 100%;
-    margin: 0px;
-    width: 100%;
-  }
+.custom-long-text .custom-text {
+  height: 100%;
+  margin: 0px;
+  width: 100%;
 }
+
 .custom-date-picker {
-  height: 60px;
-  width: 420px;
-  position: relative;
+  height: 100%;
+  width: 100%;
   margin: 0px 0px 0px 0px;
 }
 .custom-date-picker input {
@@ -580,7 +597,7 @@ a {
 }
 .react-datepicker {
   background-color: #35343a !important;
-  margin: -8px 0px -8px 0px;
+  margin: 0px;
 }
 
 .react-datepicker-popper[data-placement^=bottom] {
@@ -616,30 +633,28 @@ a {
   color: #fbf7f6 !important;
 }
 
-@media only screen and (max-width: 600px) {
-  .react-datepicker-wrapper {
-    height: 100%;
-    margin: 0px;
-    width: 100%;
-  }
-
-  .react-datepicker {
-    margin: 0px;
-  }
-
-  .custom-date-picker {
-    height: 100%;
-    width: 100%;
-  }
-
-  .react-datepicker__input-container {
-    height: 100%;
-  }
+.custom-date-picker {
+  height: 100%;
+  width: 100%;
 }
+
+.react-datepicker-wrapper {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+.react-datepicker__input-container {
+  height: 100% !important;
+  width: 100% !important;
+}
+
 .selector {
-  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 4px;
 }
 .selector .selector-button {
+  width: 100%;
   color: #35343a;
   background-color: #bdbec2;
   height: 100%;
@@ -648,11 +663,14 @@ a {
   cursor: pointer;
   display: inline-block;
   margin: 0px 2px 0px 2px;
+  font-size: 16px;
+  line-height: 24px;
 }
 .selector .selector-button.first {
   margin-left: 0px;
+  grid-column: 1/2;
 }
-.selector .selector-button.first.last {
+.selector .selector-button.last {
   margin-right: 0px;
 }
 .selector .selector-button.selected {
@@ -685,202 +703,204 @@ input[type=radio]:checked {
   background-color: #7d957b;
 }
 
-@media only screen and (max-width: 600px) {
+@media screen and (orientation: portrait) {
   .selector {
     height: 100%;
   }
   .selector .selector-button {
-    padding: 16px 0px 0px 20px;
+    padding: 12px 0px 12px 20px;
+    width: 100%;
   }
 }
-.recurring-transaction-summary {
-  max-width: 420px;
-  margin: 6px 0px 6px 0px;
+@media screen and (orientation: landscape) {
+  .ledger-history-list {
+    display: grid;
+    grid-template-rows: 48px 48px 48px 1fr;
+    max-height: 100%;
+  }
+  .ledger-history-list .title {
+    grid-row: 1/2;
+  }
+  .ledger-history-list .title h1 {
+    margin: 0px;
+  }
+  .ledger-history-list .month {
+    grid-row: 2/3;
+  }
+  .ledger-history-list .total {
+    grid-row: 3/4;
+    display: grid;
+    font-weight: bold;
+    grid-template-columns: 40% 60%;
+  }
+  .ledger-history-list .total .amount {
+    grid-column: 1/2;
+  }
+  .ledger-history-list .total .amount.negative {
+    color: #ba5056;
+  }
+  .ledger-history-list .total .title {
+    grid-column: 2/3;
+  }
+  .ledger-history-list .list {
+    grid-row: 4/5;
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+  .ledger-history-list .list .ledger-entry {
+    display: grid;
+    grid-column-gap: 4px;
+    grid-template-columns: 28% 69%;
+    margin: 8px 0px 0px 0px;
+    cursor: pointer;
+  }
+  .ledger-history-list .list .ledger-entry .amount {
+    grid-column: 1/2;
+    text-align: right;
+  }
+  .ledger-history-list .list .ledger-entry .amount.negative {
+    color: #ba5056;
+  }
+  .ledger-history-list .list .ledger-entry .description {
+    overflow: hidden;
+    grid-column: 2/3;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
-.recurring-transaction-summary .category {
-  display: inline-block;
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: bold;
-  text-overflow: ellipsis;
-}
-.recurring-transaction-summary .type {
-  display: inline-block;
-  font-size: 14px;
-  line-height: 18px;
-  padding: 0px 0px 0px 12px;
-}
-.recurring-transaction-summary .amount {
-  display: inline-block;
-  font-size: 16px;
-  line-height: 20px;
-  float: right;
-  max-width: 30%;
-}
-.recurring-transaction-summary .description {
-  font-size: 12px;
-  line-height: 16px;
-}
-.recurring-transaction-summary .after {
-  display: inline-block;
-  float: right;
-  margin: 0px 0px 0px 8px;
-  width: 16px;
-  height: 16px;
-  border-radius: 4px;
-  background-color: #ba5056;
-  clear: both;
-  cursor: pointer;
-}
-.recurring-transaction-summary .after:hover {
-  background-color: #8f0e22;
-}
+@media screen and (orientation: portrait) {
+  .ledger-history-list {
+    display: grid;
+    grid-template-rows: 48px 48px 48px 1fr;
+  }
 
-.recurring-transaction {
-  width: 100%;
-  font-size: 16px;
-  line-height: 20px;
-  margin: 6px 0px 6px 0px;
-  float: none;
-  cursor: pointer;
-}
-.recurring-transaction .category {
-  display: inline-block;
-  width: 40%;
-  font-weight: bold;
-  text-overflow: ellipsis;
-}
-.recurring-transaction .times {
-  display: inline-block;
-  font-size: 14px;
-  line-height: 18px;
-  margin: 0px 12px 0px 12px;
-  width: 30%;
-}
-.recurring-transaction .description {
-  font-size: 12px;
-  line-height: 16px;
-}
-.recurring-transaction .amount {
-  float: right;
-}
-.recurring-transaction .amount.negative {
-  color: #ba5056;
-}
+  .title {
+    grid-row: 1/2;
+  }
+  .title h1 {
+    margin: 0px;
+  }
 
-.income-generator-summary {
-  width: 100%;
-  font-size: 16px;
-  line-height: 20px;
-  margin: 6px 0px 6px 0px;
-  cursor: pointer;
-}
-.income-generator-summary .description {
-  display: inline-block;
-  width: 60%;
-  font-weight: bold;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-.income-generator-summary .net {
-  float: right;
-  max-width: 40%;
-}
+  .month {
+    grid-row: 2/3;
+  }
 
-.ledger-history-list {
-  display: grid;
-  grid-template-rows: 14% 14% 14% 1fr;
-}
-.ledger-history-list .title {
-  grid-row: 1/2;
-}
-.ledger-history-list .title h1 {
-  margin: 0px;
-}
-.ledger-history-list .month {
-  grid-row: 2/3;
-}
-.ledger-history-list .total {
-  grid-row: 3/4;
-  display: grid;
-  font-weight: bold;
-  grid-template-columns: 40% 60%;
-}
-.ledger-history-list .total .amount {
-  grid-column: 1/2;
-}
-.ledger-history-list .total .amount.negative {
-  color: #ba5056;
-}
-.ledger-history-list .total .title {
-  grid-column: 2/3;
-}
-.ledger-history-list .list {
-  grid-row: 4/5;
-  overflow-x: hidden;
-  overflow-y: scroll;
-}
-.ledger-history-list .list .ledger-entry {
-  display: grid;
-  grid-column-gap: 4px;
-  grid-template-columns: 30% 70%;
-  margin: 8px 0px 8px 0px;
-}
-.ledger-history-list .list .ledger-entry .amount {
-  grid-column: 1/2;
-  text-align: right;
-}
-.ledger-history-list .list .ledger-entry .amount.negative {
-  color: #ba5056;
-}
-.ledger-history-list .list .ledger-entry .description {
-  grid-column: 2/3;
-}
+  .total {
+    grid-row: 3/4;
+    display: grid;
+    font-weight: bold;
+    grid-template-columns: 40% 60%;
+  }
+  .total .amount {
+    grid-column: 1/2;
+  }
+  .total .amount.negative {
+    color: #ba5056;
+  }
+  .total .title {
+    grid-column: 2/3;
+  }
 
-.add-ledger-entry {
-  display: grid;
-  grid-column-gap: 4px;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: repeat(4, 51px);
-  grid-row-gap: 4px;
-  max-height: 100%;
-  width: 100%;
-  .description-grid-column: 2/3;
-  .description-grid-row: 3/4;
+  .list {
+    grid-row: 4/5;
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+  .list .ledger-entry {
+    display: grid;
+    grid-column-gap: 4px;
+    grid-template-columns: 28% 69%;
+    margin: 8px 0px 0px 0px;
+    cursor: pointer;
+  }
+  .list .ledger-entry .amount {
+    grid-column: 1/2;
+    text-align: right;
+  }
+  .list .ledger-entry .amount.negative {
+    color: #ba5056;
+  }
+  .list .ledger-entry .description {
+    overflow: hidden;
+    grid-column: 2/3;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
-.add-ledger-entry .title {
-  grid-column: 1/3;
-  grid-row: 1/2;
-  margin: 0px;
+@media screen and (orientation: landscape) {
+  .add-ledger-entry {
+    display: grid;
+    grid-template-rows: repeat(7, 48px);
+    grid-row-gap: 4px;
+    .description-grid-row: 5/6;
+  }
+  .add-ledger-entry .title {
+    grid-row: 1/2;
+    margin: 0px;
+  }
+  .add-ledger-entry .title h1 {
+    margin: 0px;
+  }
+  .add-ledger-entry .transaction-type {
+    grid-row: 2/3;
+  }
+  .add-ledger-entry .amount {
+    grid-row: 3/4;
+  }
+  .add-ledger-entry .category {
+    grid-row: 4/5;
+  }
+  .add-ledger-entry .date {
+    grid-row: 6/7;
+  }
+  .add-ledger-entry .submit {
+    grid-row: 7/8;
+  }
 }
-.add-ledger-entry .title h1 {
-  margin: 0px;
+@media screen and (orientation: portrait) {
+  .add-ledger-entry {
+    display: grid;
+    grid-column-gap: 4px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(4, 48px);
+    grid-row-gap: 4px;
+    max-height: 100%;
+    width: 100%;
+    .description-grid-column: 2/3;
+    .description-grid-row: 3/4;
+  }
+  .add-ledger-entry .title {
+    grid-column: 1/3;
+    grid-row: 1/2;
+    margin: 0px;
+  }
+  .add-ledger-entry .title h1 {
+    margin: 0px;
+  }
+  .add-ledger-entry .transaction-type {
+    grid-column: 1/2;
+    grid-row: 2/3;
+  }
+  .add-ledger-entry .amount {
+    grid-column: 2/3;
+    grid-row: 2/3;
+  }
+  .add-ledger-entry .category {
+    grid-column: 1/2;
+    grid-row: 3/4;
+  }
+  .add-ledger-entry .date {
+    grid-column: 1/2;
+    grid-row: 4/5;
+  }
+  .add-ledger-entry .submit {
+    grid-column: 2/3;
+    grid-row: 4/5;
+  }
 }
-.add-ledger-entry .transaction-type {
-  grid-column: 1/2;
-  grid-row: 2/3;
-}
-.add-ledger-entry .amount {
-  grid-column: 2/3;
-  grid-row: 2/3;
-}
-.add-ledger-entry .category {
-  grid-column: 1/2;
-  grid-row: 3/4;
-}
-.add-ledger-entry .date {
-  grid-column: 1/2;
-  grid-row: 4/5;
-}
-.add-ledger-entry .submit {
-  grid-column: 2/3;
-  grid-row: 4/5;
-}
-
 .recurring-transaction-list {
   display: grid;
-  grid-template-rows: 18% 18% 18% 1fr;
+  grid-template-rows: 48px 48px 48px 1fr;
   overflow-x: hidden;
 }
 .recurring-transaction-list .title {
@@ -892,18 +912,50 @@ input[type=radio]:checked {
 }
 .recurring-transaction-list .total {
   grid-row: 3/4;
+  display: grid;
+  font-weight: bold;
+  grid-template-columns: 40% 60%;
+}
+.recurring-transaction-list .total .amount {
+  grid-column: 1/2;
+}
+.recurring-transaction-list .total .amount.negative {
+  color: #ba5056;
+}
+.recurring-transaction-list .total .title {
+  grid-column: 2/3;
 }
 .recurring-transaction-list .list {
   grid-row: 4/5;
   overflow-x: hidden;
   overflow-y: scroll;
 }
+.recurring-transaction-list .list .recurring-transaction {
+  display: grid;
+  grid-column-gap: 4px;
+  grid-template-columns: 28% 69%;
+  margin: 8px 0px 0px 0px;
+  cursor: pointer;
+}
+.recurring-transaction-list .list .recurring-transaction .amount {
+  grid-column: 1/2;
+  text-align: right;
+}
+.recurring-transaction-list .list .recurring-transaction .amount.negative {
+  color: #ba5056;
+}
+.recurring-transaction-list .list .recurring-transaction .description {
+  overflow: hidden;
+  grid-column: 2/3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 .add-recurring-transaction {
   display: grid;
   grid-column-gap: 4px;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: repeat(5, 51px);
+  grid-template-rows: repeat(5, 48px);
   grid-row-gap: 4px;
   .description-grid-column: 2/3;
   .description-grid-row: 3/4;
@@ -940,13 +992,154 @@ input[type=radio]:checked {
   grid-row: 5/6;
 }
 
+.income-generator-list {
+  display: grid;
+  grid-template-rows: 48px 48px 48px 1fr;
+}
+.income-generator-list .title {
+  grid-row: 1/2;
+}
+.income-generator-list .title h1 {
+  margin: 0px;
+}
+.income-generator-list .time-period {
+  grid-row: 2/3;
+}
+.income-generator-list .total {
+  grid-row: 3/4;
+  display: grid;
+  font-weight: bold;
+  grid-template-columns: 40% 60%;
+}
+.income-generator-list .total .amount {
+  grid-column: 1/2;
+}
+.income-generator-list .total .amount.negative {
+  color: #ba5056;
+}
+.income-generator-list .total .title {
+  grid-column: 2/3;
+}
+.income-generator-list .list {
+  grid-row: 4/5;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.income-generator-list .list .income-generator {
+  display: grid;
+  grid-column-gap: 4px;
+  grid-template-columns: 28% 69%;
+  margin: 8px 0px 0px 0px;
+  cursor: pointer;
+}
+.income-generator-list .list .income-generator .amount {
+  grid-column: 1/2;
+  text-align: right;
+}
+.income-generator-list .list .income-generator .amount.negative {
+  color: #ba5056;
+}
+.income-generator-list .list .income-generator .description {
+  overflow: hidden;
+  grid-column: 2/3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.add-income-generator {
+  display: grid;
+  grid-column-gap: 4px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(4, 48px) 1fr;
+  grid-row-gap: 4px;
+}
+.add-income-generator .title {
+  grid-column: 1/3;
+  grid-row: 1/2;
+  margin: 0px;
+}
+.add-income-generator .title h1 {
+  margin: 0px;
+}
+.add-income-generator .frequency {
+  grid-column: 2/3;
+  grid-row: 3/4;
+}
+.add-income-generator .description {
+  grid-column: 2/3;
+  grid-row: 2/3;
+}
+.add-income-generator .date {
+  grid-column: 1/2;
+  grid-row: 3/4;
+}
+.add-income-generator .add-transaction {
+  grid-column: 1/2;
+  grid-row: 4/5;
+}
+.add-income-generator .submit {
+  grid-column: 2/3;
+  grid-row: 4/5;
+}
+.add-income-generator .list {
+  grid-column: 1/3;
+  grid-row: 5/6;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.add-income-generator .list .transaction {
+  display: grid;
+  grid-column-gap: 4px;
+  grid-template-columns: 28% 69%;
+  margin: 8px 0px 8px 0px;
+}
+.add-income-generator .list .transaction .summary-amount {
+  grid-column: 1/2;
+  text-align: right;
+}
+.add-income-generator .list .transaction .summary-amount.negative {
+  color: #ba5056;
+}
+.add-income-generator .list .transaction .summary-description {
+  overflow: hidden;
+  grid-column: 2/3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.add-income-generator .add-transaction-to-income-generator {
+  display: grid;
+  grid-column-gap: 4px2;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 48px 48px 48px;
+  grid-row-gap: 4px;
+}
+.add-income-generator .add-transaction-to-income-generator .transaction-type {
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+.add-income-generator .add-transaction-to-income-generator .transaction-amount {
+  grid-column: 2/3;
+  grid-row: 1/2;
+}
+.add-income-generator .add-transaction-to-income-generator .transaction-category {
+  grid-column: 1/2;
+  grid-row: 2/3;
+}
+.add-income-generator .add-transaction-to-income-generator .transaction-description {
+  grid-column: 2/3;
+  grid-row: 2/3;
+}
+.add-income-generator .add-transaction-to-income-generator .transaction-submit {
+  grid-column: 2/3;
+  grid-row: 3/4;
+}
+
 body {
   flex-basis: 66%;
   color: #35343a;
   margin: 0;
   min-height: 100%;
   background-color: #fbf7f6;
-  overflow: hidden;
 }
 
 /*# sourceMappingURL=main.css.map */

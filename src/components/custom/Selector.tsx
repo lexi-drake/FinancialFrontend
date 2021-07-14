@@ -37,7 +37,7 @@ const Selector = (props: SelectorProps) => {
             {props.options.map((x, i) => {
                 const checked: boolean = x.value === props.value;
                 return (
-                    <div key={i} className={calculateButtonClasses(i, checked)} style={{ width: `${getButtonWidth()}%` }} onClick={() => props.onChange(x.value)} >
+                    <div key={i} className={calculateButtonClasses(i, checked)} onClick={() => props.onChange(x.value)} >
                         <input type="radio" checked={checked} readOnly />
                         {x.description}
                     </div>

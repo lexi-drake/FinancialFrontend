@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { connect } from "react-redux";
-import Frequency from "../models/Frequency";
-import TransactionType from "../models/TransactionType";
-import { AppDataState } from "../store/appdata";
-import { addRecurringTransaction, clearCategories, getCategories, getRecurringTransactions } from "../store/ledger/actions";
-import { MAXIMUM_CATEGORY_LENGTH, MAXIMUM_DESCRIPTION_LENGTH } from "../utilities/constants";
-import { getDateFromFrequency } from "../utilities/dates";
-import { checkValidAmount } from "../utilities/utilities";
-import AutocompleteField from "./custom/AutocompleteField";
-import CustomButton from "./custom/CustomButton";
-import CustomDatepicker from "./custom/CustomDatepicker";
-import CustomDropdown, { DropdownOption } from "./custom/CustomDropdown";
-import CustomText from "./custom/CustomText";
+import Frequency from "../../models/Frequency";
+import TransactionType from "../../models/TransactionType";
+import { AppDataState } from "../../store/appdata";
+import { addRecurringTransaction, clearCategories, getCategories, getRecurringTransactions } from "../../store/ledger/actions";
+import { MAXIMUM_CATEGORY_LENGTH, MAXIMUM_DESCRIPTION_LENGTH } from "../../utilities/constants";
+import { getDateFromFrequency } from "../../utilities/dates";
+import { checkValidAmount } from "../../utilities/utilities";
+import AutocompleteField from "../custom/AutocompleteField";
+import CustomButton from "../custom/CustomButton";
+import CustomDatepicker from "../custom/CustomDatepicker";
+import CustomDropdown, { DropdownOption } from "../custom/CustomDropdown";
+import CustomText from "../custom/CustomText";
 
 interface AddRecurringTransactionProps {
     frequencies: Frequency[];
@@ -20,6 +20,7 @@ interface AddRecurringTransactionProps {
     getCategories: typeof getCategories;
     clearCategories: typeof clearCategories;
     addRecurringTransaction: typeof addRecurringTransaction;
+    getRecurringTransactions: typeof getRecurringTransactions;
 }
 
 const AddRecurringTransaction = (props: AddRecurringTransactionProps) => {
@@ -70,10 +71,12 @@ const AddRecurringTransaction = (props: AddRecurringTransactionProps) => {
         });
         _setCategory('');
         _setDescription('');
+        setTransactionType('');
         setAmount('');
         setLastTriggered(new Date());
         setFrequency('');
-        getRecurringTransactions();
+
+        props.getRecurringTransactions();
     }
 
     const frequencies: DropdownOption[] = props.frequencies.map(x => { return { key: x.id, text: x.description, value: x.id }; });
@@ -115,4 +118,4 @@ const mapStateToProps = (state: AppDataState): Partial<AddRecurringTransactionPr
     };
 }
 
-export default connect(mapStateToProps, { getCategories, clearCategories, addRecurringTransaction })(AddRecurringTransaction as any);
+export default connect(mapStateToProps, { getCategories, clearCategories, addRecurringTransaction, getRecurringTransactions })(AddRecurringTransaction as any);

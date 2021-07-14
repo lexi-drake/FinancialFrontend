@@ -75,3 +75,13 @@ export const isNew = (message: Message, username: string): boolean => {
 
 export const checkValidAmount = (amount: string): boolean =>
     !!amount && isNaN(parseFloat(amount));
+
+export const formatCategoryAndDescription = (category: string, description: string) => {
+    if (!description) {
+        return category;
+    }
+    return `${category} (${description})`;
+}
+
+export const numberToDollarString = (amount: number): string =>
+    `$${Math.abs(amount).toFixed(2)}`;

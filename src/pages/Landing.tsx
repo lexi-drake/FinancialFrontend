@@ -5,7 +5,6 @@ import { AppDataState } from '../store/appdata';
 import Header from "../components/custom/Header";
 import Section from "../components/custom/Section";
 import CustomButton from "../components/custom/CustomButton";
-import Content from "../components/custom/Content";
 
 interface LandingProps {
     count: number;
@@ -21,14 +20,11 @@ const Landing = (props: LandingProps) =>
             </p>
         </Header>
         <Section>
-            <Content>
-                <h1>Not a member yet?</h1>
-                <CustomButton onClick={() => props.push('/signup')}>Sign up</CustomButton>
-            </Content>
-            <Content>
-                <h1>Already a member?</h1>
-                <CustomButton onClick={() => props.push('/login')}>Log in</CustomButton>
-            </Content>
+            <h1>Not a member yet?</h1>
+            <CustomButton onClick={() => props.push('/signup')}>Sign up</CustomButton>
+
+            <h1>Already a member?</h1>
+            <CustomButton onClick={() => props.push('/login')}>Log in</CustomButton>
         </Section>
         <Section>
             <h1>Why?</h1>

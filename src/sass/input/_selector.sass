@@ -1,7 +1,10 @@
 .selector
-    margin: auto
+    display: grid
+    grid-template-columns: 1fr 1fr
+    grid-column-gap: 4px
 
     .selector-button
+        width: 100%
         color: $gris-dark-grey
         background-color: $gris-grey
         height: 100%
@@ -10,12 +13,15 @@
         cursor: pointer
         display: inline-block
         margin: 0px 2px 0px 2px
+        font-size: 16px
+        line-height: 24px
 
         &.first
             margin-left: 0px
+            grid-column: 1 / 2
 
-            &.last
-                margin-right: 0px
+        &.last
+            margin-right: 0px
 
         &.selected
             color: $gris-light-grey
@@ -44,9 +50,10 @@ input[type="radio"]:checked
     border: 2px solid $gris-white
     background-color: $gris-green
 
-@media only screen and (max-width: 600px)
+@media screen and (orientation: portrait)
     .selector
         height: 100%
 
         .selector-button
-            padding: 16px 0px 0px 20px
+            padding: 12px 0px 12px 20px
+            width: 100%

@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { connect } from "react-redux";
-import TransactionType from "../models/TransactionType";
-import { AppDataState } from "../store/appdata";
-import { addLedgerEntry, clearCategories, clearLedgerEntries, getCategories, getLedgerEntries } from "../store/ledger/actions";
-import { MAXIMUM_CATEGORY_LENGTH, MAXIMUM_DESCRIPTION_LENGTH } from "../utilities/constants";
-import { getLedgerEntriesByMonth } from "../utilities/ledger_entries";
-import { checkValidAmount } from "../utilities/utilities";
-import AutocompleteField from "./custom/AutocompleteField";
-import CustomButton from "./custom/CustomButton";
-import CustomDatepicker from "./custom/CustomDatepicker";
-import CustomDropdown, { DropdownOption } from "./custom/CustomDropdown";
-import CustomText from "./custom/CustomText";
+import TransactionType from "../../models/TransactionType";
+import { AppDataState } from "../../store/appdata";
+import { addLedgerEntry, clearCategories, getCategories, getLedgerEntries } from "../../store/ledger/actions";
+import { MAXIMUM_CATEGORY_LENGTH, MAXIMUM_DESCRIPTION_LENGTH } from "../../utilities/constants";
+import { getLedgerEntriesByMonth } from "../../utilities/ledger_entries";
+import { checkValidAmount } from "../../utilities/utilities";
+import AutocompleteField from "../custom/AutocompleteField";
+import CustomButton from "../custom/CustomButton";
+import CustomDatepicker from "../custom/CustomDatepicker";
+import CustomDropdown, { DropdownOption } from "../custom/CustomDropdown";
+import CustomText from "../custom/CustomText";
 
 interface AddLedgerEntryProps {
     month: number;
@@ -76,10 +76,14 @@ const AddLedgerEntry = (props: AddLedgerEntryProps) => {
             recurringTransactionId: '',
             transactionDate: date
         });
+        setTransactionType('');
         _setCategory('');
         _setDescription('');
+        setTransactionType('');
         setAmount('');
         setDate(new Date());
+        props.clearCategories();
+
         getLedgerEntriesByMonth(props.month, props.getLedgerEntries);
     }
 

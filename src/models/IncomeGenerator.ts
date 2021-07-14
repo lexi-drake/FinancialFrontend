@@ -3,14 +3,12 @@ import { RecurringTransaction, RecurringTransactionRequest } from './RecurringTr
 export interface IncomeGenerator {
     id: string;
     description: string;
-    salaryTypeId: string;
     frequencyId: string;
     recurringTransactions: RecurringTransaction[];
 }
 
 export interface IncomeGeneratorRequest {
     description: string;
-    salaryTypeId: string;
     frequencyId: string;
     recurringTransactions: RecurringTransactionRequest[];
 }

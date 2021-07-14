@@ -1,16 +1,14 @@
 import { useState } from "react";
 import { connect } from "react-redux";
-import Frequency from "../models/Frequency";
-import { RecurringTransaction } from "../models/RecurringTransaction";
-import { AppDataState } from "../store/appdata";
-import { deleteRecurringTransaction, getRecurringTransactions } from "../store/ledger/actions";
-import { MONTHS } from "../utilities/constants";
-import { getTotalRecurringTransactions } from "../utilities/recurring_transactions";
-import { getAmountAndTimes } from "../utilities/utilities";
-import Content from "./custom/Content";
-import Selector, { SelectorOption } from "./custom/Selector";
-import RecurringTransactionSummary from "./transactions/RecurringTransactionSummary";
-import RecurringTransactionModal from "./dashboard/modals/RecurringTransactionModal";
+import Frequency from "../../models/Frequency";
+import { RecurringTransaction } from "../../models/RecurringTransaction";
+import { AppDataState } from "../../store/appdata";
+import { deleteRecurringTransaction, getRecurringTransactions } from "../../store/ledger/actions";
+import { MONTHS } from "../../utilities/constants";
+import { getTotalRecurringTransactions } from "../../utilities/recurring_transactions";
+import { formatCategoryAndDescription, numberToDollarString } from "../../utilities/utilities";
+import Selector, { SelectorOption } from "../custom/Selector";
+import RecurringTransactionModal from "./modals/RecurringTransactionModal";
 
 interface RecurringTransactionListProps {
     recurringTransactions: RecurringTransaction[];
@@ -24,16 +22,19 @@ const RecurringTransactionList = (props: RecurringTransactionListProps) => {
 
     const total: number = getTotalRecurringTransactions(props.recurringTransactions, props.frequencies, monthly === 'monthly');
 
-    const calculateTotalClasses = (): string => {
-        const classes: string[] = ['total'];
-        if (total <= 0) { classes.push('negative'); }
-        return classes.join(' ');
-    }
-
     const options: SelectorOption[] = [
         { value: 'monthly', description: MONTHS[new Date().getMonth()] },
         { value: 'yearly', description: new Date().getFullYear().toString() }
-    ]
+    ];
+
+    const calculateAmount = (entry: RecurringTransaction): number =>
+        entry.transactionType === 'Income' ? entry.amount : -entry.amount;
+
+    const calculateAmountClasses = (amount: number): string => {
+        const classes: string[] = ['amount'];
+        if (amount <= 0) { classes.push('negative'); }
+        return classes.join(' ');
+    }
 
     return (
         <div className="recurring-transaction-list">
@@ -43,18 +44,19 @@ const RecurringTransactionList = (props: RecurringTransactionListProps) => {
             <div className="time-period">
                 <Selector value={monthly} options={options} onChange={(value) => setMonthly(value)} />
             </div>
-            <div className={calculateTotalClasses()}>Total: {total.toFixed(2)}</div>
+            <div className="total">
+                <div className={calculateAmountClasses(total)}>{numberToDollarString(total)}</div>
+                <div className="title">Total</div>
+            </div>
             <div className="list">
                 {props.recurringTransactions.map(x => {
-                    const [total, times] = getAmountAndTimes(x, props.frequencies, monthly === 'monthly');
-                    return <RecurringTransactionSummary
-                        key={x.id}
-                        amount={x.amount}
-                        total={total}
-                        times={times}
-                        category={x.category}
-                        description={x.description}
-                        onClick={() => setId(x.id)} />
+                    const amount: number = calculateAmount(x);
+                    return (
+                        <div key={x.id} className="recurring-transaction" onClick={() => setId(x.id)}>
+                            <div className={calculateAmountClasses(amount)}>{numberToDollarString(amount)}</div>
+                            <div className="description">{formatCategoryAndDescription(x.category, x.description)}</div>
+                        </div>
+                    );
                 })
                 }
             </div>

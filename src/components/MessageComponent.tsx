@@ -1,6 +1,4 @@
-import React from "react";
 import { getReadableDate } from "../utilities/dates";
-import Content from "./custom/Content";
 
 interface MessageComponentProps {
     subject: string;
@@ -20,13 +18,13 @@ const MessageComponent = (props: MessageComponentProps) => {
 
     return (
         <div className={getClasses()}>
-            <Content>
-                <h1>{props.subject}</h1>
-                <div className="author">{`Sent by: ${props.sentBy}`}</div>
-                <div>{getReadableDate(props.date)}</div>
-                <hr />
-                <p>{props.content}</p>
-            </Content>
+
+            <h1>{props.subject}</h1>
+            <div className="author">{`Sent by: ${props.sentBy}`}</div>
+            <div>{getReadableDate(props.date)}</div>
+            <hr />
+            <p>{props.content}</p>
+
         </div>
     );
 }

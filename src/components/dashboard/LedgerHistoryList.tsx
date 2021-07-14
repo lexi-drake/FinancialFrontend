@@ -1,18 +1,16 @@
 import { useState } from "react";
 import { connect } from "react-redux";
-import Frequency from "../models/Frequency";
-import { IncomeGenerator } from "../models/IncomeGenerator";
-import { LedgerEntry } from "../models/LedgerEntry";
-import { RecurringTransaction } from "../models/RecurringTransaction";
-import { AppDataState } from "../store/appdata";
-import { deleteLedgerEntry, getLedgerEntries } from "../store/ledger/actions";
-import { MONTHS } from "../utilities/constants";
-import { getFirstDayOfMonth, getLastDayOfMonth, getReadableDate } from "../utilities/dates";
-import Content from "./custom/Content";
-import CustomDropdown, { DropdownOption } from "./custom/CustomDropdown";
-import LedgerEntryComponent from "./transactions/LedgerEntryComponent";
-import LedgerEntryModal from "./dashboard/modals/LedgerEntryModal";
-import { isBuffer } from "util";
+import Frequency from "../../models/Frequency";
+import { IncomeGenerator } from "../../models/IncomeGenerator";
+import { LedgerEntry } from "../../models/LedgerEntry";
+import { RecurringTransaction } from "../../models/RecurringTransaction";
+import { AppDataState } from "../../store/appdata";
+import { deleteLedgerEntry, getLedgerEntries } from "../../store/ledger/actions";
+import { MONTHS } from "../../utilities/constants";
+import { getFirstDayOfMonth, getLastDayOfMonth, getReadableDate } from "../../utilities/dates";
+import { formatCategoryAndDescription, numberToDollarString } from "../../utilities/utilities";
+import CustomDropdown, { DropdownOption } from "../custom/CustomDropdown";
+import LedgerEntryModal from "./modals/LedgerEntryModal";
 
 interface LedgerHistoryListProps {
     ledgerEntries: LedgerEntry[];
@@ -50,14 +48,6 @@ const LedgerHistoryList = (props: LedgerHistoryListProps) => {
         }
     }
 
-    const getDescription = (category: string, description: string): string => {
-        if (!description) {
-            return category;
-        }
-
-        return `${category} (${description})`;
-    }
-
     const getTotal = (): number => {
         if (props.ledgerEntries.length === 0) {
             return 0;
@@ -76,8 +66,6 @@ const LedgerHistoryList = (props: LedgerHistoryListProps) => {
     const calculateAmount = (entry: LedgerEntry): number =>
         entry.transactionType === 'Income' ? entry.amount : -entry.amount;
 
-    const getAmountText = (amount: number): string => Math.abs(amount).toFixed(2);
-
     const onModalClose = () => {
         setId('');
         setMonth(new Date().getMonth());
@@ -92,7 +80,7 @@ const LedgerHistoryList = (props: LedgerHistoryListProps) => {
                 <CustomDropdown label="Transaction history for the month of" value={month.toString()} options={createMonthOptions()} onSelect={(value) => setMonthString(value)} />
             </div>
             <div className="total">
-                <div className={calculateAmountClasses(getTotal())}>${getAmountText(getTotal())}</div>
+                <div className={calculateAmountClasses(getTotal())}>{numberToDollarString(getTotal())}</div>
                 <div className="title">Total</div>
             </div>
 
@@ -101,8 +89,8 @@ const LedgerHistoryList = (props: LedgerHistoryListProps) => {
                     const amount: number = calculateAmount(x);
                     return (
                         <div className="ledger-entry" onClick={() => setId(x.id)}>
-                            <div className={calculateAmountClasses(amount)}>${getAmountText(amount)}</div>
-                            <div className="description">{getDescription(x.category, x.description)}</div>
+                            <div className={calculateAmountClasses(amount)}>{numberToDollarString(amount)}</div>
+                            <div className="description">{formatCategoryAndDescription(x.category, x.description)}</div>
                         </div>
                     );
                 }

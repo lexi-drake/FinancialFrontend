@@ -2,7 +2,6 @@ import Frequency from "../../models/Frequency";
 import { IncomeGenerator } from "../../models/IncomeGenerator";
 import { LedgerEntry } from "../../models/LedgerEntry";
 import { RecurringTransaction } from "../../models/RecurringTransaction";
-import SalaryType from "../../models/SalaryType";
 import TransactionType from "../../models/TransactionType";
 import { sortLedgerEntries } from "../../utilities/ledger_entries";
 import { transactionsWithoutGenerators } from "../../utilities/recurring_transactions";
@@ -15,7 +14,6 @@ export interface LedgerState {
     error: string;
     categories: string[];
     frequencies: Frequency[];
-    salaryTypes: SalaryType[];
     transactionTypes: TransactionType[];
     incomeGenerators: IncomeGenerator[];
     ledgerEntries: LedgerEntry[];
@@ -27,7 +25,6 @@ const defaultState: LedgerState = {
     error: '',
     categories: [],
     frequencies: [],
-    salaryTypes: [],
     transactionTypes: [],
     incomeGenerators: [],
     ledgerEntries: [],
@@ -53,12 +50,6 @@ export const LedgerReducer = (state: LedgerState = defaultState, action: { type:
             state = {
                 ...state,
                 frequencies: action.payload.frequencies
-            };
-            break;
-        case LedgerAction.SET_SALARY_TYPES:
-            state = {
-                ...state,
-                salaryTypes: action.payload.salaryTypes
             };
             break;
         case LedgerAction.SET_TRANSACTION_TYPES:

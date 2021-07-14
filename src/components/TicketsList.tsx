@@ -5,7 +5,6 @@ import { SupportTicket } from "../models/SupportTicket";
 import { AppDataState } from "../store/appdata";
 import { getTickets } from "../store/user/actions";
 import { getReadableDate } from "../utilities/dates";
-import Content from "./custom/Content";
 import CustomButton from "./custom/CustomButton";
 import Modal, { ModalContent, ModalHeader } from "./custom/Modal";
 import Section from "./custom/Section";
@@ -60,9 +59,7 @@ const TicketsList = (props: TicketsListProps) => {
                     <h1>{subject}</h1>
                 </ModalHeader>
                 <ModalContent>
-                    <Content>
-                        {content}
-                    </Content>
+                    {content}
                     <CustomButton error onClick={() => { }}>Resolve</CustomButton>
                     <CustomButton onClick={() => { props.push(`/ticket/${ticketId}`) }}>Respond</CustomButton>
 

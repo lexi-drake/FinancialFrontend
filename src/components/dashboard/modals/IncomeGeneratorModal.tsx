@@ -16,7 +16,7 @@ interface IncomeGeneratorModalProps {
     close: () => void;
 }
 
-const IncomeGeneratorModal = (props: IncomeGeneratorModalProps) => {
+const _IncomeGeneratorModal = (props: IncomeGeneratorModalProps) => {
 
     const getSelectedGenerator = (): IncomeGenerator | null => {
         const selected: IncomeGenerator[] = props.generators.filter(x => x.id === props.id);
@@ -76,4 +76,4 @@ const IncomeGeneratorModal = (props: IncomeGeneratorModalProps) => {
     );
 }
 
-export default IncomeGeneratorModal;
+export default _IncomeGeneratorModal;

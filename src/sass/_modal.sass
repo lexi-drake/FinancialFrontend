@@ -8,7 +8,7 @@
     z-index: 11
 
 .modal-body
-    background-color: $gris-dark-grey
+    background-color: $gris-white
     position: fixed
     border: 2px $gris-green solid
     width: 489px
@@ -32,6 +32,7 @@
         line-height: 26px
 
 .modal-content
+    color: $gris-dark-grey
     padding: 20px 20px 20px 20px
     font-size: 14px
     line-height: 18px
@@ -42,8 +43,9 @@
         font-size: 24px
         line-height: 28px
 
-    button
-        margin-top: 20px
-        margin-bottom: 20px
-        margin-left: auto
-        margin-right: auto
+@media screen and (orientation: portrait)
+    .modal-body
+        width: 90%
+
+    .modal-content
+        max-height: 90%

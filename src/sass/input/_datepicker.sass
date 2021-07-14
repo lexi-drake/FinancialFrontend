@@ -1,7 +1,6 @@
 .custom-date-picker
-    height: 60px
-    width: 420px
-    position: relative
+    height: 100%
+    width: 100%
     margin: 0px 0px 0px 0px
 
     input
@@ -25,7 +24,7 @@
 
 .react-datepicker
     background-color: $gris-dark-grey !important
-    margin: -8px 0px -8px 0px
+    margin: 0px
 
 .react-datepicker-popper[data-placement^="bottom"]
     margin-top: 0px !important
@@ -53,18 +52,14 @@
     background-color: $gris-dark-grey !important
     color: $gris-white !important
 
-@media only screen and (max-width: 600px)
-    .react-datepicker-wrapper
-        height: 100%
-        margin: 0px
-        width: 100%
+.custom-date-picker
+    height: 100%
+    width: 100%
 
-    .react-datepicker
-        margin: 0px
+.react-datepicker-wrapper
+    height: 100% !important
+    width: 100% !important
 
-    .custom-date-picker
-        height: 100%
-        width: 100%
-
-    .react-datepicker__input-container
-        height: 100%
+.react-datepicker__input-container
+    height: 100% !important
+    width: 100% !important

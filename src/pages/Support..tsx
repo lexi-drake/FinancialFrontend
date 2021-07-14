@@ -1,7 +1,6 @@
 import { push } from "connected-react-router";
 import { useState } from "react";
 import { connect } from "react-redux";
-import Content from "../components/custom/Content";
 import CustomButton from "../components/custom/CustomButton";
 import CustomLongText from "../components/custom/CustomLongText";
 import CustomText from "../components/custom/CustomText";
@@ -38,13 +37,11 @@ const Support = (props: SupportProps) => {
                 </p>
             </Header>
             <Section>
-                <Content>
-                    <CustomText value={subject} label="Subject" onChange={(value) => setSubject(value)} />
-                    <CustomLongText value={content} placeholder="What's on your mind?" onChange={(value) => setContent(value)} />
-                </Content>
-                <Content>
-                    <CustomButton disabled={submitDisabled()} onClick={() => onSubmitClick()}>{processing ? 'Submitting' : 'Submit'}</CustomButton>
-                </Content>
+                <CustomText value={subject} label="Subject" onChange={(value) => setSubject(value)} />
+                <CustomLongText value={content} placeholder="What's on your mind?" onChange={(value) => setContent(value)} />
+
+                <CustomButton disabled={submitDisabled()} onClick={() => onSubmitClick()}>{processing ? 'Submitting' : 'Submit'}</CustomButton>
+
             </Section>
         </div>
     );

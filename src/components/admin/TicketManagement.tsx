@@ -7,7 +7,6 @@ import { resolveTicket, } from "../../store/admin/actions";
 import { AppDataState } from "../../store/appdata";
 import { submitMessage } from "../../store/user/actions";
 import { isNew } from "../../utilities/utilities";
-import Content from "../custom/Content";
 import CustomButton from "../custom/CustomButton";
 import CustomLongText from "../custom/CustomLongText";
 import CustomText from "../custom/CustomText";
@@ -50,16 +49,13 @@ const TicketManagment = (props: TicketManagementProps) => {
                 <h1>Manage ticket</h1>
             </Header>
             <Section>
-                <Content>
-                    <CustomButton disabled={resolved || ticket.resolved} error onClick={() => onResolveClick()}>{ticket.resolved ? 'Resolved' : 'Resolve'}</CustomButton>
-                </Content>
-                <Content>
-                    <CustomText value={subject} label="Subject" onChange={value => setSubject(value)} />
-                    <CustomLongText value={content} placeholder="How would you like to respond?" onChange={value => setContent(value)} />
-                </Content>
-                <Content>
-                    <CustomButton disabled={submitDisabled} onClick={() => onSubmitClick()} >Submit</CustomButton>
-                </Content>
+                <CustomButton disabled={resolved || ticket.resolved} error onClick={() => onResolveClick()}>{ticket.resolved ? 'Resolved' : 'Resolve'}</CustomButton>
+
+                <CustomText value={subject} label="Subject" onChange={value => setSubject(value)} />
+                <CustomLongText value={content} placeholder="How would you like to respond?" onChange={value => setContent(value)} />
+
+                <CustomButton disabled={submitDisabled} onClick={() => onSubmitClick()} >Submit</CustomButton>
+
             </Section>
             <Section>
                 {ticket.messages.map(x => <MessageComponent subject={x.subject} content={x.content} sentBy={x.sentBy} date={x.createdDate} new={isNew(x, props.username)} />)}
